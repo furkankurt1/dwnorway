@@ -12,30 +12,81 @@
 
 # testing
 /coverage
+*.lcov
 
 # next.js
 /.next/
 /out/
+next-env.d.ts
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 *.pem
+*.log
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
 
 # vercel
 .vercel
 
+# cloudflare
+.wrangler
+.dev.vars
+wrangler.toml.bak
+
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# editors & IDEs
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# VSCode — share settings but not personal workspace files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# agent / tooling state (local only)
+.claude/
+.junie/
+.agents/
+skills-lock.json
+
+# OS files
+$RECYCLE.BIN/
+.Spotlight-V100
+.Trashes
+
+# cache
+.cache/
+.turbo/
+.eslintcache
+.stylelintcache
+*.tgz
