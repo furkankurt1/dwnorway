@@ -30,7 +30,7 @@ export default function HomePage() {
     <>
       {/* Hero Section with Parallax */}
       <ParallaxSection
-        backgroundImage="/images/hero-mosque.jpg"
+        backgroundImage="/images/mosque-interior.jpg"
         overlayColor="rgba(10, 22, 40, 0.55)"
         className="text-white"
         minHeight="100vh"
