@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
@@ -14,15 +15,16 @@ import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
+  FaTiktok,
   FaHandsHelping,
   FaQuran,
   FaMosque,
-  FaUsers,
 } from "react-icons/fa";
 
 export default function HomePage() {
   const t = useTranslations("home");
   const hero = useTranslations("hero");
+  const donate = useTranslations("donate");
 
   return (
     <>
@@ -70,20 +72,22 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.9 }}
           >
             {[
-              { icon: FaFacebookF, href: siteConfig.social.facebook },
-              { icon: FaInstagram, href: siteConfig.social.instagram },
-              { icon: FaYoutube, href: siteConfig.social.youtube },
-            ].filter(s => s.href).map(({ icon: Icon, href }) => (
+              { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
+              { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
+              { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
+              { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
+            ].filter(s => s.href).map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={label}
                 className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-all duration-300"
                 whileHover={{ scale: 1.15, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Icon size={16} />
+                <Icon size={16} aria-hidden="true" />
               </motion.a>
             ))}
           </motion.div>
@@ -93,7 +97,14 @@ export default function HomePage() {
       {/* Donate CTA - with charity image */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/images/islamic-pattern.jpg" alt="" className="w-full h-full object-cover" />
+          <Image
+            src="/images/islamic-pattern.jpg"
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-[var(--color-gold)]/85" />
         </div>
         <div className="relative z-10 py-16">
@@ -105,18 +116,22 @@ export default function HomePage() {
             <p className="text-white/90 text-lg mb-10">{t("donateText")}</p>
           </FadeIn>
           <StaggerChildren className="flex flex-wrap justify-center gap-4">
-            {["Vipps", "PayPal", "Credit Card"].map((method) => (
-              <StaggerItem key={method}>
-                <Link href="/donate">
+            {[
+              { key: "vipps", label: "Vipps" },
+              { key: "paypal", label: "PayPal" },
+              { key: "card", label: donate("card") },
+            ].map(({ key, label }) => (
+              <StaggerItem key={key}>
+                <Link href="/donate" aria-label={donate(key as "vipps" | "paypal" | "card")}>
                   <motion.span
-                    className="inline-block px-10 py-3.5 bg-white text-[var(--color-gold)] rounded-full font-semibold shadow-lg cursor-pointer"
+                    className="inline-block px-10 py-3.5 bg-white text-[var(--color-gold-text)] rounded-full font-semibold shadow-lg cursor-pointer"
                     whileHover={{
                       scale: 1.05,
                       boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
                     }}
                     whileTap={{ scale: 0.97 }}
                   >
-                    {method}
+                    {label}
                   </motion.span>
                 </Link>
               </StaggerItem>
@@ -133,10 +148,12 @@ export default function HomePage() {
             {/* Image side */}
             <FadeIn direction="left">
               <div className="relative h-[400px] lg:h-[500px] overflow-hidden rounded-2xl lg:rounded-r-none lg:rounded-l-2xl my-12 lg:my-0">
-                <img
+                <Image
                   src="/images/quran-open.jpg"
                   alt="Holy Quran"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </FadeIn>
@@ -153,7 +170,7 @@ export default function HomePage() {
               <FadeIn direction="right" delay={0.2}>
                 <Link href="/new-muslims">
                   <motion.span
-                    className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold)] text-[var(--color-gold)] rounded-full font-semibold cursor-pointer"
+                    className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
                     whileHover={{
                       backgroundColor: "#e0a242",
                       color: "#ffffff",
@@ -316,7 +333,7 @@ export default function HomePage() {
           <FadeIn delay={0.3}>
             <Link href="/live">
               <motion.span
-                className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold)] text-[var(--color-gold)] rounded-full font-semibold cursor-pointer"
+                className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
                 whileHover={{
                   backgroundColor: "#e0a242",
                   color: "#ffffff",
@@ -353,7 +370,7 @@ export default function HomePage() {
           <FadeIn delay={0.3}>
             <Link href="/live">
               <motion.span
-                className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold)] text-[var(--color-gold)] rounded-full font-semibold cursor-pointer"
+                className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
                 whileHover={{
                   backgroundColor: "#e0a242",
                   color: "#ffffff",

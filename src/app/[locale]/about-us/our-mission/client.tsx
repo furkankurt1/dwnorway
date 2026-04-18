@@ -8,9 +8,11 @@ import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
 import { FaGraduationCap, FaHandsHelping, FaUserShield } from "react-icons/fa";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function OurMissionPage() {
   const t = useTranslations("mission");
+  const nav = useTranslations("nav");
 
   const pillars = [
     { icon: FaGraduationCap, title: t("educationTitle"), text: t("educationText"), color: "#3b82f6" },
@@ -20,6 +22,12 @@ export default function OurMissionPage() {
 
   return (
     <>
+      <Breadcrumb
+        items={[
+          { label: nav("aboutUs"), href: "/about-us" },
+          { label: nav("ourMission") },
+        ]}
+      />
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"
@@ -68,9 +76,9 @@ export default function OurMissionPage() {
                   >
                     <pillar.icon size={30} style={{ color: pillar.color }} />
                   </motion.div>
-                  <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-4">
+                  <h2 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-4">
                     {pillar.title}
-                  </h3>
+                  </h2>
                   <p className="text-[var(--color-gray)]">{pillar.text}</p>
                 </motion.div>
               </StaggerItem>

@@ -88,6 +88,7 @@ export function organizationJsonLd() {
       siteConfig.social.facebook,
       siteConfig.social.instagram,
       siteConfig.social.youtube,
+      siteConfig.social.tiktok,
     ].filter(Boolean),
     foundingDate: "2021",
     areaServed: {

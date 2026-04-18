@@ -12,6 +12,8 @@ const routes = [
   "/donate",
   "/live",
   "/new-muslims",
+  "/privacy-policy",
+  "/terms",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

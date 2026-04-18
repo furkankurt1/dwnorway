@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ReadingProgress from "@/components/ReadingProgress";
+import CookieConsent from "@/components/CookieConsent";
 import { organizationJsonLd, webSiteJsonLd } from "@/lib/metadata";
 import "../globals.css";
 
@@ -59,12 +60,16 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="font-[family-name:var(--font-body)] bg-white text-[var(--color-dark)]">
+        <a href="#main-content" className="skip-link">
+          {locale === "no" ? "Hopp til hovedinnhold" : "Skip to main content"}
+        </a>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ReadingProgress />
           <Header />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <Footer />
           <ScrollToTop />
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

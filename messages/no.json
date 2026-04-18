@@ -73,7 +73,8 @@
     "freeBooks": "Gratis Bøker og Koran",
     "freeBooksText": "Tilgang til gratis islamsk litteratur og Koran-eksemplarer",
     "prayerMat": "Gratis Bønnematte med Veiledning",
-    "prayerMatText": "En bønnematte med visuelle instruksjoner for å hjelpe deg å be"
+    "prayerMatText": "En bønnematte med visuelle instruksjoner for å hjelpe deg å be",
+    "learnMore": "Lær Mer"
   },
   "about": {
     "title": "Om Oss",
@@ -120,8 +121,13 @@
     "message": "Melding",
     "phone": "Telefon (valgfritt)",
     "send": "Send Melding",
+    "sending": "Sender...",
+    "sent": "Melding sendt. Vi kommer tilbake til deg snart.",
+    "error": "Noe gikk galt. Vennligst prøv igjen eller send oss e-post direkte.",
     "address": "Adresse",
-    "phoneLabel": "Telefon"
+    "phoneLabel": "Telefon",
+    "copy": "Kopier til utklippstavle",
+    "copied": "Kopiert!"
   },
   "donate": {
     "title": "Donasjoner på Nett",
@@ -129,7 +135,16 @@
     "intro": "Dine sjenerøse donasjoner hjelper oss å fortsette vårt oppdrag med å utdanne samfunn, distribuere gratis Koraner og støtte nye muslimer i hele Norge. Hvert bidrag gjør en forskjell.",
     "vipps": "Doner med Vipps",
     "paypal": "Doner med PayPal",
-    "card": "Doner med Bankkort"
+    "card": "Doner med Kort",
+    "cardDesc": "Betal trygt med Visa, Mastercard eller andre kort via Stripe.",
+    "selectAmount": "Velg et beløp",
+    "customAmount": "Skriv inn eget beløp",
+    "amountError": "Vennligst skriv inn et gyldig beløp (min 10 NOK).",
+    "vippsError": "Vipps-betaling kunne ikke startes. Prøv igjen.",
+    "paymentFailed": "Betalingen ble ikke fullført. Prøv igjen.",
+    "successTitle": "Takk for donasjonen din!",
+    "successText": "Din sjenerøsitet hjelper oss å fortsette vårt oppdrag i hele Norge. Måtte Allah belønne deg rikelig.",
+    "successBack": "Tilbake til donasjon"
   },
   "live": {
     "title": "Dawah Norway Direktesendinger",
@@ -143,6 +158,52 @@
     "connectTitle": "Kontakt Dawah Norway",
     "talkIslam": "La Oss Snakke Om Islam",
     "copyright": "Opphavsrett © 2025 Dawah Norway. Alle rettigheter forbeholdt.",
-    "donateText": "Vennligst doner sjenerøst og bidra til vårt pågående dawah-arbeid i hele Norge"
+    "donateText": "Vennligst doner sjenerøst og bidra til vårt pågående dawah-arbeid i hele Norge",
+    "privacyPolicy": "Personvernerklæring",
+    "terms": "Vilkår for Bruk",
+    "legal": "Juridisk"
+  },
+  "breadcrumbs": {
+    "home": "Hjem",
+    "ariaLabel": "Brødsmulesti"
+  },
+  "cookies": {
+    "title": "Vi verdsetter ditt personvern",
+    "text": "Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere. Vi vil også gjerne bruke valgfrie analyseinformasjonskapsler for å forstå hvordan besøkende bruker nettstedet. Du kan akseptere eller avslå når som helst.",
+    "accept": "Aksepter alle",
+    "decline": "Avslå",
+    "learnMore": "Les mer"
+  },
+  "privacy": {
+    "title": "Personvernerklæring",
+    "updated": "Sist oppdatert: april 2026",
+    "intro": "Dawah Norway er forpliktet til å beskytte ditt personvern. Denne erklæringen forklarer hvilken informasjon vi samler inn, hvordan vi bruker den og hvilke rettigheter du har.",
+    "collectTitle": "Informasjon vi samler inn",
+    "collectText": "Vi samler inn informasjon du frivillig deler med oss via kontaktskjemaet (navn, e-post, land, melding og valgfritt telefonnummer) og grunnleggende teknisk data (IP-adresse, nettlesertype) av sikkerhetshensyn.",
+    "useTitle": "Hvordan vi bruker informasjonen",
+    "useText": "Vi bruker informasjonen kun til å svare på henvendelser, støtte din reise med islamske ressurser og forbedre kvaliteten på vårt arbeid. Vi selger eller deler aldri dine data med tredjeparter for markedsføring.",
+    "cookiesTitle": "Informasjonskapsler",
+    "cookiesText": "Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere, og valgfrie analyseinformasjonskapsler som hjelper oss å forstå hvordan nettstedet brukes. Du kan styre preferansene dine når som helst.",
+    "rightsTitle": "Dine rettigheter",
+    "rightsText": "Du har rett til å få tilgang til, korrigere eller slette personopplysningene vi har om deg. Kontakt oss på info@dawahnorway.no for å utøve disse rettighetene.",
+    "contactTitle": "Kontakt",
+    "contactText": "For spørsmål om denne erklæringen, kontakt info@dawahnorway.no eller ring +47 489 20 006."
+  },
+  "terms": {
+    "title": "Vilkår for Bruk",
+    "updated": "Sist oppdatert: april 2026",
+    "intro": "Ved å bruke dawahnorway.com samtykker du til følgende vilkår. Vennligst les dem nøye.",
+    "useTitle": "Bruk av nettstedet",
+    "useText": "Dette nettstedet er til utdannings- og informasjonsformål om Islam. Du samtykker til å bruke det lovlig og respektfullt.",
+    "donationsTitle": "Donasjoner",
+    "donationsText": "Alle donasjoner er frivillige og ikke refunderbare med mindre gjeldende lov krever det. Donasjoner behandles via tredjepartsleverandører (Vipps, PayPal, Stripe) og er underlagt deres vilkår.",
+    "contentTitle": "Innhold",
+    "contentText": "Innholdet på nettstedet leveres i god tro. Vi gjør vårt beste for å sikre nøyaktighet, men gir ingen garanti om fullstendighet eller egnethet for et spesifikt formål.",
+    "linksTitle": "Eksterne lenker",
+    "linksText": "Vi lenker til tredjepartsnettsteder som referanse. Vi er ikke ansvarlige for innholdet eller praksisen til eksterne nettsteder.",
+    "changesTitle": "Endringer",
+    "changesText": "Vi kan oppdatere disse vilkårene periodisk. Fortsatt bruk av nettstedet etter endringer utgjør aksept av de oppdaterte vilkårene.",
+    "contactTitle": "Kontakt",
+    "contactText": "Spørsmål om disse vilkårene? Send e-post til info@dawahnorway.no."
   }
 }

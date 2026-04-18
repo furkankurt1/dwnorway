@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import FadeIn from "@/components/animations/FadeIn";
@@ -9,12 +10,15 @@ import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function AboutUsPage() {
   const t = useTranslations("about");
+  const nav = useTranslations("nav");
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("aboutUs") }]} />
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"
@@ -105,17 +109,28 @@ export default function AboutUsPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <motion.div
-                    className="w-28 h-28 bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 rounded-full mx-auto mb-5 flex items-center justify-center"
+                    className="relative w-28 h-28 rounded-full mx-auto mb-5 overflow-hidden bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 flex items-center justify-center"
                     whileHover={{ scale: 1.05 }}
                   >
-                    <span className="text-3xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold)]">
-                      {member.name.split(" ")[0][0]}{member.name.split(" ").slice(-1)[0][0]}
-                    </span>
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        sizes="112px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="text-3xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold-text)]">
+                        {member.name.split(" ")[0][0]}
+                        {member.name.split(" ").slice(-1)[0][0]}
+                      </span>
+                    )}
                   </motion.div>
                   <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-[var(--color-gold)] text-sm">
+                  <p className="text-[var(--color-gold-text)] text-sm">
                     {member.role}
                   </p>
                 </motion.div>
@@ -132,24 +147,24 @@ export default function AboutUsPage() {
             <div className="flex flex-wrap justify-center gap-6">
               <Link href="/about-us/our-mission">
                 <motion.span
-                  className="inline-block px-10 py-3.5 bg-[var(--color-gold)] text-white rounded-full font-semibold cursor-pointer"
+                  className="inline-block px-10 py-3.5 bg-[var(--color-gold-dark)] text-white rounded-full font-semibold cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  Our Mission
+                  {nav("ourMission")}
                 </motion.span>
               </Link>
               <Link href="/about-us/our-vision">
                 <motion.span
-                  className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold)] text-[var(--color-gold)] rounded-full font-semibold cursor-pointer"
+                  className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
                   whileHover={{
-                    backgroundColor: "#e0a242",
+                    backgroundColor: "#c8912e",
                     color: "#ffffff",
                     scale: 1.05,
                   }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  Our Vision
+                  {nav("ourVision")}
                 </motion.span>
               </Link>
             </div>

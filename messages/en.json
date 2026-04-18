@@ -73,7 +73,8 @@
     "freeBooks": "Free Books & Quran",
     "freeBooksText": "Access free Islamic literature and Quran copies",
     "prayerMat": "Free Guided Prayer Mat",
-    "prayerMatText": "A prayer mat with visual instructions to help you pray"
+    "prayerMatText": "A prayer mat with visual instructions to help you pray",
+    "learnMore": "Learn More"
   },
   "about": {
     "title": "About Us",
@@ -120,8 +121,13 @@
     "message": "Message",
     "phone": "Phone (optional)",
     "send": "Send Message",
+    "sending": "Sending...",
+    "sent": "Message sent successfully. We will get back to you soon.",
+    "error": "Something went wrong. Please try again or email us directly.",
     "address": "Address",
-    "phoneLabel": "Phone"
+    "phoneLabel": "Phone",
+    "copy": "Copy to clipboard",
+    "copied": "Copied!"
   },
   "donate": {
     "title": "Online Donations",
@@ -129,7 +135,16 @@
     "intro": "Your generous donations help us continue our mission of educating communities, distributing free Qurans, and supporting new Muslims across Norway. Every contribution makes a difference.",
     "vipps": "Donate with Vipps",
     "paypal": "Donate with PayPal",
-    "card": "Donate with Credit Card"
+    "card": "Donate with Card",
+    "cardDesc": "Pay securely with Visa, Mastercard or other cards via Stripe.",
+    "selectAmount": "Choose an Amount",
+    "customAmount": "Enter custom amount",
+    "amountError": "Please enter a valid amount (min 10 NOK).",
+    "vippsError": "Vipps payment could not be started. Please try again.",
+    "paymentFailed": "Your payment was not completed. Please try again.",
+    "successTitle": "Thank you for your donation!",
+    "successText": "Your generosity helps us continue our mission across Norway. May Allah reward you immensely.",
+    "successBack": "Back to Donate"
   },
   "live": {
     "title": "Dawah Norway Live",
@@ -143,6 +158,52 @@
     "connectTitle": "Connect with Dawah Norway",
     "talkIslam": "Let's Talk Islam",
     "copyright": "Copyright © 2025 Dawah Norway. All rights reserved.",
-    "donateText": "Kindly donate generously and contribute to our ongoing dawah efforts across Norway"
+    "donateText": "Kindly donate generously and contribute to our ongoing dawah efforts across Norway",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "legal": "Legal"
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "ariaLabel": "Breadcrumb"
+  },
+  "cookies": {
+    "title": "We value your privacy",
+    "text": "We use essential cookies to keep this site working. We would also like to use optional analytics cookies to understand how visitors use the site. You can accept or decline at any time.",
+    "accept": "Accept all",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: April 2026",
+    "intro": "Dawah Norway is committed to protecting your privacy. This policy explains what information we collect, how we use it, and the rights you have.",
+    "collectTitle": "Information we collect",
+    "collectText": "We collect information you voluntarily share with us through our contact form (name, email, country, message, and optional phone number) and basic technical data (IP address, browser type) for security purposes.",
+    "useTitle": "How we use your information",
+    "useText": "We use your information only to respond to your inquiries, support your journey with Islamic resources, and improve the quality of our outreach. We never sell or share your data with third parties for marketing.",
+    "cookiesTitle": "Cookies",
+    "cookiesText": "We use essential cookies required for the site to function and optional analytics cookies that help us understand how the site is used. You can control cookie preferences at any time.",
+    "rightsTitle": "Your rights",
+    "rightsText": "You have the right to access, correct, or delete the personal information we hold about you. To exercise these rights, contact us at info@dawahnorway.no.",
+    "contactTitle": "Contact",
+    "contactText": "For any questions about this privacy policy, reach out to info@dawahnorway.no or call +47 489 20 006."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "updated": "Last updated: April 2026",
+    "intro": "By using dawahnorway.com, you agree to the following terms. Please read them carefully.",
+    "useTitle": "Use of the site",
+    "useText": "This website is provided for educational and informational purposes about Islam. You agree to use it lawfully and respectfully.",
+    "donationsTitle": "Donations",
+    "donationsText": "All donations are voluntary and non-refundable unless required by applicable law. Donations are processed through third-party providers (Vipps, PayPal, Stripe) and subject to their respective terms.",
+    "contentTitle": "Content",
+    "contentText": "The content on this site is provided in good faith. We do our best to ensure accuracy but make no warranty of completeness or suitability for any specific purpose.",
+    "linksTitle": "External links",
+    "linksText": "We link to third-party websites for reference. We are not responsible for the content or practices of external sites.",
+    "changesTitle": "Changes",
+    "changesText": "We may update these terms periodically. Continued use of the site after changes constitutes acceptance of the updated terms.",
+    "contactTitle": "Contact",
+    "contactText": "Questions about these terms? Email info@dawahnorway.no."
   }
 }

@@ -7,6 +7,7 @@ import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
+  FaTiktok,
 } from "react-icons/fa";
 import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
 
@@ -14,6 +15,7 @@ const socialIcons = [
   { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
   { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
   { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
+  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
 ].filter((s) => s.href);
 
 export default function Footer() {
@@ -106,8 +108,16 @@ export default function Footer() {
 
       {/* Copyright bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-400">
-          {t("copyright")}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+          <span>{t("copyright")}</span>
+          <nav aria-label={t("legal")} className="flex gap-6">
+            <Link href="/privacy-policy" className="hover:text-[var(--color-gold)] transition-colors">
+              {t("privacyPolicy")}
+            </Link>
+            <Link href="/terms" className="hover:text-[var(--color-gold)] transition-colors">
+              {t("terms")}
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

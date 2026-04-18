@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
@@ -10,6 +11,7 @@ import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
+  FaTiktok,
 } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 
@@ -17,6 +19,7 @@ const socialIcons = [
   { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
   { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
   { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
+  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
 ].filter((s) => s.href);
 
 export default function Header() {
@@ -69,16 +72,22 @@ export default function Header() {
                   onMouseEnter={() => setAboutOpen(true)}
                   onMouseLeave={() => setAboutOpen(false)}
                 >
-                  <button className="text-[var(--color-dark)] hover:text-[var(--color-gold)] transition-colors font-medium">
+                  <button
+                    type="button"
+                    aria-haspopup="menu"
+                    aria-expanded={aboutOpen}
+                    onClick={() => setAboutOpen((o) => !o)}
+                    className="text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors font-medium"
+                  >
                     {link.label}
                   </button>
                   {aboutOpen && (
-                    <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[200px] border-t-2 border-[var(--color-gold)]">
+                    <div role="menu" className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[200px] border-t-2 border-[var(--color-gold)]">
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block px-4 py-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold)] hover:bg-[var(--color-light)] transition-colors"
+                          className="block px-4 py-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)] hover:bg-[var(--color-light)] transition-colors"
                         >
                           {child.label}
                         </Link>
@@ -90,7 +99,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href!}
-                  className="text-[var(--color-dark)] hover:text-[var(--color-gold)] transition-colors font-medium"
+                  className="text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors font-medium"
                 >
                   {link.label}
                 </Link>
@@ -108,7 +117,7 @@ export default function Header() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--color-gold)] transition-colors"
+                  className="hover:text-[var(--color-gold-text)] transition-colors"
                   aria-label={label}
                 >
                   <Icon size={14} />
@@ -119,7 +128,7 @@ export default function Header() {
             {/* Language switcher */}
             <button
               onClick={() => switchLocale(locale === "en" ? "no" : "en")}
-              className="px-3 py-1 text-sm border border-[var(--color-gold)] text-[var(--color-gold)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-colors"
+              className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-colors"
             >
               {locale === "en" ? "Norsk" : "English"}
             </button>
@@ -143,16 +152,27 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
+            type="button"
             className="lg:hidden p-2"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            {mobileOpen ? <HiX size={24} aria-hidden="true" /> : <HiMenu size={24} aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile menu */}
+        <AnimatePresence>
         {mobileOpen && (
-          <div className="lg:hidden pb-4 border-t border-gray-100">
+          <motion.div
+            id="mobile-nav"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="lg:hidden pb-4 border-t border-gray-100 overflow-hidden">
             <nav className="flex flex-col gap-2 pt-4">
               {navLinks.map((link) =>
                 link.children ? (
@@ -161,7 +181,7 @@ export default function Header() {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold)] transition-colors"
+                        className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
@@ -172,7 +192,7 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href!}
-                    className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold)] transition-colors"
+                    className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
@@ -183,7 +203,7 @@ export default function Header() {
             <div className="flex items-center gap-3 mt-4 px-4">
               <button
                 onClick={() => switchLocale(locale === "en" ? "no" : "en")}
-                className="px-3 py-1 text-sm border border-[var(--color-gold)] text-[var(--color-gold)] rounded-full"
+                className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full"
               >
                 {locale === "en" ? "Norsk" : "English"}
               </button>
@@ -202,8 +222,9 @@ export default function Header() {
                 {t("live")}
               </Link>
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </header>
   );

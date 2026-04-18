@@ -1,12 +1,15 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
+import { Link } from "@/i18n/navigation";
+import { siteConfig } from "@/config/site";
 import {
   FaMosque,
   FaGraduationCap,
@@ -49,7 +52,15 @@ export default function NewMuslimsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/images/mosque-dome.jpg" alt="" className="w-full h-full object-cover" />
+          <Image
+            src="/images/mosque-dome.jpg"
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-[var(--color-dark)]/70" />
         </div>
         <div className="relative z-10 text-white py-24 md:py-36">
@@ -81,24 +92,18 @@ export default function NewMuslimsPage() {
             staggerDelay={0.08}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {resources.map(({ key, icon: Icon, color }) => (
-              <StaggerItem key={key}>
-                <motion.div
-                  className="bg-white border border-gray-200 rounded-2xl p-8 group cursor-pointer h-full"
-                  whileHover={{
-                    y: -6,
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-                    borderColor: color,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
+            {resources.map(({ key, icon: Icon, color }) => {
+              const href = siteConfig.newMuslimResources[key] ?? "#";
+              const isExternal = href.startsWith("http");
+              const cardContent = (
+                <>
                   <motion.div
                     className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
                     style={{ backgroundColor: `${color}15` }}
                     whileHover={{ backgroundColor: color, scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <Icon size={24} style={{ color }} className="group-hover:text-white transition-colors" />
+                    <Icon size={24} style={{ color }} className="group-hover:text-white transition-colors" aria-hidden="true" />
                   </motion.div>
                   <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-3">
                     {t(key)}
@@ -107,15 +112,42 @@ export default function NewMuslimsPage() {
                     {t(`${key}Text`)}
                   </p>
                   <motion.span
-                    className="font-semibold inline-block"
+                    className="font-semibold inline-flex items-center gap-1"
                     style={{ color }}
                     whileHover={{ x: 5 }}
                   >
-                    Learn More →
+                    {t("learnMore")} <span aria-hidden="true">→</span>
                   </motion.span>
-                </motion.div>
-              </StaggerItem>
-            ))}
+                </>
+              );
+
+              const cardClass =
+                "block bg-white border border-gray-200 rounded-2xl p-8 group h-full transition-shadow hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]";
+
+              return (
+                <StaggerItem key={key}>
+                  {isExternal ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cardClass}
+                      aria-label={`${t(key)} (${t("learnMore")})`}
+                    >
+                      {cardContent}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href as "/"}
+                      className={cardClass}
+                      aria-label={`${t(key)} (${t("learnMore")})`}
+                    >
+                      {cardContent}
+                    </Link>
+                  )}
+                </StaggerItem>
+              );
+            })}
           </StaggerChildren>
         </div>
       </section>

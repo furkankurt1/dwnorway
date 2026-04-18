@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useEffect, useState, ReactNode } from "react";
 
 interface ParallaxSectionProps {
   children: ReactNode;
@@ -18,11 +18,23 @@ export default function ParallaxSection({
   backgroundImage,
   overlay = true,
   overlayColor = "rgba(26, 26, 26, 0.7)",
-  speed = 0.3,
   className = "",
   minHeight = "auto",
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const disableParallax = prefersReducedMotion || isMobile;
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -42,8 +54,7 @@ export default function ParallaxSection({
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${backgroundImage})`,
-            y,
-            scale,
+            ...(disableParallax ? {} : { y, scale }),
           }}
         />
       )}

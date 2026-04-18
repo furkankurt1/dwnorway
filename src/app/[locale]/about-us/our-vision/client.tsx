@@ -5,12 +5,20 @@ import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function OurVisionPage() {
   const t = useTranslations("vision");
+  const nav = useTranslations("nav");
 
   return (
     <>
+      <Breadcrumb
+        items={[
+          { label: nav("aboutUs"), href: "/about-us" },
+          { label: nav("ourVision") },
+        ]}
+      />
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"
