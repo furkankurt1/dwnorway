@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -53,13 +54,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[var(--color-gold)] rounded-full flex items-center justify-center">
-              <span className="text-white font-[family-name:var(--font-heading)] font-bold text-lg">DN</span>
-            </div>
-            <span className="font-[family-name:var(--font-heading)] font-semibold text-lg hidden sm:block">
-              Dawah Norway
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/logo.png"
+              alt="Dawah Norge"
+              width={160}
+              height={64}
+              className="h-16 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
