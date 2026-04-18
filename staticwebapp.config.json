@@ -1,8 +1,4 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/api/*", "/_next/*", "/images/*", "/*.ico", "/*.png", "/*.svg", "/*.webp", "/*.jpg"]
-  },
   "globalHeaders": {
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
@@ -12,10 +8,5 @@
   "mimeTypes": {
     ".json": "application/json",
     ".webp": "image/webp"
-  },
-  "responseOverrides": {
-    "404": {
-      "rewrite": "/404"
-    }
   }
 }
