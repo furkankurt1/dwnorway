@@ -14,13 +14,11 @@ jobs:
     name: Build and Deploy
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -42,6 +40,7 @@ jobs:
           api_location: ''
           output_location: .next
           skip_app_build: true
+          skip_api_build: true
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
