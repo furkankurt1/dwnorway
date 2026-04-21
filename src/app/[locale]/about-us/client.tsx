@@ -118,7 +118,8 @@ export default function AboutUsPage() {
                         alt={member.name}
                         fill
                         sizes="112px"
-                        className="object-cover object-top"
+                        className="object-cover"
+                        style={{ objectPosition: member.imagePosition ?? "top" }}
                       />
                     ) : (
                       <span className="text-3xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold-text)]">

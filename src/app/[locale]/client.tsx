@@ -334,7 +334,8 @@ export default function HomePage() {
                       alt={member.name}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover object-top"
+                      className="object-cover"
+                      style={{ objectPosition: member.imagePosition ?? "top" }}
                     />
                   </div>
                   <div className="p-6 text-center">

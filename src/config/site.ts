@@ -19,21 +19,25 @@ export const siteConfig = {
       name: "Yousuf Dawah",
       role: "Founder & Da'i",
       image: "/images/team/yousuf.jpg",
+      imagePosition: "top",
     },
     {
       name: "Tamim Rasheedi",
       role: "Imam & Da'i",
       image: "/images/team/tamim.webp",
+      imagePosition: "center 35%",
     },
     {
       name: "Nafies Dawah",
       role: "Founder & Da'i",
       image: "/images/team/nafies.webp",
+      imagePosition: "top",
     },
     {
       name: "Mainul Hasan",
       role: "IT Consultant & Da'i",
       image: "/images/team/mainul.webp",
+      imagePosition: "top",
     },
   ],
 
