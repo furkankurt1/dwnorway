@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const reference = searchParams.get("reference");
   const locale = searchParams.get("locale") ?? "en";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dawahnorway.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dawahnorge.no";
 
   if (!reference) {
     return NextResponse.redirect(`${siteUrl}/${locale}/donate?status=failed`);

@@ -25,7 +25,7 @@ jobs:
           api_location: ''
           output_location: ''
         env:
-          NEXT_PUBLIC_SITE_URL: https://dawahnorway.com
+          NEXT_PUBLIC_SITE_URL: https://dawahnorge.no
           NEXT_PUBLIC_STRIPE_PAYMENT_LINK: ${{ vars.NEXT_PUBLIC_STRIPE_PAYMENT_LINK }}
 
   close_pull_request:

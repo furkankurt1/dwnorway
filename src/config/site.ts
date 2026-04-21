@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Dawah Norway",
-  url: "https://dawahnorway.com",
-  email: "info@dawahnorway.no",
+  url: "https://dawahnorge.no",
+  email: "info@dawahnorway.com",
   emailAlt: "info@dawahnorway.com",
-  contactEmail: "contact@dawahnorway.com",
+  contactEmail: "info@dawahnorway.com",
   phone: "+47 489 20 006",
   address: "Østre Aker vei 101, 0596 Oslo, Norway",
 

@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const token = await getVippsToken();
     const reference = randomUUID();
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dawahnorway.com";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dawahnorge.no";
 
     const body = {
       amount: {
