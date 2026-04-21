@@ -10,10 +10,13 @@ const routes = [
   "/about-us/our-vision",
   "/contact-us",
   "/donate",
+  "/gallery",
   "/live",
   "/new-muslims",
   "/privacy-policy",
   "/terms",
+  "/who-is-muhammad",
+  "/why-islam",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

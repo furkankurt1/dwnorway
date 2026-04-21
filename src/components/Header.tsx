@@ -29,15 +29,26 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   const switchLocale = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale as "en" | "no" });
   };
 
-  const navLinks = [
+  const navLinks: Array<{
+    href?: string;
+    label: string;
+    children?: Array<{ href: string; label: string }>;
+  }> = [
     { href: "/", label: t("home") },
-    { href: "/new-muslims", label: t("newMuslims") },
+    {
+      label: t("islam"),
+      children: [
+        { href: "/why-islam", label: t("whyIslam") },
+        { href: "/who-is-muhammad", label: t("whoIsMuhammad") },
+        { href: "/new-muslims", label: t("newMuslims") },
+      ],
+    },
     {
       label: t("aboutUs"),
       children: [
@@ -46,6 +57,7 @@ export default function Header() {
         { href: "/about-us/our-vision", label: t("ourVision") },
       ],
     },
+    { href: "/gallery", label: t("gallery") },
     { href: "/contact-us", label: t("contactUs") },
   ];
 
@@ -72,20 +84,20 @@ export default function Header() {
                 <div
                   key={link.label}
                   className="relative group"
-                  onMouseEnter={() => setAboutOpen(true)}
-                  onMouseLeave={() => setAboutOpen(false)}
+                  onMouseEnter={() => setOpenMenu(link.label)}
+                  onMouseLeave={() => setOpenMenu(null)}
                 >
                   <button
                     type="button"
                     aria-haspopup="menu"
-                    aria-expanded={aboutOpen}
-                    onClick={() => setAboutOpen((o) => !o)}
+                    aria-expanded={openMenu === link.label}
+                    onClick={() => setOpenMenu((o) => (o === link.label ? null : link.label))}
                     className="text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors font-medium"
                   >
                     {link.label}
                   </button>
-                  {aboutOpen && (
-                    <div role="menu" className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[200px] border-t-2 border-[var(--color-gold)]">
+                  {openMenu === link.label && (
+                    <div role="menu" className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[220px] border-t-2 border-[var(--color-gold)]">
                       {link.children.map((child) => (
                         <Link
                           key={child.href}

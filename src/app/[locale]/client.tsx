@@ -19,6 +19,12 @@ import {
   FaHandsHelping,
   FaQuran,
   FaMosque,
+  FaQuoteLeft,
+  FaStar,
+  FaPrayingHands,
+  FaMoon,
+  FaHandHoldingUsd,
+  FaKaaba,
 } from "react-icons/fa";
 
 export default function HomePage() {
@@ -299,6 +305,88 @@ export default function HomePage() {
                     {item.title}
                   </h3>
                   <p className="text-[var(--color-gray)]">{item.text}</p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+        </div>
+      </section>
+
+      {/* Pillars of Islam */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
+              {t("pillarsSubtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
+              {t("pillarsTitle")}
+            </h2>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto">
+            {[
+              { key: "shahadah", name: "Shahadah", meaning: "Faith", icon: FaStar },
+              { key: "salah", name: "Salah", meaning: "Prayer", icon: FaPrayingHands },
+              { key: "sawm", name: "Sawm", meaning: "Fasting", icon: FaMoon },
+              { key: "zakat", name: "Zakat", meaning: "Almsgiving", icon: FaHandHoldingUsd },
+              { key: "hajj", name: "Hajj", meaning: "Pilgrimage", icon: FaKaaba },
+            ].map((pillar) => (
+              <StaggerItem key={pillar.key}>
+                <motion.div
+                  className="bg-white rounded-2xl p-6 text-center shadow-sm h-full"
+                  whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[var(--color-gold)]/10 flex items-center justify-center">
+                    <pillar.icon className="text-[var(--color-gold)]" size={22} />
+                  </div>
+                  <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">
+                    {pillar.name}
+                  </h3>
+                  <p className="text-[var(--color-gold-text)] text-sm">
+                    {pillar.meaning}
+                  </p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-[var(--color-light)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
+              {t("testimonialsSubtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
+              {t("testimonialsTitle")}
+            </h2>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {siteConfig.testimonials.map((item) => (
+              <StaggerItem key={item.name}>
+                <motion.div
+                  className="bg-white rounded-2xl p-8 shadow-sm h-full flex flex-col"
+                  whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaQuoteLeft className="text-[var(--color-gold)]/40 mb-4" size={28} />
+                  <p className="text-[var(--color-gray)] leading-relaxed flex-grow italic mb-6">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-dark)] flex items-center justify-center text-white font-[family-name:var(--font-heading)] font-bold text-lg">
+                      {item.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
+                    </div>
+                    <div>
+                      <p className="font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)]">
+                        {item.name}
+                      </p>
+                      <p className="text-sm text-[var(--color-gold-text)]">{item.role}</p>
+                    </div>
+                  </div>
                 </motion.div>
               </StaggerItem>
             ))}
