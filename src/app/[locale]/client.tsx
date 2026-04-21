@@ -25,6 +25,7 @@ import {
   FaMoon,
   FaHandHoldingUsd,
   FaKaaba,
+  FaUserCircle,
 } from "react-icons/fa";
 
 export default function HomePage() {
@@ -416,15 +417,23 @@ export default function HomePage() {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="relative aspect-[4/5] bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
-                      style={{ objectPosition: member.imagePosition ?? "top" }}
-                    />
+                  <div className="relative aspect-[4/5] bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 flex items-center justify-center">
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover"
+                        style={{ objectPosition: member.imagePosition ?? "top" }}
+                      />
+                    ) : (
+                      <FaUserCircle
+                        className="text-[var(--color-gold)]/40"
+                        size={128}
+                        aria-hidden="true"
+                      />
+                    )}
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">

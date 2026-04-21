@@ -18,8 +18,6 @@ export const siteConfig = {
     {
       name: "Yousuf Dawah",
       role: "Founder & Da'i",
-      image: "/images/team/yousuf.jpg",
-      imagePosition: "top",
     },
     {
       name: "Tamim Rasheedi",
@@ -34,10 +32,8 @@ export const siteConfig = {
       imagePosition: "top",
     },
     {
-      name: "Mainul Hasan",
+      name: "Furkan Kurt",
       role: "IT Consultant & Da'i",
-      image: "/images/team/mainul.webp",
-      imagePosition: "top",
     },
   ],
 

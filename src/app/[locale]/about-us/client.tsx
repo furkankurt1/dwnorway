@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { FaUserCircle } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
@@ -98,7 +99,7 @@ export default function AboutUsPage() {
             </h2>
           </FadeIn>
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {siteConfig.team.map((member, i) => (
+            {siteConfig.team.map((member) => (
               <StaggerItem key={member.name}>
                 <motion.div
                   className="bg-white rounded-2xl p-8 text-center shadow-sm"
@@ -122,10 +123,11 @@ export default function AboutUsPage() {
                         style={{ objectPosition: member.imagePosition ?? "top" }}
                       />
                     ) : (
-                      <span className="text-3xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold-text)]">
-                        {member.name.split(" ")[0][0]}
-                        {member.name.split(" ").slice(-1)[0][0]}
-                      </span>
+                      <FaUserCircle
+                        className="text-[var(--color-gold)]/40"
+                        size={80}
+                        aria-hidden="true"
+                      />
                     )}
                   </motion.div>
                   <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">
