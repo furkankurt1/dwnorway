@@ -57,7 +57,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
-              alt="Dawah Norge"
+              alt="Dawah Norway"
               width={160}
               height={64}
               className="h-16 w-auto"

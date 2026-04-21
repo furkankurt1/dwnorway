@@ -16,24 +16,24 @@ export const siteConfig = {
 
   team: [
     {
-      name: "Nafies Dawah",
-      role: "Founder & Da'i",
-      image: "/images/team/nafies.jpg",
-    },
-    {
       name: "Yousuf Dawah",
       role: "Founder & Da'i",
-      image: "/images/team/yousuf.jpg",
+      image: "/images/team/yousuf.webp",
     },
     {
       name: "Tamim Rasheedi",
       role: "Imam & Da'i",
-      image: "/images/team/tamim.jpg",
+      image: "/images/team/tamim.webp",
+    },
+    {
+      name: "Nafies Dawah",
+      role: "Founder & Da'i",
+      image: "/images/team/nafies.webp",
     },
     {
       name: "Mainul Hasan",
       role: "IT Consultant & Da'i",
-      image: "/images/team/mainul.jpg",
+      image: "/images/team/mainul.webp",
     },
   ],
 

@@ -306,8 +306,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Live Stream */}
+      {/* Our Volunteers */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
+              {t("volunteersSubtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
+              {t("volunteersTitle")}
+            </h2>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {siteConfig.team.map((member) => (
+              <StaggerItem key={member.name}>
+                <motion.div
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm"
+                  whileHover={{
+                    y: -6,
+                    boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative aspect-square bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6 text-center">
+                    <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-[var(--color-gold-text)] text-sm">
+                      {member.role}
+                    </p>
+                  </div>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+        </div>
+      </section>
+
+      {/* Live Stream */}
+      <section className="py-24 bg-[var(--color-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-10">
@@ -349,7 +395,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Video */}
-      <section className="py-24 bg-[var(--color-light)]">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-10">
