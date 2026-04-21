@@ -18,7 +18,7 @@ export const siteConfig = {
     {
       name: "Yousuf Dawah",
       role: "Founder & Da'i",
-      image: "/images/team/yousuf.webp",
+      image: "/images/team/yousuf.jpg",
     },
     {
       name: "Tamim Rasheedi",

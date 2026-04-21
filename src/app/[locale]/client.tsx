@@ -328,13 +328,13 @@ export default function HomePage() {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="relative aspect-square bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5">
+                  <div className="relative aspect-[4/5] bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5">
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div className="p-6 text-center">
