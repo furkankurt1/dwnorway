@@ -36,8 +36,17 @@ export default function Footer() {
               <Link href="/" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
                 {nav("home")}
               </Link>
+              <Link href="/why-islam" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+                {nav("whyIslam")}
+              </Link>
+              <Link href="/who-is-muhammad" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+                {nav("whoIsMuhammad")}
+              </Link>
               <Link href="/new-muslims" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
                 {nav("newMuslims")}
+              </Link>
+              <Link href="/gallery" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+                {nav("gallery")}
               </Link>
               <Link href="/about-us" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
                 {nav("aboutUs")}

@@ -19,10 +19,17 @@ export async function generateMetadata({
   });
 }
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const tGallery = await getTranslations({ locale, namespace: "gallery" });
   const breadcrumb = breadcrumbJsonLd([
-    { name: "Home", url: siteConfig.url },
-    { name: "Gallery", url: `${siteConfig.url}/en/gallery` },
+    { name: nav("home"), url: `${siteConfig.url}/${locale}` },
+    { name: tGallery("title"), url: `${siteConfig.url}/${locale}/gallery` },
   ]);
 
   return (

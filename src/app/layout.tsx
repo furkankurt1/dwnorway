@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Dawah Norway",
   },
   description:
-    "One of the leading Dawah organizations in Scandinavia. Educating communities, distributing free Qurans, and supporting new Muslims across Norway.",
+    "An invitation to Islam. Educating communities, distributing free Qurans, and supporting new Muslims across Norway.",
   keywords: [
     "Dawah Norway",
     "Islam Norway",

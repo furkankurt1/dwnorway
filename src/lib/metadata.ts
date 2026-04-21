@@ -69,7 +69,7 @@ export function organizationJsonLd() {
     url: siteConfig.url,
     logo: `${siteConfig.url}/images/logo.png`,
     description:
-      "One of the leading Dawah organizations in Scandinavia, actively working across Norway",
+      "An invitation to Islam — actively working across Norway to share the message with wisdom and compassion",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Østre Aker vei 101",

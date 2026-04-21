@@ -19,11 +19,19 @@ export async function generateMetadata({
   });
 }
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const tAbout = await getTranslations({ locale, namespace: "about" });
+  const tVision = await getTranslations({ locale, namespace: "vision" });
   const breadcrumb = breadcrumbJsonLd([
-    { name: "Home", url: siteConfig.url },
-    { name: "About Us", url: `${siteConfig.url}/en/about-us` },
-    { name: "Our Vision", url: `${siteConfig.url}/en/about-us/our-vision` },
+    { name: nav("home"), url: `${siteConfig.url}/${locale}` },
+    { name: tAbout("title"), url: `${siteConfig.url}/${locale}/about-us` },
+    { name: tVision("title"), url: `${siteConfig.url}/${locale}/about-us/our-vision` },
   ]);
 
   return (

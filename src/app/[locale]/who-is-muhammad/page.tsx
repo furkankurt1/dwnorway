@@ -19,10 +19,17 @@ export async function generateMetadata({
   });
 }
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const tMuhammad = await getTranslations({ locale, namespace: "muhammad" });
   const breadcrumb = breadcrumbJsonLd([
-    { name: "Home", url: siteConfig.url },
-    { name: "Who is Muhammad", url: `${siteConfig.url}/en/who-is-muhammad` },
+    { name: nav("home"), url: `${siteConfig.url}/${locale}` },
+    { name: tMuhammad("title"), url: `${siteConfig.url}/${locale}/who-is-muhammad` },
   ]);
 
   return (
