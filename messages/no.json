@@ -154,7 +154,14 @@
     "paymentFailed": "Betalingen ble ikke fullført. Prøv igjen.",
     "successTitle": "Takk for donasjonen din!",
     "successText": "Din sjenerøsitet hjelper oss å fortsette vårt oppdrag i hele Norge. Måtte Allah belønne deg rikelig.",
-    "successBack": "Tilbake til donasjon"
+    "successBack": "Tilbake til donasjon",
+    "stripeError": "Kortbetaling kunne ikke startes. Prøv igjen.",
+    "backToOptions": "Tilbake til betalingsalternativer",
+    "completeTitle": "Donasjon Fullført",
+    "completeCheckingText": "Sjekker betalingen din…",
+    "completeFailedTitle": "Betalingen ble ikke fullført",
+    "completeFailedText": "Vi kunne ikke bekrefte donasjonen din. Hvis du ble belastet, kontakt oss på info@dawahnorway.com.",
+    "receiptSent": "En kvittering er sendt til {email}"
   },
   "live": {
     "title": "Dawah Norway Direktesendinger",

@@ -154,7 +154,14 @@
     "paymentFailed": "Your payment was not completed. Please try again.",
     "successTitle": "Thank you for your donation!",
     "successText": "Your generosity helps us continue our mission across Norway. May Allah reward you immensely.",
-    "successBack": "Back to Donate"
+    "successBack": "Back to Donate",
+    "stripeError": "Card payment could not be started. Please try again.",
+    "backToOptions": "Back to payment options",
+    "completeTitle": "Donation Complete",
+    "completeCheckingText": "Checking your payment…",
+    "completeFailedTitle": "Payment not completed",
+    "completeFailedText": "We couldn't confirm your donation. If you were charged, please contact us at info@dawahnorway.com.",
+    "receiptSent": "A receipt has been sent to {email}"
   },
   "live": {
     "title": "Dawah Norway Live",
