@@ -52,6 +52,8 @@ lerna-debug.log*
 # cloudflare
 .wrangler
 .dev.vars
+.open-next/
+cloudflare-env.d.ts
 wrangler.toml.bak
 
 # typescript

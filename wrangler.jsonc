@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dwnorway",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-04-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "workers_dev": true,
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://dawahnorge.no"
+  }
+  // Secrets: `wrangler secret put <NAME>`
+  //   STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  //   RESEND_API_KEY, VIPPS_CLIENT_ID, VIPPS_CLIENT_SECRET,
+  //   VIPPS_SUBSCRIPTION_KEY, VIPPS_MERCHANT_SERIAL_NUMBER
+  //
+  // Custom domain (dawahnorge.no) will be added via Cloudflare Dashboard:
+  //   Workers & Pages → dwnorway → Settings → Domains & Routes → Add Custom Domain
+}
