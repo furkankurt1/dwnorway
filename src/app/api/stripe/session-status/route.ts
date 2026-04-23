@@ -14,7 +14,9 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Payment unavailable" }, { status: 503 });
     }
 
-    const stripe = new Stripe(secretKey);
+    const stripe = new Stripe(secretKey, {
+      httpClient: Stripe.createFetchHttpClient(),
+    });
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     return NextResponse.json({

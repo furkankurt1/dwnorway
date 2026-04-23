@@ -14,12 +14,13 @@
   "workers_dev": true,
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://dawahnorge.no"
-  }
+  },
+  "routes": [
+    { "pattern": "dawahnorge.no", "custom_domain": true },
+    { "pattern": "www.dawahnorge.no", "custom_domain": true }
+  ]
   // Secrets: `wrangler secret put <NAME>`
   //   STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
   //   RESEND_API_KEY, VIPPS_CLIENT_ID, VIPPS_CLIENT_SECRET,
   //   VIPPS_SUBSCRIPTION_KEY, VIPPS_MERCHANT_SERIAL_NUMBER
-  //
-  // Custom domain (dawahnorge.no) will be added via Cloudflare Dashboard:
-  //   Workers & Pages → dwnorway → Settings → Domains & Routes → Add Custom Domain
 }

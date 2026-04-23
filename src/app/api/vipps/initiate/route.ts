@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
 
 const VIPPS_BASE_URL = process.env.VIPPS_IS_TEST === "true"
   ? "https://apitest.vipps.no"
   : "https://api.vipps.no";
+
+function vippsConfigured() {
+  return !!(
+    process.env.VIPPS_CLIENT_ID &&
+    process.env.VIPPS_CLIENT_SECRET &&
+    process.env.VIPPS_SUBSCRIPTION_KEY &&
+    process.env.VIPPS_MERCHANT_SERIAL_NUMBER
+  );
+}
 
 async function getVippsToken(): Promise<string> {
   const credentials = Buffer.from(
@@ -29,15 +37,22 @@ async function getVippsToken(): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
+    if (!vippsConfigured()) {
+      return NextResponse.json(
+        { error: "Vipps not configured" },
+        { status: 503 }
+      );
+    }
+
     const { amount, locale = "en" } = await req.json();
 
-    if (!amount || typeof amount !== "number" || amount < 100 || amount > 100000) {
+    if (!amount || typeof amount !== "number" || amount < 10 || amount > 100000) {
       return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
     }
 
     const token = await getVippsToken();
-    const reference = randomUUID();
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dawahnorge.no";
+    const reference = crypto.randomUUID();
+    const siteUrl = new URL(req.url).origin;
 
     const body = {
       amount: {
