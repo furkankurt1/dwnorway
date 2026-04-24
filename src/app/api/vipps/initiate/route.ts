@@ -31,7 +31,7 @@ async function getVippsToken(): Promise<string> {
     throw new Error(`Vipps token error: ${res.status}`);
   }
 
-  const data = await res.json();
+  const data = (await res.json()) as { access_token: string };
   return data.access_token;
 }
 
@@ -44,7 +44,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { amount, locale = "en" } = await req.json();
+    const { amount, locale = "en" } = (await req.json()) as {
+      amount?: number;
+      locale?: string;
+    };
 
     if (!amount || typeof amount !== "number" || amount < 10 || amount > 100000) {
       return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
@@ -84,7 +87,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Payment initiation failed" }, { status: 502 });
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as { redirectUrl?: string };
     return NextResponse.json({ redirectUrl: data.redirectUrl });
   } catch (error) {
     console.error("Vipps initiate:", error);

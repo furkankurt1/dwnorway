@@ -18,7 +18,7 @@ async function getVippsToken(): Promise<string> {
     },
   });
 
-  const data = await res.json();
+  const data = (await res.json()) as { access_token: string };
   return data.access_token;
 }
 
@@ -47,8 +47,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(`${siteUrl}/${locale}/donate?status=failed`);
     }
 
-    const data = await res.json();
-    const state = data.state as string;
+    const data = (await res.json()) as { state?: string };
+    const state = data.state;
 
     if (state === "AUTHORIZED" || state === "TERMINATED") {
       return NextResponse.redirect(`${siteUrl}/${locale}/donate/success`);

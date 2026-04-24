@@ -16,7 +16,6 @@ const LAST_UPDATED: Record<string, Date> = {
   "/contact-us": new Date("2026-04-24"),
   "/donate": new Date("2026-04-24"),
   "/gallery": new Date("2026-04-24"),
-  "/live": new Date("2026-04-24"),
   "/new-muslims": new Date("2026-04-24"),
   "/privacy-policy": new Date("2026-04-24"),
   "/terms": new Date("2026-04-24"),
@@ -35,7 +34,6 @@ const PRIORITY: Record<string, number> = {
   "/contact-us": 0.7,
   "/about-us/our-mission": 0.6,
   "/about-us/our-vision": 0.6,
-  "/live": 0.6,
   "/privacy-policy": 0.3,
   "/terms": 0.3,
 };
@@ -47,7 +45,6 @@ const CHANGE_FREQ: Record<
   "/": "weekly",
   "/gallery": "monthly",
   "/donate": "monthly",
-  "/live": "weekly",
   "/privacy-policy": "yearly",
   "/terms": "yearly",
 };

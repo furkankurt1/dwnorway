@@ -8,13 +8,20 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "kv_namespaces": [
+    {
+      "binding": "CONTACT_RATE_LIMIT",
+      "id": "f1cdb35c6ce94e248333e43175167d25"
+    }
+  ],
   "observability": {
     "enabled": true
   },
   "workers_dev": true,
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://www.dawahnorway.com",
-    "REDIRECT_TO_CANONICAL": "true"
+    "REDIRECT_TO_CANONICAL": "true",
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAADCU2IKHQ5bWCYhz"
   },
   "routes": [
     { "pattern": "dawahnorway.com", "custom_domain": true },
@@ -25,5 +32,6 @@
   // Secrets: `wrangler secret put <NAME>`
   //   STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
   //   RESEND_API_KEY, VIPPS_CLIENT_ID, VIPPS_CLIENT_SECRET,
-  //   VIPPS_SUBSCRIPTION_KEY, VIPPS_MERCHANT_SERIAL_NUMBER
+  //   VIPPS_SUBSCRIPTION_KEY, VIPPS_MERCHANT_SERIAL_NUMBER,
+  //   TURNSTILE_SECRET_KEY, NEXT_PUBLIC_TURNSTILE_SITE_KEY
 }

@@ -67,11 +67,12 @@ const LEGACY_PATH_REDIRECTS: Record<string, string> = {
   // Donate variants
   "/donate-now": "/donate",
   "/donations": "/donate",
-  // Live / video / media
-  "/live-stream": "/live",
-  "/live-streaming": "/live",
-  "/videos": "/live",
-  "/media": "/live",
+  // Live / video / media — /live page removed, bounce to home
+  "/live": "",
+  "/live-stream": "",
+  "/live-streaming": "",
+  "/videos": "",
+  "/media": "",
   // Aggregation pages with no direct equivalent — bounce to home
   "/blog": "",
   "/news": "",

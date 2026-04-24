@@ -7,11 +7,16 @@
     "ourVision": "Our Vision",
     "contactUs": "Contact Us",
     "donate": "Donate",
-    "live": "YouTube Live",
     "islam": "Islam",
     "whyIslam": "Why Islam?",
     "whoIsMuhammad": "Who is Muhammad ﷺ",
     "gallery": "Gallery"
+  },
+  "contact_security": {
+    "turnstileFailed": "Verification failed. Please reload the page and try again.",
+    "honeypotTriggered": "Submission blocked.",
+    "tooLong": "Message is too long.",
+    "rateLimited": "Too many messages from this IP. Please try again later."
   },
   "hero": {
     "title": "Dawah Norway",
@@ -51,12 +56,6 @@
     "glimpsesSubtitle": "Community in Action",
     "glimpsesText": "Moments captured from dawah stands, Quran distributions, and community gatherings across Norway.",
     "viewGallery": "View Full Gallery",
-    "liveTitle": "Live Stream",
-    "visitChannel": "Visit Channel",
-    "featuredTitle": "Featured Video",
-    "activitiesTitle": "Our Activities",
-    "youthTitle": "Youth Empowerment",
-    "youthText": "Inspiring and nurturing the next generation of Muslims in Norway",
     "volunteersTitle": "Meet The Team",
     "volunteersSubtitle": "Our Volunteers",
     "testimonialsTitle": "What People Say",
@@ -189,14 +188,6 @@
     "completeFailedTitle": "Payment not completed",
     "completeFailedText": "We couldn't confirm your donation. If you were charged, please contact us at info@dawahnorway.com.",
     "receiptSent": "A receipt has been sent to {email}"
-  },
-  "live": {
-    "title": "Dawah Norway Live",
-    "schedule": "Join our livestreams",
-    "mobile": "Watch on Mobile",
-    "desktop": "Watch on Desktop",
-    "panel": "Join the Panel",
-    "previousTitle": "Previous Streams"
   },
   "footer": {
     "connectTitle": "Connect with Dawah Norway",

@@ -88,7 +88,7 @@ export default function DonatePage() {
 
       if (!res.ok) throw new Error("initiate failed");
 
-      const { redirectUrl } = await res.json();
+      const { redirectUrl } = (await res.json()) as { redirectUrl: string };
       window.location.href = redirectUrl;
     } catch {
       setErrorMsg(t("vippsError"));
@@ -113,7 +113,7 @@ export default function DonatePage() {
 
       if (!res.ok) throw new Error("create-session failed");
 
-      const { clientSecret: cs } = await res.json();
+      const { clientSecret: cs } = (await res.json()) as { clientSecret: string };
       setClientSecret(cs);
     } catch {
       setErrorMsg(t("stripeError"));
@@ -138,7 +138,7 @@ export default function DonatePage() {
 
       if (!res.ok) throw new Error("paypal create failed");
 
-      const { approveUrl } = await res.json();
+      const { approveUrl } = (await res.json()) as { approveUrl?: string };
       if (approveUrl) {
         window.location.href = approveUrl;
       } else {

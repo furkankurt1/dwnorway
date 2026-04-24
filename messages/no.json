@@ -1,4 +1,10 @@
 {
+  "contact_security": {
+    "turnstileFailed": "Verifisering mislyktes. Last inn siden på nytt og prøv igjen.",
+    "honeypotTriggered": "Innsending blokkert.",
+    "tooLong": "Meldingen er for lang.",
+    "rateLimited": "For mange meldinger fra denne IP-en. Prøv igjen senere."
+  },
   "nav": {
     "home": "Hjem",
     "newMuslims": "Nye Muslimer",
@@ -7,7 +13,6 @@
     "ourVision": "Vår Visjon",
     "contactUs": "Kontakt Oss",
     "donate": "Doner",
-    "live": "YouTube Live",
     "islam": "Islam",
     "whyIslam": "Hvorfor Islam?",
     "whoIsMuhammad": "Hvem er Muhammad ﷺ",
@@ -51,12 +56,6 @@
     "glimpsesSubtitle": "Samfunnet i Aksjon",
     "glimpsesText": "Øyeblikk fanget fra dawah-stands, Koran-distribusjoner og samfunnssamlinger i hele Norge.",
     "viewGallery": "Se Hele Galleriet",
-    "liveTitle": "Direktesending",
-    "visitChannel": "Besøk Kanal",
-    "featuredTitle": "Utvalgt Video",
-    "activitiesTitle": "Våre Aktiviteter",
-    "youthTitle": "Ungdomsutvikling",
-    "youthText": "Inspirerer og nærer neste generasjon muslimer i Norge",
     "volunteersTitle": "Møt Teamet",
     "volunteersSubtitle": "Våre Frivillige",
     "testimonialsTitle": "Hva Folk Sier",
@@ -178,19 +177,17 @@
     "successBack": "Tilbake til donasjon",
     "stripeError": "Kortbetaling kunne ikke startes. Prøv igjen.",
     "backToOptions": "Tilbake til betalingsalternativer",
+    "youAreDonating": "Du donerer",
+    "secureBadge": "256-bit SSL-kryptert",
+    "pciBadge": "PCI-DSS-kompatibel",
+    "stripeBadge": "Sikret av Stripe",
+    "acceptedCards": "Vi aksepterer",
+    "noSavedData": "Vi lagrer aldri kortopplysningene dine.",
     "completeTitle": "Donasjon Fullført",
     "completeCheckingText": "Sjekker betalingen din…",
     "completeFailedTitle": "Betalingen ble ikke fullført",
     "completeFailedText": "Vi kunne ikke bekrefte donasjonen din. Hvis du ble belastet, kontakt oss på info@dawahnorway.com.",
     "receiptSent": "En kvittering er sendt til {email}"
-  },
-  "live": {
-    "title": "Dawah Norway Direktesendinger",
-    "schedule": "Bli med på våre direktesendinger",
-    "mobile": "Se på Mobil",
-    "desktop": "Se på PC",
-    "panel": "Bli Med i Panelet",
-    "previousTitle": "Tidligere Sendinger"
   },
   "footer": {
     "connectTitle": "Kontakt Dawah Norway",

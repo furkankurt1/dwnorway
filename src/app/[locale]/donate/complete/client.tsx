@@ -26,12 +26,12 @@ export default function DonateCompleteClient() {
     }
 
     fetch(`/api/stripe/session-status?session_id=${encodeURIComponent(sessionId)}`)
-      .then((r) => r.json())
+      .then((r) => r.json() as Promise<{ paymentStatus?: string; amountTotal?: number; customerEmail?: string }>)
       .then((data) => {
         if (data.paymentStatus === "paid") {
           setStatus("success");
           setAmount(data.amountTotal ? data.amountTotal / 100 : null);
-          setEmail(data.customerEmail);
+          setEmail(data.customerEmail ?? null);
         } else {
           setStatus("failed");
         }

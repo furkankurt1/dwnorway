@@ -1,13 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
+import Script from "next/script";
+import { useTranslations, useLocale } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import CopyButton from "@/components/CopyButton";
 import Spinner from "@/components/Spinner";
 import { siteConfig } from "@/config/site";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        selector: string | HTMLElement,
+        options: {
+          sitekey: string;
+          callback?: (token: string) => void;
+          "error-callback"?: () => void;
+          "expired-callback"?: () => void;
+          theme?: "light" | "dark" | "auto";
+          language?: string;
+        }
+      ) => string;
+      reset: (widgetId?: string) => void;
+      remove: (widgetId?: string) => void;
+    };
+  }
+}
 import {
   FaFacebookF,
   FaInstagram,
@@ -20,13 +43,58 @@ type FormStatus = "idle" | "sending" | "sent" | "error";
 
 export default function ContactUsPage() {
   const t = useTranslations("contact");
+  const locale = useLocale();
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+
+  const renderTurnstile = () => {
+    if (!TURNSTILE_SITE_KEY) return;
+    if (!window.turnstile || !turnstileContainerRef.current) return;
+    if (turnstileWidgetIdRef.current) return;
+    turnstileWidgetIdRef.current = window.turnstile.render(
+      turnstileContainerRef.current,
+      {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token) => setTurnstileToken(token),
+        "error-callback": () => setTurnstileToken(""),
+        "expired-callback": () => setTurnstileToken(""),
+        theme: "light",
+        language: locale === "no" ? "nb" : "en",
+      }
+    );
+  };
+
+  useEffect(() => {
+    renderTurnstile();
+    return () => {
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetIdRef.current);
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setStatus("error");
+      return;
+    }
     setStatus("sending");
     const form = e.target as HTMLFormElement;
-    const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const fd = new FormData(form);
+    const data = {
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      country: String(fd.get("country") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      message: String(fd.get("message") ?? ""),
+      website: String(fd.get("website") ?? ""),
+      "cf-turnstile-response": turnstileToken,
+    };
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -36,8 +104,16 @@ export default function ContactUsPage() {
       if (!res.ok) throw new Error("send failed");
       setStatus("sent");
       form.reset();
+      setTurnstileToken("");
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetIdRef.current);
+      }
     } catch {
       setStatus("error");
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetIdRef.current);
+      }
+      setTurnstileToken("");
     }
   };
 
@@ -50,6 +126,13 @@ export default function ContactUsPage() {
 
   return (
     <>
+      {TURNSTILE_SITE_KEY && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+          onReady={renderTurnstile}
+        />
+      )}
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"
@@ -176,6 +259,29 @@ export default function ContactUsPage() {
                   {t("formTitle")}
                 </h2>
                 <form className="space-y-6" onSubmit={onSubmit} noValidate>
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      left: "-10000px",
+                      top: "auto",
+                      width: "1px",
+                      height: "1px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <label htmlFor="website">
+                      Website (leave blank)
+                    </label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      defaultValue=""
+                    />
+                  </div>
                   {[
                     { id: "name", label: t("name"), type: "text", required: true },
                     { id: "email", label: t("email"), type: "email", required: true },
@@ -238,6 +344,9 @@ export default function ContactUsPage() {
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[var(--color-gold-dark)] focus:ring-2 focus:ring-[var(--color-gold-dark)]/30 outline-none transition-all duration-200 bg-white"
                     />
                   </div>
+                  {TURNSTILE_SITE_KEY && (
+                    <div ref={turnstileContainerRef} className="min-h-[66px]" />
+                  )}
                   <AnimatePresence>
                     {status === "sent" && (
                       <motion.div

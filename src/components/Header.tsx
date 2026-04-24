@@ -155,14 +155,6 @@ export default function Header() {
             >
               {t("donate")}
             </Link>
-
-            {/* YouTube Live */}
-            <Link
-              href="/live"
-              className="px-4 py-2 border-2 border-red-600 text-red-600 rounded-full font-semibold hover:bg-red-600 hover:text-white transition-colors text-sm"
-            >
-              {t("live")}
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -228,13 +220,6 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
               >
                 {t("donate")}
-              </Link>
-              <Link
-                href="/live"
-                className="px-4 py-2 border-2 border-red-600 text-red-600 rounded-full font-semibold text-sm"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("live")}
               </Link>
             </div>
           </motion.div>

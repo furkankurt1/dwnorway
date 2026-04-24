@@ -25,7 +25,11 @@ async function getAccessToken() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { amount, locale = "en", frequency = "once" } = await req.json();
+    const { amount, locale = "en", frequency = "once" } = (await req.json()) as {
+      amount?: number;
+      locale?: string;
+      frequency?: "once" | "monthly";
+    };
 
     if (!amount || typeof amount !== "number" || amount < 10 || amount > 100000) {
       return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
