@@ -313,6 +313,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Glimpses of Our Work */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
+              {t("glimpsesSubtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-4">
+              {t("glimpsesTitle")}
+            </h2>
+            <p className="text-[var(--color-gray)] text-lg text-center max-w-3xl mx-auto mb-14">
+              {t("glimpsesText")}
+            </p>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {siteConfig.homeGallery.map((src, i) => (
+              <StaggerItem key={src}>
+                <Link href="/gallery" aria-label={t("viewGallery")}>
+                  <motion.div
+                    className={`relative overflow-hidden rounded-2xl bg-[var(--color-light)] group cursor-pointer ${
+                      i === 0 || i === 5 ? "md:row-span-2 md:aspect-[3/4]" : "aspect-square"
+                    }`}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Image
+                      src={src}
+                      alt="Dawah Norway community moment"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.div>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+          <FadeIn delay={0.3}>
+            <div className="text-center mt-12">
+              <Link href="/gallery">
+                <motion.span
+                  className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
+                  whileHover={{
+                    backgroundColor: "#e0a242",
+                    color: "#ffffff",
+                    scale: 1.05,
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {t("viewGallery")}
+                </motion.span>
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Pillars of Islam */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

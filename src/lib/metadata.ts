@@ -33,6 +33,7 @@ export function generatePageMetadata({
       languages: {
         en: `${BASE_URL}/en${path}`,
         no: `${BASE_URL}/no${path}`,
+        "x-default": `${BASE_URL}/en${path}`,
       },
     },
     openGraph: {

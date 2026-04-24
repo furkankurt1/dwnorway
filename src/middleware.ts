@@ -21,8 +21,26 @@ function pickLocale(request: NextRequest): "en" | "no" {
   return country === "NO" ? "no" : "en";
 }
 
+const CANONICAL_HOST = "dawahnorway.com";
+const LEGACY_HOSTS = new Set(["dawahnorge.no", "www.dawahnorge.no"]);
+
 export default function middleware(request: NextRequest) {
+  const host = request.headers.get("host")?.toLowerCase() ?? "";
+
+  const redirectEnabled = process.env.REDIRECT_TO_CANONICAL === "true";
+  if (redirectEnabled && (LEGACY_HOSTS.has(host) || host === `www.${CANONICAL_HOST}`)) {
+    const url = request.nextUrl.clone();
+    url.host = CANONICAL_HOST;
+    url.protocol = "https:";
+    url.port = "";
+    return NextResponse.redirect(url, 301);
+  }
+
   const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.next();
+  }
 
   const hasLocalePrefix = routing.locales.some(
     (loc) => pathname === `/${loc}` || pathname.startsWith(`/${loc}/`)
@@ -45,5 +63,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!_next|_vercel|.*\\..*).*)"],
 };

@@ -13,9 +13,12 @@
   },
   "workers_dev": true,
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://dawahnorge.no"
+    "NEXT_PUBLIC_SITE_URL": "https://dawahnorway.com",
+    "REDIRECT_TO_CANONICAL": "true"
   },
   "routes": [
+    { "pattern": "dawahnorway.com", "custom_domain": true },
+    { "pattern": "www.dawahnorway.com", "custom_domain": true },
     { "pattern": "dawahnorge.no", "custom_domain": true },
     { "pattern": "www.dawahnorge.no", "custom_domain": true }
   ]
