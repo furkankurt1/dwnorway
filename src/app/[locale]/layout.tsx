@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ReadingProgress from "@/components/ReadingProgress";
 import CookieConsent from "@/components/CookieConsent";
-import { organizationJsonLd, webSiteJsonLd } from "@/lib/metadata";
+import { organizationJsonLd, webSiteJsonLd, siteNavigationJsonLd } from "@/lib/metadata";
 import "../globals.css";
 
 const poppins = Poppins({
@@ -56,6 +56,12 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(webSiteJsonLd()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(siteNavigationJsonLd()),
           }}
         />
       </head>

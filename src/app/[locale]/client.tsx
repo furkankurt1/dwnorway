@@ -226,6 +226,69 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Explore Islam — 3 cards linking to Why Islam, Muhammad ﷺ, New Muslims */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
+              {t("exploreSubtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
+              {t("exploreTitle")}
+            </h2>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                href: "/why-islam",
+                title: t("exploreWhyTitle"),
+                text: t("exploreWhyText"),
+                icon: FaStar,
+              },
+              {
+                href: "/who-is-muhammad",
+                title: t("exploreMuhammadTitle"),
+                text: t("exploreMuhammadText"),
+                icon: FaMosque,
+              },
+              {
+                href: "/new-muslims",
+                title: t("exploreNewTitle"),
+                text: t("exploreNewText"),
+                icon: FaQuran,
+              },
+            ].map((card) => (
+              <StaggerItem key={card.href}>
+                <Link href={card.href} className="block h-full">
+                  <motion.div
+                    className="bg-[var(--color-light)] rounded-2xl p-10 h-full flex flex-col text-center"
+                    whileHover={{ y: -8, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div
+                      className="w-16 h-16 bg-[var(--color-gold)]/10 rounded-full flex items-center justify-center mx-auto mb-6"
+                      whileHover={{ backgroundColor: "#e0a242", scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <card.icon className="text-[var(--color-gold)]" size={26} />
+                    </motion.div>
+                    <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-4 text-[var(--color-dark)]">
+                      {card.title}
+                    </h3>
+                    <p className="text-[var(--color-gray)] flex-grow mb-6">
+                      {card.text}
+                    </p>
+                    <span className="text-[var(--color-gold-text)] font-semibold mt-auto">
+                      {t("exploreLearnMore")} →
+                    </span>
+                  </motion.div>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+        </div>
+      </section>
+
       {/* Stats */}
       <section className="py-16 bg-[var(--color-dark)]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

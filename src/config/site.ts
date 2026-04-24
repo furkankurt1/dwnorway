@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Dawah Norway",
-  url: "https://dawahnorway.com",
+  url: "https://www.dawahnorway.com",
   email: "info@dawahnorway.com",
   emailAlt: "info@dawahnorway.com",
   contactEmail: "info@dawahnorway.com",

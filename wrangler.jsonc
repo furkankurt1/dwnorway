@@ -13,7 +13,7 @@
   },
   "workers_dev": true,
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://dawahnorway.com",
+    "NEXT_PUBLIC_SITE_URL": "https://www.dawahnorway.com",
     "REDIRECT_TO_CANONICAL": "true"
   },
   "routes": [

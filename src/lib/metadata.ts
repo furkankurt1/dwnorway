@@ -105,6 +105,7 @@ export function webSiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
+    alternateName: "Dawah Norge",
     url: siteConfig.url,
     inLanguage: ["en", "nb"],
     publisher: {
@@ -113,6 +114,26 @@ export function webSiteJsonLd() {
       url: siteConfig.url,
     },
   };
+}
+
+export function siteNavigationJsonLd() {
+  const items = [
+    { name: "Why Islam?", path: "/why-islam" },
+    { name: "Who is Muhammad ﷺ", path: "/who-is-muhammad" },
+    { name: "New Muslims", path: "/new-muslims" },
+    { name: "About Us", path: "/about-us" },
+    { name: "Our Mission", path: "/about-us/our-mission" },
+    { name: "Our Vision", path: "/about-us/our-vision" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Donate", path: "/donate" },
+    { name: "Contact Us", path: "/contact-us" },
+  ];
+  return items.map((it) => ({
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: it.name,
+    url: `${siteConfig.url}/en${it.path}`,
+  }));
 }
 
 export function breadcrumbJsonLd(
