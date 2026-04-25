@@ -19,6 +19,7 @@ const LAST_UPDATED: Record<string, Date> = {
   "/new-muslims": new Date("2026-04-24"),
   "/privacy-policy": new Date("2026-04-24"),
   "/terms": new Date("2026-04-24"),
+  "/donation-agreement": new Date("2026-04-25"),
   "/who-is-muhammad": new Date("2026-04-24"),
   "/why-islam": new Date("2026-04-24"),
 };
@@ -36,6 +37,7 @@ const PRIORITY: Record<string, number> = {
   "/about-us/our-vision": 0.6,
   "/privacy-policy": 0.3,
   "/terms": 0.3,
+  "/donation-agreement": 0.3,
 };
 
 const CHANGE_FREQ: Record<
@@ -47,6 +49,7 @@ const CHANGE_FREQ: Record<
   "/donate": "monthly",
   "/privacy-policy": "yearly",
   "/terms": "yearly",
+  "/donation-agreement": "yearly",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -303,5 +303,68 @@
     "changesText": "Vi kan oppdatere disse vilkårene periodisk. Fortsatt bruk av nettstedet etter endringer utgjør aksept av de oppdaterte vilkårene.",
     "contactTitle": "Kontakt",
     "contactText": "Spørsmål om disse vilkårene? Send e-post til info@dawahnorway.com."
+  },
+  "donationAgreement": {
+    "title": "Vilkår for fast donasjon via Vipps",
+    "updated": "Sist oppdatert: 25. april 2026",
+    "intro": "Disse vilkårene gjelder for faste donasjoner til Dawah Norway via Vipps. Ved å opprette en fast donasjon godtar du disse vilkårene.",
+
+    "recipientTitle": "1. Om mottakeren",
+    "recipientName": "Navn: Dawah Norway (ideell organisasjon, stiftet 2021)",
+    "recipientOrgnr": "Organisasjonsnummer: 931 087 509 (registrert i Enhetsregisteret, Brønnøysundregistrene)",
+    "recipientAddress": "Adresse: Østre Aker vei 101, 0596 Oslo, Norge",
+    "recipientEmail": "E-post: info@dawahnorway.com",
+    "recipientPhone": "Telefon: +47 489 20 006",
+    "recipientWebsite": "Nettsted: https://www.dawahnorway.com",
+
+    "coverageTitle": "2. Hva avtalen gjelder",
+    "coverageText": "Ved å opprette en fast donasjon via Vipps inngår du en avtale om gjentatt belastning av et beløp du selv velger, til fordel for Dawah Norway. Donasjonen brukes til organisasjonens dawah- og opplysningsarbeid i Norge, herunder informasjonsstands, distribusjon av Koraner og litteratur, kurs, foredrag og oppfølging av nye muslimer.",
+
+    "amountTitle": "3. Beløp og hyppighet",
+    "amountAmount": "Beløp: Du velger selv beløpet ved opprettelse av avtalen, innenfor de grensene som er angitt på donasjonssiden (minimum 10 NOK, maksimum 100 000 NOK per belastning).",
+    "amountFrequency": "Hyppighet: Belastningen skjer månedlig, samme dato hver måned som avtalen ble opprettet, til avtalen sies opp.",
+    "amountChange": "Endringer i beløp eller hyppighet: Hvis du ønsker å endre beløp eller hyppighet, må du si opp den eksisterende avtalen og opprette en ny på donasjonssiden.",
+
+    "paymentTitle": "4. Betaling og kvittering",
+    "paymentVipps": "Belastningen utføres av Vipps MobilePay AS på vegne av Dawah Norway, og trekkes fra det betalingskortet eller den kontoen du har koblet til Vipps.",
+    "paymentReceipt": "Kvittering for hver belastning sendes automatisk i Vipps-appen.",
+    "paymentFail": "Dersom belastningen feiler (for eksempel ved manglende dekning eller utløpt kort), vil Vipps forsøke på nytt i henhold til Vipps' standardrutiner. Avtalen avsluttes ikke automatisk ved enkeltstående feilede belastninger.",
+
+    "natureTitle": "5. Donasjonens karakter — ingen motytelse",
+    "natureText": "Donasjonen er en frivillig gave til en ideell organisasjon. Du mottar ingen vare eller tjeneste i retur. Donasjonen er ikke å anse som kjøp eller forbrukerkjøp.",
+
+    "refundTitle": "6. Angrerett og refusjon",
+    "refundWithdrawal": "Angrerett: Frivillige donasjoner til ideelle organisasjoner faller som utgangspunkt utenfor virkeområdet til angrerettloven (lov 20. juni 2014 nr. 27). Dawah Norway tilbyr likevel som god praksis at en enkeltbelastning kan refunderes på forespørsel innen 14 dager fra belastningsdato, dersom den er gjort ved en feil eller du ombestemmer deg.",
+    "refundHow": "Hvordan be om refusjon: Send en e-post til info@dawahnorway.com med navnet på donor, dato og beløp. Refusjonen tilbakeføres til samme betalingskilde som ble belastet.",
+    "refundOlder": "Belastninger eldre enn 14 dager refunderes som hovedregel ikke, men vurderes individuelt ved særlige omstendigheter (f.eks. uautorisert bruk).",
+
+    "cancelTitle": "7. Oppsigelse av avtalen",
+    "cancelIntro": "Du kan når som helst og uten begrunnelse si opp den faste donasjonsavtalen:",
+    "cancelStep1": "Åpne Vipps-appen på din telefon.",
+    "cancelStep2": "Gå til Profil → Avtaler (eller Innstillinger → Avtaler og betalinger).",
+    "cancelStep3": "Velg avtalen med Dawah Norway og trykk Avslutt avtale.",
+    "cancelOutro": "Oppsigelsen får virkning umiddelbart, og ingen ytterligere belastninger vil bli gjennomført. Du kan også be Dawah Norway om å avslutte avtalen ved å sende en e-post til info@dawahnorway.com.",
+
+    "dataTitle": "8. Behandling av personopplysninger",
+    "dataIntro": "Dawah Norway er behandlingsansvarlig for de personopplysningene som behandles i forbindelse med donasjonen.",
+    "dataReceive": "Hva vi mottar fra Vipps: navn, mobilnummer (begrenset), avtale-ID og bekreftelse på gjennomført belastning. Vi mottar ikke kortnummer eller fullstendige betalingsdetaljer.",
+    "dataPurpose": "Formål: oppfyllelse av donasjonsavtalen, regnskap og lovpålagt oppbevaring.",
+    "dataBasis": "Behandlingsgrunnlag: avtale (GDPR art. 6 nr. 1 bokstav b) og rettslig forpliktelse (GDPR art. 6 nr. 1 bokstav c — bokføringsloven).",
+    "dataRetention": "Oppbevaringstid: regnskapsbilag oppbevares i 5 år etter regnskapsårets utløp, jf. bokføringsloven § 13.",
+    "dataRights": "Dine rettigheter: du har rett til innsyn, retting, sletting, begrensning og dataportabilitet etter personvernforordningen. Henvendelser sendes til info@dawahnorway.com.",
+    "dataComplaints": "Klage: hvis du mener vi behandler dine personopplysninger i strid med regelverket, kan du klage til Datatilsynet (postkasse@datatilsynet.no, www.datatilsynet.no).",
+    "dataVipps": "For Vipps' egen behandling av betalingsopplysninger gjelder Vipps MobilePay AS sin personvernerklæring: https://vipps.no/personvern.",
+
+    "complaintsTitle": "9. Klager og kundeservice",
+    "complaintsIntro": "Klager og henvendelser om donasjonsavtalen rettes til:",
+    "complaintsEmail": "E-post: info@dawahnorway.com",
+    "complaintsPhone": "Telefon: +47 489 20 006",
+    "complaintsTime": "Vi tar sikte på å besvare henvendelser innen 14 dager. Dersom en klage ikke løses, kan saken bringes inn for Forbrukertilsynet (www.forbrukertilsynet.no) eller relevant klageorgan i ditt hjemland (Konsumentverket i Sverige, Forbrugerombudsmanden i Danmark).",
+
+    "changesTitle": "10. Endring av vilkårene",
+    "changesText": "Dawah Norway kan endre disse vilkårene. Vesentlige endringer som påvirker dine forpliktelser, varsles per e-post eller på donasjonssiden minst 30 dager før de trer i kraft. Du kan når som helst si opp avtalen dersom du ikke ønsker å akseptere endringene.",
+
+    "lawTitle": "11. Lovvalg og verneting",
+    "lawText": "Avtalen reguleres av norsk rett. Tvister som ikke kan løses i minnelighet, behandles ved Oslo tingrett som verneting, med mindre ufravikelig forbrukerlovgivning fastsetter annet."
   }
 }

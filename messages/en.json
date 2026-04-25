@@ -303,5 +303,68 @@
     "changesText": "We may update these terms periodically. Continued use of the site after changes constitutes acceptance of the updated terms.",
     "contactTitle": "Contact",
     "contactText": "Questions about these terms? Email info@dawahnorway.com."
+  },
+  "donationAgreement": {
+    "title": "Recurring Donation Agreement Terms",
+    "updated": "Last updated: 25 April 2026",
+    "intro": "These terms govern recurring donations made to Dawah Norway through Vipps. By creating a recurring donation you accept these terms.",
+
+    "recipientTitle": "1. The recipient",
+    "recipientName": "Name: Dawah Norway (non-profit organisation, founded 2021)",
+    "recipientOrgnr": "Organisation number: 931 087 509 (registered in the Norwegian Register of Legal Entities, Brønnøysundregistrene)",
+    "recipientAddress": "Address: Østre Aker vei 101, 0596 Oslo, Norway",
+    "recipientEmail": "Email: info@dawahnorway.com",
+    "recipientPhone": "Phone: +47 489 20 006",
+    "recipientWebsite": "Website: https://www.dawahnorway.com",
+
+    "coverageTitle": "2. What the agreement covers",
+    "coverageText": "By creating a recurring donation via Vipps you enter into an agreement authorising repeated charges of an amount of your choice in favour of Dawah Norway. The donation supports the organisation's dawah and educational work in Norway, including information stands, distribution of Qurans and literature, courses, lectures, and follow-up with new Muslims.",
+
+    "amountTitle": "3. Amount and frequency",
+    "amountAmount": "Amount: You choose the amount when creating the agreement, within the limits shown on the donation page (minimum NOK 10, maximum NOK 100,000 per charge).",
+    "amountFrequency": "Frequency: Charges occur monthly, on the same calendar date the agreement was created, until the agreement is cancelled.",
+    "amountChange": "Changing amount or frequency: To change the amount or frequency, cancel the existing agreement and create a new one on the donation page.",
+
+    "paymentTitle": "4. Payment and receipt",
+    "paymentVipps": "Charges are executed by Vipps MobilePay AS on behalf of Dawah Norway, against the payment card or account you have linked to Vipps.",
+    "paymentReceipt": "A receipt for each charge is delivered automatically inside the Vipps app.",
+    "paymentFail": "If a charge fails (e.g. insufficient funds or expired card), Vipps will retry according to its standard procedures. The agreement is not automatically terminated by isolated failed charges.",
+
+    "natureTitle": "5. Nature of the donation — no consideration",
+    "natureText": "The donation is a voluntary gift to a non-profit organisation. No goods or services are provided in return. The donation is not a purchase or consumer contract.",
+
+    "refundTitle": "6. Right of withdrawal and refund",
+    "refundWithdrawal": "Right of withdrawal: Voluntary donations to non-profits generally fall outside the scope of the Norwegian Right of Withdrawal Act (Angrerettloven, Act No. 27 of 20 June 2014). As a matter of good practice, Dawah Norway will refund a single charge on request within 14 days of the charge date if it was made in error or you change your mind.",
+    "refundHow": "How to request a refund: Email info@dawahnorway.com with the donor's name, date, and amount. The refund is returned to the same payment source that was charged.",
+    "refundOlder": "Charges older than 14 days are not normally refunded, but will be considered individually in special circumstances (e.g. unauthorised use).",
+
+    "cancelTitle": "7. Cancelling the agreement",
+    "cancelIntro": "You may cancel the recurring agreement at any time, without giving a reason:",
+    "cancelStep1": "Open the Vipps app on your phone.",
+    "cancelStep2": "Go to Profile → Agreements (or Settings → Agreements and payments).",
+    "cancelStep3": "Select the agreement with Dawah Norway and tap End agreement.",
+    "cancelOutro": "Cancellation takes effect immediately and no further charges will be made. You can also ask Dawah Norway to terminate the agreement by sending an email to info@dawahnorway.com.",
+
+    "dataTitle": "8. Processing of personal data",
+    "dataIntro": "Dawah Norway is the data controller for personal data processed in connection with the donation.",
+    "dataReceive": "What we receive from Vipps: name, partial mobile number, agreement ID, and confirmation of completed charges. We do not receive card numbers or full payment details.",
+    "dataPurpose": "Purpose: performing the donation agreement, accounting, and statutory record-keeping.",
+    "dataBasis": "Legal basis: performance of a contract (GDPR Art. 6(1)(b)) and legal obligation (GDPR Art. 6(1)(c) — Norwegian Bookkeeping Act).",
+    "dataRetention": "Retention period: accounting records are retained for 5 years after the end of the financial year, per the Bookkeeping Act § 13.",
+    "dataRights": "Your rights: you have the right of access, rectification, erasure, restriction, and data portability under the GDPR. Requests are sent to info@dawahnorway.com.",
+    "dataComplaints": "Complaints: if you believe we are processing your personal data unlawfully, you may complain to the Norwegian Data Protection Authority (Datatilsynet — postkasse@datatilsynet.no, www.datatilsynet.no).",
+    "dataVipps": "Vipps' own processing of payment data is governed by the Vipps MobilePay AS privacy policy: https://vipps.no/personvern.",
+
+    "complaintsTitle": "9. Complaints and customer service",
+    "complaintsIntro": "Complaints and enquiries about the donation agreement should be directed to:",
+    "complaintsEmail": "Email: info@dawahnorway.com",
+    "complaintsPhone": "Phone: +47 489 20 006",
+    "complaintsTime": "We aim to respond to enquiries within 14 days. If a complaint cannot be resolved, the matter may be referred to the Norwegian Consumer Authority (Forbrukertilsynet — www.forbrukertilsynet.no) or the equivalent body in your home country (Konsumentverket in Sweden, Forbrugerombudsmanden in Denmark).",
+
+    "changesTitle": "10. Changes to these terms",
+    "changesText": "Dawah Norway may amend these terms. Material changes that affect your obligations will be notified by email or on the donation page at least 30 days before they take effect. You may cancel the agreement at any time if you do not wish to accept the changes.",
+
+    "lawTitle": "11. Governing law and venue",
+    "lawText": "This agreement is governed by Norwegian law. Disputes that cannot be resolved amicably shall be heard by Oslo District Court (Oslo tingrett), unless mandatory consumer-protection legislation provides otherwise."
   }
 }
