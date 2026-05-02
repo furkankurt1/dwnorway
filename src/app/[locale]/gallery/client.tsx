@@ -12,10 +12,28 @@ import StaggerChildren, {
 import Breadcrumb from "@/components/Breadcrumb";
 import { siteConfig } from "@/config/site";
 
+// Maps the English caption stored in `siteConfig.gallery` to a translation
+// key so alt text + visible captions become locale-aware. Captions in the
+// config stay English (used as fallback + for Open Graph / sitemap) but the
+// rendered UI uses the translated form.
+const CAPTION_KEY: Record<string, string> = {
+  "Dawah Stand": "captionDawahStand",
+  "Street Outreach": "captionStreetOutreach",
+  "Community Event": "captionCommunityEvent",
+  "Quran Distribution": "captionQuranDistribution",
+  "Team Gathering": "captionTeamGathering",
+  "Public Lecture": "captionPublicLecture",
+};
+
 export default function GalleryPage() {
   const t = useTranslations("gallery");
   const nav = useTranslations("nav");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const localizedCaption = (caption: string): string => {
+    const key = CAPTION_KEY[caption];
+    return key ? t(key as Parameters<typeof t>[0]) : caption;
+  };
 
   const close = useCallback(() => setActiveIndex(null), []);
   const prev = useCallback(
@@ -69,30 +87,33 @@ export default function GalleryPage() {
       <section className="section-py-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-            {siteConfig.gallery.map((img, i) => (
-              <StaggerItem key={img.src}>
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex(i)}
-                  data-press
-                  className="relative aspect-square w-full overflow-hidden rounded-xl bg-[var(--color-light)] group cursor-pointer"
-                  aria-label={img.caption}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.caption}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="text-white text-sm font-medium">
-                      {img.caption}
-                    </span>
-                  </div>
-                </button>
-              </StaggerItem>
-            ))}
+            {siteConfig.gallery.map((img, i) => {
+              const caption = localizedCaption(img.caption);
+              return (
+                <StaggerItem key={img.src}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    data-press
+                    className="relative aspect-square w-full overflow-hidden rounded-xl bg-[var(--color-light)] group cursor-pointer"
+                    aria-label={caption}
+                  >
+                    <Image
+                      src={img.src}
+                      alt={caption}
+                      fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <span className="text-white text-sm font-medium">
+                        {caption}
+                      </span>
+                    </div>
+                  </button>
+                </StaggerItem>
+              );
+            })}
           </StaggerChildren>
         </div>
       </section>
@@ -184,14 +205,14 @@ export default function GalleryPage() {
             >
               <Image
                 src={active.src}
-                alt={active.caption}
+                alt={localizedCaption(active.caption)}
                 fill
                 sizes="100vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
               <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full pointer-events-none">
-                {active.caption}
+                {localizedCaption(active.caption)}
               </p>
             </motion.div>
           </motion.div>

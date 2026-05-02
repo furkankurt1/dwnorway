@@ -219,7 +219,10 @@ export const seo: Record<Locale, Record<Routes, SeoEntry>> = {
       ],
     },
     "/new-muslims": {
-      title: "Ny Muslim — Veiledning, Shahada og støtte i Norge",
+      // Trimmed from "Ny Muslim — Veiledning, Shahada og støtte i Norge"
+      // (66 chars including the brand suffix → SERP truncation). 49 chars
+      // body keeps the | Dawah Norge suffix under the 60-char threshold.
+      title: "Bli Muslim i Norge — Shahada og veiledning",
       description:
         "Velkommen til Islam. En komplett guide for nye muslimer i Norge: hvordan ta Shahada, lære bønnen, finne mentorer, få gratis Koran og fellesskapsstøtte.",
       keywords: [

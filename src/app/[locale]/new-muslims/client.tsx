@@ -10,6 +10,7 @@ import StaggerChildren, {
 import HoverCard from "@/components/ui/HoverCard";
 import { ButtonLink } from "@/components/ui/Button";
 import Breadcrumb from "@/components/Breadcrumb";
+import ArticleMeta from "@/components/ArticleMeta";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 import {
@@ -73,15 +74,18 @@ export default function NewMuslimsPage() {
         <div className="relative z-10 text-white py-24 md:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-6 tracking-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-2 tracking-tight"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: STRONG_OUT }}
             >
               {t("title")}
             </motion.h1>
+            <div className="text-gray-300">
+              <ArticleMeta updated="2026-05-02" />
+            </div>
             <motion.p
-              className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed"
+              className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2, ease: STRONG_OUT }}

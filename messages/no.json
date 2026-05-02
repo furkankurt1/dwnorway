@@ -183,7 +183,18 @@
     "address": "Adresse",
     "phoneLabel": "Telefon",
     "copy": "Kopier til utklippstavle",
-    "copied": "Kopiert!"
+    "copied": "Kopiert!",
+    "faqTitle": "Ofte stilte spørsmål",
+    "faqQ1": "Hvilke byer i Norge er dere aktive i?",
+    "faqA1": "Dawah Norge har lokale team i seks byer: Oslo, Trondheim, Stavanger, Kristiansand, Tromsø og Østfold. Vi reiser også til andre steder ved henvendelse.",
+    "faqQ2": "Hvor raskt får jeg svar på en henvendelse?",
+    "faqA2": "Vi tar sikte på å svare innen 1–3 virkedager. For akutte spørsmål om Shahada eller mentor-tilbud, ring +47 489 20 006.",
+    "faqQ3": "Kan jeg be om en gratis Koran på norsk?",
+    "faqA3": "Ja. Send en melding via skjemaet eller e-post til info@dawahnorway.com med navn og adresse, så sender vi en gratis Koran kostnadsfritt i hele Norge.",
+    "faqQ4": "Tilbyr dere personlig veiledning for nye muslimer?",
+    "faqA4": "Ja. Vi tilbyr en-til-en mentorskap på norsk eller engelsk. Bruk kontaktskjemaet og skriv «mentor» i meldingen, så kobler vi deg til en passende mentor.",
+    "faqQ5": "Holder dere foredrag eller kurs på skoler og universiteter?",
+    "faqA5": "Ja. Vi holder informasjonsforedrag, dawah-stands og dialogarrangementer for skoler, universiteter og lokale fellesskap. Send en henvendelse med dato og sted, så svarer vi innen kort tid."
   },
   "donate": {
     "title": "Donasjoner på Nett",
@@ -223,7 +234,17 @@
     "completeCheckingText": "Sjekker betalingen din…",
     "completeFailedTitle": "Betalingen ble ikke fullført",
     "completeFailedText": "Vi kunne ikke bekrefte donasjonen din. Hvis du ble belastet, kontakt oss på info@dawahnorway.com.",
-    "receiptSent": "En kvittering er sendt til {email}"
+    "receiptSent": "En kvittering er sendt til {email}",
+    "whyTitle": "Hvor går donasjonen din?",
+    "whyIntro": "Dawah Norge er en ideell organisasjon registrert i Brønnøysundregistrene (org.nr. 931 087 509). Hver krone du donerer går direkte til vårt dawah-arbeid i Norge — vi har ingen lønnede stillinger, og alt arbeid utføres av frivillige.",
+    "whyUse1Title": "Gratis Koraner og islamsk litteratur",
+    "whyUse1Text": "Vi har distribuert over 50 000 gratis Koraner og 80 000+ islamske bøker og brosjyrer i hele Norge — på norsk, engelsk, arabisk og andre språk.",
+    "whyUse2Title": "Dawah-stands og foredrag",
+    "whyUse2Text": "Vi driver informasjonsstands i Oslo, Trondheim, Stavanger, Kristiansand, Tromsø og Østfold, og holder foredrag for skoler, universiteter og lokalsamfunn.",
+    "whyUse3Title": "Støtte til nye muslimer",
+    "whyUse3Text": "Personlig mentorskap, bønnemattedistribusjon og oppfølging for over 1 000 personer som har akseptert Islam gjennom vårt arbeid siden 2021.",
+    "transparencyTitle": "Trygt og transparent",
+    "transparencyText": "Donasjonene behandles av Vipps MobilePay AS, Stripe Payments Europe (PCI-DSS-sertifisert) og PayPal. Vi lagrer aldri kortinformasjonen din. Regnskapsbilag oppbevares i 5 år i henhold til bokføringsloven § 13. Du kan når som helst be om innsyn i hvordan donasjonen din ble brukt ved å kontakte info@dawahnorway.com."
   },
   "footer": {
     "connectTitle": "Kontakt Dawah Norge",
@@ -241,7 +262,13 @@
   },
   "notFound": {
     "message": "Siden ble ikke funnet",
-    "home": "Til forsiden"
+    "home": "Til forsiden",
+    "exploreTitle": "Kanskje du leter etter noe av dette",
+    "exploreWhyIslam": "Hvorfor Islam?",
+    "exploreNewMuslims": "Bli muslim — Veiledning på norsk",
+    "exploreMuhammad": "Hvem er Muhammad ﷺ?",
+    "exploreDonate": "Doner — Støtt dawah i Norge",
+    "exploreContact": "Kontakt oss"
   },
   "cookies": {
     "title": "Vi verdsetter ditt personvern",
@@ -275,11 +302,11 @@
     "ctaText": "Utforsk hvordan du omfavner Islam og blir en del av vårt fellesskap.",
     "ctaBtn": "Bli Muslim",
     "exploreMoreTitle": "Fortsett å lese",
-    "exploreMuhammad": "Hvem er Muhammad ﷺ?",
+    "exploreMuhammad": "Lær om Profeten Muhammad ﷺ",
     "exploreMuhammadText": "Oppdag livet og karakteren til Islams siste profet.",
-    "exploreNewMuslims": "Å bli muslim",
+    "exploreNewMuslims": "Slik tar du Shahada — bli muslim",
     "exploreNewMuslimsText": "Trinnvis veiledning for å omfavne Islam og støtten som venter deg i Norge.",
-    "exploreAbout": "Om Dawah Norge",
+    "exploreAbout": "Møt Dawah Norge-teamet",
     "exploreAboutText": "Møt teamet bak Norges voksende dawah-fellesskap."
   },
   "muhammad": {
@@ -315,17 +342,23 @@
     "shawQuote": "Verden har et sterkt behov for en mann med Muhammads sinn. Jeg kom til den konklusjon at han aldri var en fiende av kristendommen, og må heller kalles menneskehetens frelser.",
     "shawRef": "George Bernard Shaw",
     "exploreMoreTitle": "Fortsett å lese",
-    "exploreWhyIslam": "Hvorfor Islam?",
+    "exploreWhyIslam": "Forstå hvorfor folk omfavner Islam",
     "exploreWhyIslamText": "Åtte grunner til at folk omfavner Islam — fra en klar gudsforståelse til en balansert livsstil.",
-    "exploreNewMuslims": "Å bli muslim",
+    "exploreNewMuslims": "Bli muslim — start din reise",
     "exploreNewMuslimsText": "Hvordan ta Shahada, dine første steg som muslim, og støtten som venter deg i Norge.",
-    "exploreAbout": "Om Dawah Norge",
+    "exploreAbout": "Om Dawah Norge i Norge",
     "exploreAboutText": "Møt teamet som har delt dette budskapet i hele Norge siden 2021."
   },
   "gallery": {
     "title": "Galleri",
     "intro": "Øyeblikk fra våre dawah-stands, fellesskapsarrangementer, foredrag og koran-distribusjon i hele Norge.",
-    "close": "Lukk"
+    "close": "Lukk",
+    "captionDawahStand": "Dawah-stand i Norge",
+    "captionStreetOutreach": "Gateoppsøkende arbeid",
+    "captionCommunityEvent": "Fellesskapsarrangement",
+    "captionQuranDistribution": "Gratis Koran-distribusjon",
+    "captionTeamGathering": "Dawah-team-samling",
+    "captionPublicLecture": "Islamsk foredrag i Norge"
   },
   "privacy": {
     "title": "Personvernerklæring",

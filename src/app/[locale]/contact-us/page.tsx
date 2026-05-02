@@ -3,6 +3,7 @@ import {
   generatePageMetadata,
   breadcrumbJsonLd,
   contactPageJsonLd,
+  faqJsonLd,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
@@ -36,6 +37,12 @@ export default async function Page({
     name: seo.title,
     description: seo.description,
   });
+  const faq = faqJsonLd(
+    [1, 2, 3, 4, 5].map((i) => ({
+      question: tContact(`faqQ${i}` as "faqQ1"),
+      answer: tContact(`faqA${i}` as "faqA1"),
+    }))
+  );
 
   return (
     <>
@@ -46,6 +53,10 @@ export default async function Page({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contact) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
       <ContactUsPage />
     </>

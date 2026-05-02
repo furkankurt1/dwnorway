@@ -11,6 +11,7 @@ import HoverCard from "@/components/ui/HoverCard";
 import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
 import Breadcrumb from "@/components/Breadcrumb";
+import ArticleMeta from "@/components/ArticleMeta";
 import {
   FaHeart,
   FaSun,
@@ -57,12 +58,15 @@ export default function WhyIslamPage() {
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center text-white">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-6 tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-2 tracking-tight">
               {t("title")}
             </h1>
+            <div className="text-gray-300">
+              <ArticleMeta updated="2026-05-02" />
+            </div>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4">
               {t("intro")}
             </p>
           </FadeIn>

@@ -128,9 +128,9 @@
     "faqQ5": "Can I get a free Quran?",
     "faqA5": "Yes — we distribute free Qurans across Norway. Use the contact form or email info@dawahnorway.com.",
     "exploreMoreTitle": "Continue Exploring",
-    "exploreWhyIslam": "Why Islam?",
-    "exploreMuhammad": "Who is Muhammad ﷺ?",
-    "exploreAbout": "About Dawah Norway"
+    "exploreWhyIslam": "Why people choose Islam",
+    "exploreMuhammad": "Learn about the Prophet Muhammad ﷺ",
+    "exploreAbout": "Meet the Dawah Norway team"
   },
   "about": {
     "title": "About Us",
@@ -183,7 +183,18 @@
     "address": "Address",
     "phoneLabel": "Phone",
     "copy": "Copy to clipboard",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "faqTitle": "Frequently asked questions",
+    "faqQ1": "Which Norwegian cities are you active in?",
+    "faqA1": "Dawah Norway has local teams in six cities: Oslo, Trondheim, Stavanger, Kristiansand, Tromsø, and Østfold. We also travel to other locations on request.",
+    "faqQ2": "How fast will you reply?",
+    "faqA2": "We aim to respond within 1–3 business days. For urgent questions about Shahada or mentor requests, call +47 489 20 006.",
+    "faqQ3": "Can I request a free Quran in Norwegian?",
+    "faqA3": "Yes. Send a message via the form or email info@dawahnorway.com with your name and address — we ship a free Quran anywhere in Norway at no cost.",
+    "faqQ4": "Do you offer one-to-one mentorship for new Muslims?",
+    "faqA4": "Yes. We offer one-to-one mentorship in Norwegian or English. Use the contact form and write 'mentor' in your message; we'll match you with a suitable mentor.",
+    "faqQ5": "Do you give talks at schools and universities?",
+    "faqA5": "Yes. We hold information talks, dawah stands and dialogue events for schools, universities and local communities. Send a request with date and location and we'll respond promptly."
   },
   "donate": {
     "title": "Online Donations",
@@ -223,7 +234,17 @@
     "completeCheckingText": "Checking your payment…",
     "completeFailedTitle": "Payment not completed",
     "completeFailedText": "We couldn't confirm your donation. If you were charged, please contact us at info@dawahnorway.com.",
-    "receiptSent": "A receipt has been sent to {email}"
+    "receiptSent": "A receipt has been sent to {email}",
+    "whyTitle": "Where does your donation go?",
+    "whyIntro": "Dawah Norway is a non-profit registered with the Norwegian Brønnøysundregistrene (org.nr 931 087 509). Every krone you donate goes directly to our dawah work in Norway — we have no paid positions; everything is done by volunteers.",
+    "whyUse1Title": "Free Qurans and Islamic literature",
+    "whyUse1Text": "We have distributed over 50,000 free Qurans and 80,000+ Islamic books and pamphlets across Norway — in Norwegian, English, Arabic and other languages.",
+    "whyUse2Title": "Dawah stands and lectures",
+    "whyUse2Text": "We run information stands in Oslo, Trondheim, Stavanger, Kristiansand, Tromsø and Østfold, and give talks at schools, universities and local communities.",
+    "whyUse3Title": "Support for new Muslims",
+    "whyUse3Text": "One-to-one mentorship, prayer-mat distribution and follow-up for over 1,000 people who have embraced Islam through our work since 2021.",
+    "transparencyTitle": "Secure and transparent",
+    "transparencyText": "Donations are processed by Vipps MobilePay AS, Stripe Payments Europe (PCI-DSS certified) and PayPal. We never store your card details. Accounting records are retained for 5 years per Norwegian Bookkeeping Act § 13. You can request a breakdown of how your donation was used at any time by emailing info@dawahnorway.com."
   },
   "footer": {
     "connectTitle": "Connect with Dawah Norway",
@@ -241,7 +262,13 @@
   },
   "notFound": {
     "message": "Page not found",
-    "home": "Go home"
+    "home": "Go home",
+    "exploreTitle": "Maybe you're looking for one of these",
+    "exploreWhyIslam": "Why Islam?",
+    "exploreNewMuslims": "Becoming a Muslim — Guide for new Muslims",
+    "exploreMuhammad": "Who is Muhammad ﷺ?",
+    "exploreDonate": "Donate — Support dawah in Norway",
+    "exploreContact": "Contact us"
   },
   "cookies": {
     "title": "We value your privacy",
@@ -275,11 +302,11 @@
     "ctaText": "Explore how to embrace Islam and connect with our community.",
     "ctaBtn": "Become a Muslim",
     "exploreMoreTitle": "Continue Reading",
-    "exploreMuhammad": "Who is Muhammad ﷺ?",
+    "exploreMuhammad": "Learn about the Prophet Muhammad ﷺ",
     "exploreMuhammadText": "Discover the life and character of Islam's final prophet.",
-    "exploreNewMuslims": "Becoming a Muslim",
+    "exploreNewMuslims": "Take the Shahada — become a Muslim",
     "exploreNewMuslimsText": "Step-by-step guide to embracing Islam and the support waiting for you in Norway.",
-    "exploreAbout": "About Dawah Norway",
+    "exploreAbout": "Meet the Dawah Norway team",
     "exploreAboutText": "Meet the team behind Norway's growing dawah community."
   },
   "muhammad": {
@@ -315,17 +342,23 @@
     "shawQuote": "The world is in dire need of a man with the mind of Muhammad. I came to the conclusion that he was never an enemy of Christianity, and must be called instead the saviour of humanity.",
     "shawRef": "George Bernard Shaw",
     "exploreMoreTitle": "Continue Reading",
-    "exploreWhyIslam": "Why Islam?",
+    "exploreWhyIslam": "Understand why people choose Islam",
     "exploreWhyIslamText": "Eight reasons people embrace Islam — from a clear understanding of God to a balanced way of life.",
-    "exploreNewMuslims": "Becoming a Muslim",
+    "exploreNewMuslims": "Become a Muslim — start your journey",
     "exploreNewMuslimsText": "How to take the Shahada, your first steps as a Muslim, and the support waiting for you in Norway.",
-    "exploreAbout": "About Dawah Norway",
+    "exploreAbout": "About Dawah Norway in Norway",
     "exploreAboutText": "Meet the team sharing this message across Norway since 2021."
   },
   "gallery": {
     "title": "Gallery",
     "intro": "Moments from our dawah stands, community events, lectures, and Quran distributions across Norway.",
-    "close": "Close"
+    "close": "Close",
+    "captionDawahStand": "Dawah stand in Norway",
+    "captionStreetOutreach": "Street outreach",
+    "captionCommunityEvent": "Community event",
+    "captionQuranDistribution": "Free Quran distribution",
+    "captionTeamGathering": "Dawah team gathering",
+    "captionPublicLecture": "Islamic lecture in Norway"
   },
   "privacy": {
     "title": "Privacy Policy",

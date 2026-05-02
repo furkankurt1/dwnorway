@@ -390,6 +390,37 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ — visible mirror of the FAQPage JSON-LD on the server page. */}
+      <section className="section-py-sm bg-[var(--color-light)]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-10 text-center">
+              {t("faqTitle")}
+            </h2>
+          </FadeIn>
+          <div className="space-y-4">
+            {([1, 2, 3, 4, 5] as const).map((i) => (
+              <FadeIn key={i} delay={i * 0.05}>
+                <details className="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 group">
+                  <summary className="cursor-pointer font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] list-none flex items-center justify-between gap-4">
+                    <span>{t(`faqQ${i}` as "faqQ1")}</span>
+                    <span
+                      aria-hidden="true"
+                      className="text-[var(--color-gold)] transition-transform duration-200 group-open:rotate-45 text-2xl leading-none"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="text-[var(--color-gray)] leading-relaxed mt-4">
+                    {t(`faqA${i}` as "faqA1")}
+                  </p>
+                </details>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

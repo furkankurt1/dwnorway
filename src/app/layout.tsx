@@ -8,6 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ReadingProgress from "@/components/ReadingProgress";
 import CookieConsent from "@/components/CookieConsent";
 import NavigationProgress from "@/components/NavigationProgress";
+import ServiceWorker from "@/components/ServiceWorker";
 import {
   organizationJsonLd,
   webSiteJsonLd,
@@ -100,6 +101,9 @@ export default async function RootLayout({
       <head>
         <meta name="color-scheme" content="light" />
         <meta name="supported-color-schemes" content="light" />
+        {/* Bing/Yandex treat hreflang as a weak signal — supplement with
+            content-language meta. Mirrors the html `lang` attribute. */}
+        <meta httpEquiv="content-language" content={htmlLang(locale)} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -131,6 +135,7 @@ export default async function RootLayout({
           <Footer />
           <ScrollToTop />
           <CookieConsent />
+          <ServiceWorker />
         </NextIntlClientProvider>
       </body>
     </html>

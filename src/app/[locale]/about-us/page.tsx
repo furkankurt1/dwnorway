@@ -41,9 +41,12 @@ export default async function Page({
     personJsonLd({
       name: member.name,
       jobTitle: member.role,
+      // Real headshots take precedence; fall back to the org OG image so
+      // every Person entity has *some* image URL — without one, Google
+      // sometimes drops the entity from the knowledge-graph display.
       image: member.image
         ? `${siteConfig.url}${member.image}`
-        : undefined,
+        : `${siteConfig.url}/images/og-default.jpg`,
     })
   );
 

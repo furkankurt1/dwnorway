@@ -538,6 +538,46 @@ export default function DonatePage() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Where the money goes — content depth + transparency.
+          Doubles as topical content for "doner islam norge" / "muslimsk
+          veldedighet norge" queries that the form-only page couldn't cover. */}
+      <section className="section-py-sm bg-[var(--color-light)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-4 text-center">
+              {t("whyTitle")}
+            </h2>
+            <p className="text-[var(--color-gray)] leading-relaxed text-center max-w-3xl mx-auto mb-12">
+              {t("whyIntro")}
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+            {(["whyUse1", "whyUse2", "whyUse3"] as const).map((key, i) => (
+              <FadeIn key={key} delay={i * 0.07}>
+                <div className="bg-white border border-gray-100 rounded-2xl p-6 h-full">
+                  <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-3 text-[var(--color-dark)]">
+                    {t(`${key}Title` as "whyUse1Title")}
+                  </h3>
+                  <p className="text-[var(--color-gray)] text-sm leading-relaxed">
+                    {t(`${key}Text` as "whyUse1Text")}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn>
+            <div className="bg-white border border-[var(--color-gold)]/30 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto">
+              <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-3 text-[var(--color-dark)]">
+                {t("transparencyTitle")}
+              </h3>
+              <p className="text-[var(--color-gray)] leading-relaxed text-sm">
+                {t("transparencyText")}
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
     </>
   );
 }

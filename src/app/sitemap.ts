@@ -61,6 +61,20 @@ const CHANGE_FREQ: Record<
   "/donation-agreement": "yearly",
 };
 
+// Hero image for each route — surfaced in the image sitemap so Google
+// Images has a concrete URL per page (in addition to the per-image
+// schemas we already emit on /gallery). Not every page has one; if a
+// route is missing here it just gets no <image:image> entry.
+const HERO_IMAGES: Record<string, string> = {
+  "/": "/images/mosque-interior.jpg",
+  "/why-islam": "/images/why-islam.webp",
+  "/who-is-muhammad": "/images/muhammad-pbuh.webp",
+  "/new-muslims": "/images/mosque-dome.jpg",
+  "/about-us": "/images/about-hero.svg",
+  "/donate": "/images/donate-hero.svg",
+  "/contact-us": "/images/about-hero.svg",
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = Object.keys(LAST_UPDATED);
 
@@ -84,6 +98,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         entry.images = siteConfig.gallery.map(
           (img) => `${BASE_URL}${img.src}`
         );
+      } else if (HERO_IMAGES[route]) {
+        entry.images = [`${BASE_URL}${HERO_IMAGES[route]}`];
       }
 
       return entry;
