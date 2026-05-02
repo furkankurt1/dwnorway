@@ -15,6 +15,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
 import TikTokEmbed from "@/components/TikTokEmbed";
+import HeroTikTok from "@/components/HeroTikTok";
 import { siteConfig } from "@/config/site";
 import {
   FaFacebookF,
@@ -53,8 +54,8 @@ export default function HomePage() {
     <>
       {/* ───────── Hero ───────── */}
       <ParallaxSection
-        backgroundImages={siteConfig.homeGallery}
-        cycleInterval={4000}
+        backgroundImages={siteConfig.heroSlideshow}
+        cycleInterval={3000}
         overlayColor="rgba(10, 22, 40, 0.42)"
         className="text-white"
         minHeight="auto"
@@ -95,11 +96,32 @@ export default function HomePage() {
 
             {/* Center text */}
             <div className="lg:col-span-6 text-center flex flex-col items-center">
+              {/* Brand icon — only the praying-figure-in-arch portion of
+                  icon-512.png is shown by clipping to a fixed-size frame and
+                  positioning an oversized copy of the asset inside. Avoids a
+                  separate icon-only file. Aria-hidden because the H1 below
+                  carries the brand name for SR users. */}
+              <motion.div
+                className="relative mb-4 overflow-hidden mx-auto w-24 h-24"
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: -6 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: STRONG_OUT }}
+                aria-hidden="true"
+              >
+                <Image
+                  src="/icon-512.png"
+                  alt=""
+                  width={189}
+                  height={189}
+                  priority
+                  className="absolute max-w-none -top-[30px] -left-[46px]"
+                />
+              </motion.div>
               <motion.h1
                 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: STRONG_OUT }}
+                transition={{ duration: 0.5, delay: 0.05, ease: STRONG_OUT }}
               >
                 {hero("title")}
               </motion.h1>
@@ -148,6 +170,9 @@ export default function HomePage() {
                   <FaHeart size={14} aria-hidden="true" />
                   {hero("donateCta")}
                 </ButtonLink>
+                <p className="text-xs md:text-sm font-[family-name:var(--font-heading)] uppercase tracking-[0.14em] text-[var(--color-gold)]/95 leading-snug text-center px-2">
+                  {hero("donateLastingTagline")}
+                </p>
               </motion.div>
 
               {/* Secondary: follow on social. Smaller, less attention-grabbing
@@ -179,34 +204,19 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Right service photos — desktop only */}
-            <div className="hidden lg:flex lg:col-span-3 flex-col gap-5">
+            {/* Right side — TikTok video (desktop only). Replaces the
+                pair of photos that used to live here so visitors get a live
+                taste of the on-the-ground dawah work right in the hero. */}
+            <div className="hidden lg:flex lg:col-span-3 flex-col">
               <motion.div
-                className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 mr-8"
+                className="relative w-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 16, rotate: 5 }}
-                animate={{ opacity: 1, x: 0, rotate: 3 }}
+                animate={{ opacity: 1, x: 0, rotate: 2 }}
                 transition={{ duration: 0.55, delay: 0.35, ease: STRONG_OUT }}
               >
-                <Image
-                  src={siteConfig.homeGallery[2]}
-                  alt={t("whyQuran")}
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
-              </motion.div>
-              <motion.div
-                className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 16, rotate: -5 }}
-                animate={{ opacity: 1, x: 0, rotate: -4 }}
-                transition={{ duration: 0.55, delay: 0.5, ease: STRONG_OUT }}
-              >
-                <Image
-                  src={siteConfig.homeGallery[3]}
-                  alt={t("whyWorkshop")}
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
+                <HeroTikTok
+                  id={siteConfig.tiktokVideos[0]}
+                  unmuteLabel={hero("videoTapForSound")}
                 />
               </motion.div>
             </div>

@@ -114,6 +114,17 @@ export const siteConfig = {
     "/dawah-norge/fellesskap-arrangement-norge-27.jpg",
   ],
 
+  // Hero parallax slideshow — restricted to dawah-stand "tent" shots so the
+  // background visually reinforces the on-the-ground outreach scene at a
+  // glance. Glimpses + side cards still use the full homeGallery for variety.
+  heroSlideshow: [
+    "/dawah-norge/dawah-stand-norge-01.jpg",
+    "/dawah-norge/dawah-stand-norge-09.jpg",
+    "/dawah-norge/dawah-stand-norge-17.jpg",
+    "/dawah-norge/dawah-stand-norge-25.jpg",
+    "/dawah-norge/dawah-stand-norge-33.jpg",
+  ],
+
   gallery: [
     ...[
       "dawah-stand-norge-01.jpg",
