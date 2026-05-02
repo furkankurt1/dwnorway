@@ -3,13 +3,17 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
 import CountUp from "@/components/animations/CountUp";
+import HoverCard from "@/components/ui/HoverCard";
+import SectionTitle from "@/components/ui/SectionTitle";
+import IconBadge from "@/components/ui/IconBadge";
+import { ButtonLink } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import {
   FaFacebookF,
@@ -28,29 +32,39 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
+
+const SOCIALS = [
+  { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
+  { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
+  { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
+  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
+].filter((s) => s.href);
+
 export default function HomePage() {
   const t = useTranslations("home");
   const hero = useTranslations("hero");
   const donate = useTranslations("donate");
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
-      {/* Hero Section with Parallax */}
+      {/* ───────── Hero ───────── */}
       <ParallaxSection
         backgroundImage="/images/mosque-interior.jpg"
         overlayColor="rgba(10, 22, 40, 0.7)"
         className="text-white"
-        minHeight="80vh"
+        minHeight="auto"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 min-h-[80vh] flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24 min-h-[68vh] md:min-h-[80vh] flex items-center">
           <div className="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
             {/* Left service photos — desktop only */}
             <div className="hidden lg:flex lg:col-span-3 flex-col gap-5">
               <motion.div
                 className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
-                initial={{ opacity: 0, x: -40, rotate: -8 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -16, rotate: -5 }}
                 animate={{ opacity: 1, x: 0, rotate: -3 }}
-                transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.55, delay: 0.35, ease: STRONG_OUT }}
               >
                 <Image
                   src={siteConfig.homeGallery[0]}
@@ -62,9 +76,9 @@ export default function HomePage() {
               </motion.div>
               <motion.div
                 className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 ml-8"
-                initial={{ opacity: 0, x: -40, rotate: 8 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -16, rotate: 5 }}
                 animate={{ opacity: 1, x: 0, rotate: 4 }}
-                transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+                transition={{ duration: 0.55, delay: 0.5, ease: STRONG_OUT }}
               >
                 <Image
                   src={siteConfig.homeGallery[1]}
@@ -80,17 +94,17 @@ export default function HomePage() {
             <div className="lg:col-span-6 text-center flex flex-col items-center">
               <motion.h1
                 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
-                initial={{ opacity: 0, y: -20 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+                transition={{ duration: 0.5, ease: STRONG_OUT }}
               >
                 {hero("title")}
               </motion.h1>
               <motion.p
                 className="text-lg md:text-xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] font-semibold mb-6"
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: STRONG_OUT }}
               >
                 {hero("tagline")}
               </motion.p>
@@ -98,7 +112,7 @@ export default function HomePage() {
                 className="max-w-2xl mx-auto mb-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.9, delay: 0.4 }}
+                transition={{ duration: 0.7, delay: 0.25 }}
               >
                 <p className="text-base md:text-lg italic text-gray-200 leading-relaxed">
                   &ldquo;{hero("quran")}&rdquo;
@@ -109,28 +123,22 @@ export default function HomePage() {
               </motion.blockquote>
               <motion.div
                 className="flex justify-center gap-3 mt-2"
-                initial={{ opacity: 0, y: 12 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                transition={{ duration: 0.45, delay: 0.4, ease: STRONG_OUT }}
               >
-                {[
-                  { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
-                  { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
-                  { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
-                  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
-                ].filter(s => s.href).map(({ icon: Icon, href, label }) => (
-                  <motion.a
+                {SOCIALS.map(({ icon: Icon, href, label }) => (
+                  <a
                     key={href}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-all duration-300"
-                    whileHover={{ scale: 1.15, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
+                    data-press
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-[background-color] duration-[280ms] ease-out"
                   >
                     <Icon size={14} aria-hidden="true" />
-                  </motion.a>
+                  </a>
                 ))}
               </motion.div>
             </div>
@@ -139,9 +147,9 @@ export default function HomePage() {
             <div className="hidden lg:flex lg:col-span-3 flex-col gap-5">
               <motion.div
                 className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 mr-8"
-                initial={{ opacity: 0, x: 40, rotate: 8 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 16, rotate: 5 }}
                 animate={{ opacity: 1, x: 0, rotate: 3 }}
-                transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.55, delay: 0.35, ease: STRONG_OUT }}
               >
                 <Image
                   src={siteConfig.homeGallery[2]}
@@ -153,9 +161,9 @@ export default function HomePage() {
               </motion.div>
               <motion.div
                 className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
-                initial={{ opacity: 0, x: 40, rotate: -8 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 16, rotate: -5 }}
                 animate={{ opacity: 1, x: 0, rotate: -4 }}
-                transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+                transition={{ duration: 0.55, delay: 0.5, ease: STRONG_OUT }}
               >
                 <Image
                   src={siteConfig.homeGallery[3]}
@@ -167,10 +175,11 @@ export default function HomePage() {
               </motion.div>
             </div>
           </div>
+
         </div>
       </ParallaxSection>
 
-      {/* Donate CTA - with charity image */}
+      {/* ───────── Donate CTA ───────── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -183,45 +192,39 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-[var(--color-gold)]/85" />
         </div>
-        <div className="relative z-10 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-white mb-4">
-              {t("donateTitle")}
-            </h2>
-            <p className="text-white/90 text-lg mb-10">{t("donateText")}</p>
-          </FadeIn>
-          <StaggerChildren className="flex flex-wrap justify-center gap-4">
-            {[
-              { key: "vipps", label: "Vipps" },
-              { key: "paypal", label: "PayPal" },
-              { key: "card", label: donate("card") },
-            ].map(({ key, label }) => (
-              <StaggerItem key={key}>
-                <Link href="/donate" aria-label={donate(key as "vipps" | "paypal" | "card")}>
-                  <motion.span
-                    className="inline-block px-10 py-3.5 bg-white text-[var(--color-gold-text)] rounded-full font-semibold shadow-lg cursor-pointer"
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
-                    }}
-                    whileTap={{ scale: 0.97 }}
+        <div className="relative z-10 section-py-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <FadeIn>
+              <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-white mb-4">
+                {t("donateTitle")}
+              </h2>
+              <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto">{t("donateText")}</p>
+            </FadeIn>
+            <StaggerChildren className="flex flex-wrap justify-center gap-4">
+              {[
+                { key: "vipps", label: "Vipps" },
+                { key: "paypal", label: "PayPal" },
+                { key: "card", label: donate("card") },
+              ].map(({ key, label }) => (
+                <StaggerItem key={key}>
+                  <ButtonLink
+                    href="/donate"
+                    variant="white"
+                    ariaLabel={donate(key as "vipps" | "paypal" | "card")}
                   >
                     {label}
-                  </motion.span>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
-        </div>
+                  </ButtonLink>
+                </StaggerItem>
+              ))}
+            </StaggerChildren>
+          </div>
         </div>
       </section>
 
-      {/* New Muslim Section - with Quran image */}
-      <section className="py-0 bg-[var(--color-light)]">
+      {/* ───────── New Muslim split ───────── */}
+      <section className="bg-[var(--color-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-            {/* Image side */}
             <FadeIn direction="left">
               <div className="relative h-[400px] lg:h-[500px] overflow-hidden rounded-2xl lg:rounded-r-none lg:rounded-l-2xl my-12 lg:my-0">
                 <Image
@@ -233,7 +236,6 @@ export default function HomePage() {
                 />
               </div>
             </FadeIn>
-            {/* Text side */}
             <div className="text-center lg:text-left py-16 lg:py-24 lg:pl-16 px-4">
               <FadeIn direction="right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-6">
@@ -243,51 +245,39 @@ export default function HomePage() {
                   {t("newMuslimText")}
                 </p>
               </FadeIn>
-              <FadeIn direction="right" delay={0.2}>
-                <Link href="/new-muslims">
-                  <motion.span
-                    className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
-                    whileHover={{
-                      backgroundColor: "#e0a242",
-                      color: "#ffffff",
-                      scale: 1.05,
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {t("newMuslimBtn")}
-                  </motion.span>
-                </Link>
+              <FadeIn direction="right" delay={0.15}>
+                <ButtonLink href="/new-muslims" variant="secondary">
+                  {t("newMuslimBtn")}
+                </ButtonLink>
               </FadeIn>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who We Are - Parallax with Quran Image */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-        {/* Fixed parallax background */}
+      {/* ───────── Who We Are ───────── */}
+      <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          // bg-fixed parallax disabled on mobile (md+ only) — mobile browsers
+          // jank-attach with bg-fixed; on touch the perf hit isn't worth it.
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed"
           style={{ backgroundImage: "url('/images/quran-reading.jpg')" }}
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-        {/* Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-32">
+        <div className="absolute inset-0 bg-[var(--color-deep)]/70" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 md:py-32">
           <FadeIn>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-heading)] font-bold text-white mb-10 leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-7xl font-[family-name:var(--font-heading)] font-bold text-white mb-8 md:mb-10 leading-tight tracking-tight">
               {t("whoWeAreTitle")}
             </h2>
           </FadeIn>
-          <FadeIn delay={0.3}>
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto mb-10">
+          <FadeIn delay={0.2}>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto mb-8 md:mb-10">
               {t("whoWeAreText")}
             </p>
           </FadeIn>
-          <FadeIn delay={0.5}>
-            <blockquote className="max-w-3xl mx-auto mt-12 border-l-4 border-[var(--color-gold)] pl-6 text-left">
-              <p className="text-lg md:text-xl italic text-gray-300 leading-relaxed">
+          <FadeIn delay={0.35}>
+            <blockquote className="max-w-3xl mx-auto mt-8 md:mt-12 border-l-4 border-[var(--color-gold)] pl-4 md:pl-6 text-left">
+              <p className="text-base md:text-lg lg:text-xl italic text-gray-300 leading-relaxed">
                 &ldquo;Our mission at Dawah Norway is to empower people with a deeper understanding of Islam. We strive to foster meaningful conversations and provide a platform for exploring Islamic teachings.&rdquo;
               </p>
             </blockquote>
@@ -295,62 +285,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Explore Islam — 3 cards linking to Why Islam, Muhammad ﷺ, New Muslims */}
-      <section className="py-24 bg-white">
+      {/* ───────── Explore Islam ───────── */}
+      <section className="section-py bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
-              {t("exploreSubtitle")}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
-              {t("exploreTitle")}
-            </h2>
-          </FadeIn>
+          <SectionTitle
+            eyebrow={t("exploreSubtitle")}
+            title={t("exploreTitle")}
+          />
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                href: "/why-islam",
-                title: t("exploreWhyTitle"),
-                text: t("exploreWhyText"),
-                icon: FaStar,
-              },
-              {
-                href: "/who-is-muhammad",
-                title: t("exploreMuhammadTitle"),
-                text: t("exploreMuhammadText"),
-                icon: FaMosque,
-              },
-              {
-                href: "/new-muslims",
-                title: t("exploreNewTitle"),
-                text: t("exploreNewText"),
-                icon: FaQuran,
-              },
+              { href: "/why-islam", title: t("exploreWhyTitle"), text: t("exploreWhyText"), icon: FaStar },
+              { href: "/who-is-muhammad", title: t("exploreMuhammadTitle"), text: t("exploreMuhammadText"), icon: FaMosque },
+              { href: "/new-muslims", title: t("exploreNewTitle"), text: t("exploreNewText"), icon: FaQuran },
             ].map((card) => (
               <StaggerItem key={card.href}>
-                <Link href={card.href} className="block h-full">
-                  <motion.div
-                    className="bg-[var(--color-light)] rounded-2xl p-10 h-full flex flex-col text-center"
-                    whileHover={{ y: -8, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
-                    transition={{ duration: 0.3 }}
+                <Link href={card.href} className="block h-full" data-press>
+                  <HoverCard
+                    className="bg-[var(--color-light)] rounded-2xl p-6 sm:p-8 md:p-10 h-full flex flex-col text-center"
                   >
-                    <motion.div
-                      className="w-16 h-16 bg-[var(--color-gold)]/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                      whileHover={{ backgroundColor: "#e0a242", scale: 1.1 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <card.icon className="text-[var(--color-gold)]" size={26} />
-                    </motion.div>
+                    <IconBadge icon={card.icon} size="lg" className="mx-auto mb-6" />
                     <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-4 text-[var(--color-dark)]">
                       {card.title}
                     </h3>
                     <p className="text-[var(--color-gray)] flex-grow mb-6">
                       {card.text}
                     </p>
-                    <span className="text-[var(--color-gold-text)] font-semibold mt-auto">
+                    <span className="text-[var(--color-gold-text)] font-semibold mt-auto link-animated self-center">
                       {t("exploreLearnMore")} →
                     </span>
-                  </motion.div>
+                  </HoverCard>
                 </Link>
               </StaggerItem>
             ))}
@@ -358,163 +321,101 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-[var(--color-dark)]">
+      {/* ───────── Stats ───────── */}
+      <section className="section-py-sm bg-[var(--color-dark)]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
-            <div>
-              <CountUp
-                end={siteConfig.stats.converts}
-                suffix="+"
-                className="text-5xl md:text-6xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold)]"
-              />
-              <p className="mt-3 text-gray-400 text-lg">
-                {t("statsConverts")}
-              </p>
-            </div>
-            <div>
-              <CountUp
-                end={siteConfig.stats.qurans}
-                suffix="+"
-                className="text-5xl md:text-6xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold)]"
-              />
-              <p className="mt-3 text-gray-400 text-lg">{t("statsQurans")}</p>
-            </div>
-            <div>
-              <CountUp
-                end={siteConfig.stats.literature}
-                suffix="+"
-                className="text-5xl md:text-6xl font-[family-name:var(--font-heading)] font-bold text-[var(--color-gold)]"
-              />
-              <p className="mt-3 text-gray-400 text-lg">{t("statsLiterature")}</p>
-            </div>
+            {[
+              { end: siteConfig.stats.converts, label: t("statsConverts") },
+              { end: siteConfig.stats.qurans, label: t("statsQurans") },
+              { end: siteConfig.stats.literature, label: t("statsLiterature") },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <CountUp
+                  end={stat.end}
+                  suffix="+"
+                  className="text-5xl md:text-6xl font-[family-name:var(--font-heading)] font-bold tracking-tight bg-gradient-to-b from-[var(--color-gold)] to-[var(--color-gold-dark)] bg-clip-text text-transparent"
+                />
+                <p className="mt-3 text-gray-400 text-lg">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Why Dawah Norway */}
-      <section className="py-24 bg-[var(--color-light)]">
+      {/* ───────── Why Dawah Norway ───────── */}
+      <section className="section-py bg-[var(--color-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
-              {t("whyTitle")}
-            </h2>
-          </FadeIn>
+          <SectionTitle title={t("whyTitle")} />
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                icon: FaHandsHelping,
-                title: t("whyOutreach"),
-                text: t("whyOutreachText"),
-              },
-              {
-                icon: FaQuran,
-                title: t("whyQuran"),
-                text: t("whyQuranText"),
-              },
-              {
-                icon: FaMosque,
-                title: t("whyWorkshop"),
-                text: t("whyWorkshopText"),
-              },
+              { icon: FaHandsHelping, title: t("whyOutreach"), text: t("whyOutreachText") },
+              { icon: FaQuran, title: t("whyQuran"), text: t("whyQuranText") },
+              { icon: FaMosque, title: t("whyWorkshop"), text: t("whyWorkshopText") },
             ].map((item) => (
               <StaggerItem key={item.title}>
-                <motion.div
-                  className="bg-white rounded-2xl p-10 text-center shadow-sm"
-                  whileHover={{
-                    y: -8,
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-                  }}
-                  transition={{ duration: 0.3 }}
+                <HoverCard
+                  className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 text-center shadow-sm h-full"
                 >
-                  <motion.div
-                    className="w-16 h-16 bg-[var(--color-gold)]/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                    whileHover={{ backgroundColor: "#e0a242", scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <item.icon className="text-[var(--color-gold)]" size={24} />
-                  </motion.div>
+                  <IconBadge icon={item.icon} size="lg" className="mx-auto mb-6" />
                   <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-4">
                     {item.title}
                   </h3>
                   <p className="text-[var(--color-gray)]">{item.text}</p>
-                </motion.div>
+                </HoverCard>
               </StaggerItem>
             ))}
           </StaggerChildren>
         </div>
       </section>
 
-      {/* Glimpses of Our Work */}
-      <section className="py-24 bg-white">
+      {/* ───────── Glimpses ───────── */}
+      <section className="section-py bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
-              {t("glimpsesSubtitle")}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-4">
-              {t("glimpsesTitle")}
-            </h2>
-            <p className="text-[var(--color-gray)] text-lg text-center max-w-3xl mx-auto mb-14">
-              {t("glimpsesText")}
-            </p>
-          </FadeIn>
+          <SectionTitle
+            eyebrow={t("glimpsesSubtitle")}
+            title={t("glimpsesTitle")}
+            description={t("glimpsesText")}
+          />
           <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {siteConfig.homeGallery.map((src, i) => (
               <StaggerItem key={src}>
-                <Link href="/gallery" aria-label={t("viewGallery")}>
-                  <motion.div
+                <Link href="/gallery" aria-label={t("viewGallery")} data-press>
+                  <div
                     className={`relative overflow-hidden rounded-2xl bg-[var(--color-light)] group cursor-pointer ${
                       i === 0 || i === 5 ? "md:row-span-2 md:aspect-[3/4]" : "aspect-square"
                     }`}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
                   >
                     <Image
                       src={src}
                       alt="Dawah Norway community moment"
                       fill
                       sizes="(max-width: 768px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </motion.div>
+                  </div>
                 </Link>
               </StaggerItem>
             ))}
           </StaggerChildren>
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.2}>
             <div className="text-center mt-12">
-              <Link href="/gallery">
-                <motion.span
-                  className="inline-block px-10 py-3.5 border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full font-semibold cursor-pointer"
-                  whileHover={{
-                    backgroundColor: "#e0a242",
-                    color: "#ffffff",
-                    scale: 1.05,
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {t("viewGallery")}
-                </motion.span>
-              </Link>
+              <ButtonLink href="/gallery" variant="secondary">
+                {t("viewGallery")}
+              </ButtonLink>
             </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* Pillars of Islam */}
-      <section className="py-24">
+      {/* ───────── Pillars of Islam ───────── */}
+      <section className="section-py">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
-              {t("pillarsSubtitle")}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
-              {t("pillarsTitle")}
-            </h2>
-          </FadeIn>
+          <SectionTitle
+            eyebrow={t("pillarsSubtitle")}
+            title={t("pillarsTitle")}
+          />
           <StaggerChildren className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto">
             {[
               { key: "shahadah", name: "Shahadah", meaning: "Faith", icon: FaStar },
@@ -524,52 +425,43 @@ export default function HomePage() {
               { key: "hajj", name: "Hajj", meaning: "Pilgrimage", icon: FaKaaba },
             ].map((pillar) => (
               <StaggerItem key={pillar.key}>
-                <motion.div
+                <HoverCard
+                  lift={3}
                   className="bg-white rounded-2xl p-6 text-center shadow-sm h-full"
-                  whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
-                  transition={{ duration: 0.3 }}
                 >
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[var(--color-gold)]/10 flex items-center justify-center">
-                    <pillar.icon className="text-[var(--color-gold)]" size={22} />
-                  </div>
+                  <IconBadge icon={pillar.icon} size="md" className="mx-auto mb-4" />
                   <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-1">
                     {pillar.name}
                   </h3>
                   <p className="text-[var(--color-gold-text)] text-sm">
                     {pillar.meaning}
                   </p>
-                </motion.div>
+                </HoverCard>
               </StaggerItem>
             ))}
           </StaggerChildren>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-[var(--color-light)]">
+      {/* ───────── Testimonials ───────── */}
+      <section className="section-py bg-[var(--color-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
-              {t("testimonialsSubtitle")}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
-              {t("testimonialsTitle")}
-            </h2>
-          </FadeIn>
+          <SectionTitle
+            eyebrow={t("testimonialsSubtitle")}
+            title={t("testimonialsTitle")}
+          />
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {siteConfig.testimonials.map((item) => (
               <StaggerItem key={item.name}>
-                <motion.div
-                  className="bg-white rounded-2xl p-8 shadow-sm h-full flex flex-col"
-                  whileHover={{ y: -6, boxShadow: "0 20px 60px rgba(0,0,0,0.08)" }}
-                  transition={{ duration: 0.3 }}
+                <HoverCard
+                  className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm h-full flex flex-col"
                 >
                   <FaQuoteLeft className="text-[var(--color-gold)]/40 mb-4" size={28} />
                   <p className="text-[var(--color-gray)] leading-relaxed flex-grow italic mb-6">
                     &ldquo;{item.quote}&rdquo;
                   </p>
                   <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-dark)] flex items-center justify-center text-white font-[family-name:var(--font-heading)] font-bold text-lg">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-dark)] flex items-center justify-center text-white font-[family-name:var(--font-heading)] font-bold text-lg shadow-inner">
                       {item.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
                     </div>
                     <div>
@@ -579,35 +471,24 @@ export default function HomePage() {
                       <p className="text-sm text-[var(--color-gold-text)]">{item.role}</p>
                     </div>
                   </div>
-                </motion.div>
+                </HoverCard>
               </StaggerItem>
             ))}
           </StaggerChildren>
         </div>
       </section>
 
-      {/* Our Volunteers */}
-      <section className="py-24">
+      {/* ───────── Volunteers ───────── */}
+      <section className="section-py">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-[var(--color-gold-text)] font-semibold uppercase tracking-wider text-sm mb-3">
-              {t("volunteersSubtitle")}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] text-center mb-16">
-              {t("volunteersTitle")}
-            </h2>
-          </FadeIn>
+          <SectionTitle
+            eyebrow={t("volunteersSubtitle")}
+            title={t("volunteersTitle")}
+          />
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {siteConfig.team.map((member) => (
               <StaggerItem key={member.name}>
-                <motion.div
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm"
-                  whileHover={{
-                    y: -6,
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
+                <HoverCard className="bg-white rounded-2xl overflow-hidden shadow-sm">
                   <div className="relative aspect-[4/5] bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 flex items-center justify-center">
                     {member.image ? (
                       <Image
@@ -634,13 +515,12 @@ export default function HomePage() {
                       {member.role}
                     </p>
                   </div>
-                </motion.div>
+                </HoverCard>
               </StaggerItem>
             ))}
           </StaggerChildren>
         </div>
       </section>
-
     </>
   );
 }

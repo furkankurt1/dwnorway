@@ -136,38 +136,38 @@ export default function ContactUsPage() {
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"
-        overlayColor="rgba(15, 25, 35, 0.6)"
+        overlayColor="rgba(10, 22, 40, 0.6)"
         className="text-white py-24 md:py-32"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-heading)] font-bold mb-4"
-            initial={{ opacity: 0, y: -20 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
             {t("title")}
           </motion.h1>
           <motion.p
-            className="text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)]"
+            className="text-xl md:text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
           >
             {t("subtitle")}
           </motion.p>
           <motion.p
-            className="text-gray-300 text-lg max-w-3xl mx-auto mt-6"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-base md:text-lg text-gray-200 max-w-2xl mx-auto mt-6 leading-relaxed"
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
           >
             {t("intro")}
           </motion.p>
         </div>
       </ParallaxSection>
 
-      <section className="py-24">
+      <section className="section-py">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Info */}
@@ -229,24 +229,19 @@ export default function ContactUsPage() {
                 </div>
 
                 {/* Social media */}
-                <div className="flex gap-4">
-                  {socialLinks.map(({ icon: Icon, href }) => (
-                    <motion.a
+                <div className="flex gap-3">
+                  {socialLinks.map(({ icon: Icon, href, label }) => (
+                    <a
                       key={href}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-full bg-[var(--color-light)] flex items-center justify-center text-[var(--color-gray)]"
-                      whileHover={{
-                        backgroundColor: "#e0a242",
-                        color: "#ffffff",
-                        scale: 1.1,
-                        y: -3,
-                      }}
-                      transition={{ duration: 0.2 }}
+                      data-press
+                      aria-label={label}
+                      className="w-11 h-11 rounded-full bg-[var(--color-light)] flex items-center justify-center text-[var(--color-gray)] hover:bg-[var(--color-gold)] hover:text-white transition-[background-color,color] duration-[280ms] ease-out"
                     >
-                      <Icon size={18} />
-                    </motion.a>
+                      <Icon size={18} aria-hidden="true" />
+                    </a>
                   ))}
                 </div>
               </div>
@@ -371,15 +366,11 @@ export default function ContactUsPage() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                  <motion.button
+                  <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="w-full py-3.5 bg-[var(--color-gold-dark)] text-white rounded-full font-semibold text-lg flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[var(--color-gold)] transition-colors"
-                    whileHover={status === "sending" ? undefined : {
-                      scale: 1.02,
-                      boxShadow: "0 10px 30px rgba(224, 162, 66, 0.3)",
-                    }}
-                    whileTap={status === "sending" ? undefined : { scale: 0.98 }}
+                    data-press
+                    className="w-full py-3.5 bg-[var(--color-gold-dark)] text-white rounded-full font-semibold text-base flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-[var(--color-gold)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
                   >
                     {status === "sending" ? (
                       <>
@@ -389,7 +380,7 @@ export default function ContactUsPage() {
                     ) : (
                       t("send")
                     )}
-                  </motion.button>
+                  </button>
                 </form>
               </div>
             </FadeIn>

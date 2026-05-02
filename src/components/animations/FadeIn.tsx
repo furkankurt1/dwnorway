@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface FadeInProps {
@@ -11,27 +11,41 @@ interface FadeInProps {
   className?: string;
 }
 
+// Strong ease-out curve. Built-in easings feel weak; this one matches the
+// rest of the design system (mirrored from globals.css var --ease-out-strong).
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
+
+// Subtle entry offsets. Emil's principle: small motion reads as natural,
+// big motion (40px+) reads as marketing reveal.
+const directions = {
+  up: { y: 8, x: 0 },
+  down: { y: -8, x: 0 },
+  left: { x: 8, y: 0 },
+  right: { x: -8, y: 0 },
+  none: { x: 0, y: 0 },
+};
+
 export default function FadeIn({
   children,
   direction = "up",
   delay = 0,
-  duration = 0.6,
+  duration = 0.4,
   className = "",
 }: FadeInProps) {
-  const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
-    none: { x: 0, y: 0 },
-  };
+  const prefersReducedMotion = useReducedMotion();
+
+  // With reduced motion: keep the opacity fade for comprehension, drop the
+  // positional change. Movement is what causes vestibular issues, not opacity.
+  const initial = prefersReducedMotion
+    ? { opacity: 0 }
+    : { opacity: 0, ...directions[direction] };
 
   return (
     <motion.div
-      initial={{ opacity: 0, ...directions[direction] }}
+      initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration, delay, ease: STRONG_OUT }}
       className={className}
     >
       {children}

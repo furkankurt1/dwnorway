@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, { StaggerItem } from "@/components/animations/StaggerChildren";
@@ -19,6 +19,7 @@ import {
 } from "@stripe/react-stripe-js";
 
 const PRESET_AMOUNTS = [100, 200, 500, 1000];
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 type Frequency = "once" | "monthly";
 
@@ -28,6 +29,90 @@ const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
 const paypalEnabled = !!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 const vippsEnabled = process.env.NEXT_PUBLIC_VIPPS_ENABLED === "true";
+
+/**
+ * One row in the payment method grid. Standardises:
+ *  - icon → title → description → logos slot → button layout
+ *  - hover lift (small + soft, never scale-up)
+ *  - disabled state
+ *  - press feedback (handled globally via data-press in CSS)
+ *
+ * The `logosSlot` is always rendered (even if empty) so all three cards
+ * have aligned button bottoms — no more magic-spacer hacks.
+ */
+function PaymentMethodCard({
+  brandColor,
+  icon,
+  title,
+  description,
+  logosSlot,
+  buttonLabel,
+  loading,
+  disabled,
+  onClick,
+  disabledTooltip,
+}: {
+  brandColor: string;
+  icon: ReactNode;
+  title: string;
+  description: string;
+  logosSlot?: ReactNode;
+  buttonLabel: string;
+  loading: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  disabledTooltip?: string;
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      className={`bg-white border-2 rounded-2xl p-6 text-center h-full grid grid-rows-[auto_auto_1fr_auto_auto] gap-3 ${
+        disabled ? "border-gray-100 opacity-60" : "border-gray-200"
+      }`}
+      whileHover={
+        disabled || reduce
+          ? undefined
+          : {
+              // Small lift, neutral cool shadow (no orange/blue/gold halo).
+              // The branded element is the icon + button — the card frame
+              // stays calm. Tinted shadow at 22% alpha was popping; reading
+              // as "all caps" instead of "italic emphasis".
+              y: -2,
+              boxShadow: "0 10px 28px rgba(10, 22, 40, 0.07)",
+            }
+      }
+      // Smoother hover curve (default ease) — STRONG_OUT is for entry
+      // animations; for hover it crests too fast and feels "jumpy".
+      transition={{ duration: 0.32, ease: "easeOut" }}
+    >
+      <div
+        className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto"
+        style={{ backgroundColor: disabled ? "#e5e7eb" : `${brandColor}15` }}
+      >
+        {icon}
+      </div>
+      <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold">
+        {title}
+      </h3>
+      <p className="text-[var(--color-gray)] text-sm self-start">{description}</p>
+      <div className="h-6 flex items-center justify-center text-gray-400">
+        {logosSlot}
+      </div>
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={disabled || loading}
+        aria-disabled={disabled}
+        title={disabled ? disabledTooltip : undefined}
+        data-press
+        className="w-full py-3 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 transition-[background-color,box-shadow] duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-md"
+        style={{ backgroundColor: disabled ? "#9ca3af" : brandColor }}
+      >
+        {loading ? <Spinner size={18} /> : buttonLabel}
+      </button>
+    </motion.div>
+  );
+}
 
 export default function DonatePage() {
   const t = useTranslations("donate");
@@ -45,24 +130,16 @@ export default function DonatePage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [failedStatus, setFailedStatus] = useState(false);
 
-  const effectiveAmount = useCustom
-    ? parseInt(customAmount, 10)
-    : amount;
+  const effectiveAmount = useCustom ? parseInt(customAmount, 10) : amount;
 
   const anyLoading = vippsLoading || stripeLoading || paypalLoading;
-  const vippsDisabled = !vippsEnabled || frequency === "monthly";
-  const vippsDisabledReason = !vippsEnabled
-    ? "paypalUnavailable"
-    : frequency === "monthly"
-      ? "vippsRecurringHint"
-      : null;
+  const vippsDisabled = !vippsEnabled;
 
   useEffect(() => {
     if (searchParams.get("status") === "failed") setFailedStatus(true);
   }, [searchParams]);
 
   useEffect(() => {
-    // If user switches to monthly while a Vipps flow was queued, clear any stale error.
     setErrorMsg("");
   }, [frequency]);
 
@@ -81,7 +158,9 @@ export default function DonatePage() {
     setVippsLoading(true);
 
     try {
-      const res = await fetch("/api/vipps/initiate", {
+      const endpoint =
+        frequency === "monthly" ? "/api/vipps/agreement" : "/api/vipps/initiate";
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: effectiveAmount, locale }),
@@ -161,51 +240,51 @@ export default function DonatePage() {
 
   return (
     <>
-      {/* Hero */}
+      {/* ───────── Hero ───────── */}
       <ParallaxSection
         backgroundImage="/images/donate-hero.svg"
-        overlayColor="rgba(26, 26, 26, 0.5)"
-        className="text-white py-24 md:py-36"
+        overlayColor="rgba(10, 22, 40, 0.55)"
+        className="text-white py-16 md:py-24 lg:py-32"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-heading)] font-bold mb-4"
-            initial={{ opacity: 0, y: -20 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.5, ease: STRONG_OUT }}
           >
             {t("title")}
           </motion.h1>
           <motion.p
-            className="text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] mb-6"
+            className="text-xl md:text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
           >
             {t("subtitle")}
           </motion.p>
           <motion.p
-            className="text-gray-300 text-lg max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: STRONG_OUT }}
           >
             {t("intro")}
           </motion.p>
         </div>
       </ParallaxSection>
 
-      {/* Amount + Payment */}
-      <section className="py-24">
+      {/* ───────── Amount + Payment ───────── */}
+      <section className="section-py">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            {/* Failed status banner */}
             <AnimatePresence>
               {failedStatus && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: STRONG_OUT }}
                   className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-center"
                 >
                   {t("paymentFailed")}
@@ -213,30 +292,33 @@ export default function DonatePage() {
               )}
             </AnimatePresence>
 
-            {/* Embedded Stripe Checkout */}
             <AnimatePresence mode="wait">
               {clientSecret ? (
                 <motion.div
                   key="checkout"
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, ease: STRONG_OUT }}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
                       onClick={cancelStripe}
-                      className="flex items-center gap-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)] transition-colors"
+                      data-press
+                      className="link-animated flex items-center gap-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)]"
                     >
-                      <FaArrowLeft size={12} />
+                      <FaArrowLeft size={12} aria-hidden="true" />
                       {t("backToOptions")}
                     </button>
-                    <span className="text-sm font-semibold text-[var(--color-dark)]">
+                    <span className="text-sm font-semibold text-[var(--color-dark)] tabular-nums">
                       {effectiveAmount} kr{amountSuffix}
                     </span>
                   </div>
-                  <div className="bg-white rounded-2xl border-2 border-gray-100 overflow-hidden">
+                  <div className="bg-white rounded-2xl border-2 border-gray-100 overflow-hidden -mx-4 sm:mx-0">
+                    {/* -mx-4 on mobile lets Stripe Checkout iframe go edge-to-edge
+                       on narrow screens where its internal layout already has
+                       padding. Saves ~32px of cramped content. */}
                     <EmbeddedCheckoutProvider
                       stripe={stripePromise}
                       options={{ clientSecret }}
@@ -252,9 +334,8 @@ export default function DonatePage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {/* Frequency + Amount card */}
+                  {/* Frequency + Amount */}
                   <div className="bg-white rounded-2xl border-2 border-gray-100 p-8 mb-8 shadow-sm">
-                    {/* Frequency toggle */}
                     <div className="mb-6">
                       <div className="text-center text-sm text-[var(--color-gray)] mb-3">
                         {t("selectFrequency")}
@@ -268,7 +349,8 @@ export default function DonatePage() {
                               type="button"
                               onClick={() => setFrequency(f)}
                               aria-pressed={active}
-                              className={`relative z-10 py-2.5 rounded-full text-sm font-semibold transition-colors ${
+                              data-press
+                              className={`relative z-10 py-3 rounded-full text-sm font-semibold transition-colors duration-200 ${
                                 active
                                   ? "text-white"
                                   : "text-[var(--color-gray)] hover:text-[var(--color-dark)]"
@@ -278,7 +360,7 @@ export default function DonatePage() {
                                 <motion.span
                                   layoutId="freq-pill"
                                   className="absolute inset-0 bg-[var(--color-gold)] rounded-full -z-10"
-                                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
                                 />
                               )}
                               {f === "once" ? t("frequencyOnce") : t("frequencyMonthly")}
@@ -299,11 +381,16 @@ export default function DonatePage() {
                           <button
                             key={preset}
                             type="button"
-                            onClick={() => { setAmount(preset); setUseCustom(false); setErrorMsg(""); }}
-                            className={`py-3 rounded-xl font-semibold text-lg border-2 transition-all duration-200 ${
+                            onClick={() => {
+                              setAmount(preset);
+                              setUseCustom(false);
+                              setErrorMsg("");
+                            }}
+                            data-press
+                            className={`py-3 rounded-xl font-semibold text-lg border-2 transition-[background-color,border-color,color] duration-300 ease-out tabular-nums ${
                               active
                                 ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-white"
-                                : "border-gray-200 hover:border-[var(--color-gold)] text-[var(--color-dark)]"
+                                : "border-gray-200 hover:border-[var(--color-gold)]/60 text-[var(--color-dark)]"
                             }`}
                           >
                             {preset} kr{amountSuffix}
@@ -315,8 +402,15 @@ export default function DonatePage() {
                     <div className="relative">
                       <input
                         type="number"
+                        // inputMode=numeric forces a clean numeric keypad on
+                        // mobile (no commas, no minus, no e-notation key).
+                        // pattern="[0-9]*" gives the same on older iOS.
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                         min={10}
                         max={100000}
+                        step={10}
+                        enterKeyHint="done"
                         placeholder={t("customAmount")}
                         value={customAmount}
                         onChange={(e) => {
@@ -325,13 +419,13 @@ export default function DonatePage() {
                           setErrorMsg("");
                         }}
                         onFocus={() => setUseCustom(true)}
-                        className={`w-full border-2 rounded-xl px-4 py-3 text-lg outline-none transition-colors ${
+                        className={`w-full border-2 rounded-xl pl-4 pr-20 py-3 text-lg outline-none transition-colors duration-200 tabular-nums ${
                           useCustom
                             ? "border-[var(--color-gold)]"
                             : "border-gray-200 focus:border-[var(--color-gold)]"
                         }`}
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium pointer-events-none select-none">
                         NOK{amountSuffix}
                       </span>
                     </div>
@@ -345,7 +439,7 @@ export default function DonatePage() {
                             initial={{ opacity: 0, y: -4 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.18 }}
+                            transition={{ duration: 0.18, ease: STRONG_OUT }}
                             className="text-red-500 text-sm text-center"
                           >
                             {errorMsg}
@@ -355,116 +449,72 @@ export default function DonatePage() {
                     </div>
                   </div>
 
-                  {/* Payment method cards */}
                   <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Vipps */}
                     <StaggerItem>
-                      <motion.div
-                        className={`bg-white border-2 rounded-2xl p-6 text-center h-full flex flex-col transition-colors ${
-                          vippsDisabled ? "border-gray-100 opacity-60" : "border-gray-200"
-                        }`}
-                        whileHover={vippsDisabled ? undefined : { y: -6, borderColor: "#ff5b24", boxShadow: "0 20px 60px #ff5b2420" }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div
-                          className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                          style={{ backgroundColor: vippsDisabled ? "#e5e7eb" : "#ff5b2415" }}
-                        >
-                          <FaMobileAlt size={24} style={{ color: vippsDisabled ? "#9ca3af" : "#ff5b24" }} aria-hidden="true" />
-                        </div>
-                        <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2">
-                          Vipps
-                        </h3>
-                        <p className="text-[var(--color-gray)] text-sm mb-3 flex-1 min-h-[2.5rem]">
-                          {vippsDisabledReason ? t(vippsDisabledReason) : t("vippsDesc")}
-                        </p>
-                        <div className="h-6 mb-2" />
-                        <motion.button
-                          onClick={handleVipps}
-                          disabled={vippsDisabled || anyLoading}
-                          aria-disabled={vippsDisabled}
-                          title={vippsDisabledReason ? t(vippsDisabledReason) : undefined}
-                          className="w-full py-3 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
-                          style={{ backgroundColor: vippsDisabled ? "#9ca3af" : "#ff5b24" }}
-                          whileHover={vippsDisabled || anyLoading ? undefined : { scale: 1.03, boxShadow: "0 8px 25px #ff5b2440" }}
-                          whileTap={vippsDisabled || anyLoading ? undefined : { scale: 0.97 }}
-                        >
-                          {vippsLoading ? <Spinner size={18} /> : t("vipps")}
-                        </motion.button>
-                      </motion.div>
+                      <PaymentMethodCard
+                        brandColor="#ff5b24"
+                        icon={
+                          <FaMobileAlt
+                            size={24}
+                            style={{ color: vippsDisabled ? "#9ca3af" : "#ff5b24" }}
+                            aria-hidden="true"
+                          />
+                        }
+                        title="Vipps"
+                        description={vippsDisabled ? t("vippsUnavailable") : t("vippsDesc")}
+                        buttonLabel={t("vipps")}
+                        loading={vippsLoading}
+                        disabled={vippsDisabled || anyLoading}
+                        onClick={handleVipps}
+                        disabledTooltip={vippsDisabled ? t("vippsUnavailable") : undefined}
+                      />
                     </StaggerItem>
 
-                    {/* Stripe / Card */}
                     {stripeEnabled && (
                       <StaggerItem>
-                        <motion.div
-                          className="bg-white border-2 border-gray-200 rounded-2xl p-6 text-center h-full flex flex-col"
-                          whileHover={{ y: -6, borderColor: "#e0a242", boxShadow: "0 20px 60px #e0a24220" }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div
-                            className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                            style={{ backgroundColor: "#e0a24215" }}
-                          >
-                            <FaCreditCard size={24} style={{ color: "#e0a242" }} aria-hidden="true" />
-                          </div>
-                          <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2">
-                            {t("card")}
-                          </h3>
-                          <p className="text-[var(--color-gray)] text-sm mb-3 flex-1 min-h-[2.5rem]">{t("cardDesc")}</p>
-                          <div className="flex justify-center gap-3 mb-2 h-6 items-center text-gray-400">
-                            <SiVisa size={26} aria-label="Visa" />
-                            <SiMastercard size={26} aria-label="Mastercard" />
-                          </div>
-                          <motion.button
-                            onClick={handleStripe}
-                            disabled={anyLoading}
-                            className="w-full py-3 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-70"
-                            style={{ backgroundColor: "#e0a242" }}
-                            whileHover={anyLoading ? undefined : { scale: 1.03, boxShadow: "0 8px 25px #e0a24240" }}
-                            whileTap={anyLoading ? undefined : { scale: 0.97 }}
-                          >
-                            {stripeLoading ? <Spinner size={18} /> : t("card")}
-                          </motion.button>
-                        </motion.div>
+                        <PaymentMethodCard
+                          brandColor="#e0a242"
+                          icon={
+                            <FaCreditCard
+                              size={24}
+                              style={{ color: "#e0a242" }}
+                              aria-hidden="true"
+                            />
+                          }
+                          title={t("card")}
+                          description={t("cardDesc")}
+                          logosSlot={
+                            <div className="flex gap-3">
+                              <SiVisa size={26} aria-label="Visa" />
+                              <SiMastercard size={26} aria-label="Mastercard" />
+                            </div>
+                          }
+                          buttonLabel={t("card")}
+                          loading={stripeLoading}
+                          disabled={anyLoading}
+                          onClick={handleStripe}
+                        />
                       </StaggerItem>
                     )}
 
-                    {/* PayPal */}
                     <StaggerItem>
-                      <motion.div
-                        className={`bg-white border-2 rounded-2xl p-6 text-center h-full flex flex-col transition-colors ${
-                          paypalEnabled ? "border-gray-200" : "border-gray-100 opacity-60"
-                        }`}
-                        whileHover={paypalEnabled ? { y: -6, borderColor: "#003087", boxShadow: "0 20px 60px #00308720" } : undefined}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div
-                          className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                          style={{ backgroundColor: paypalEnabled ? "#00308715" : "#e5e7eb" }}
-                        >
-                          <FaPaypal size={24} style={{ color: paypalEnabled ? "#003087" : "#9ca3af" }} aria-hidden="true" />
-                        </div>
-                        <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2">
-                          PayPal
-                        </h3>
-                        <p className="text-[var(--color-gray)] text-sm mb-3 flex-1 min-h-[2.5rem]">
-                          {paypalEnabled ? t("paypalDesc") : t("paypalUnavailable")}
-                        </p>
-                        <div className="h-6 mb-2" />
-                        <motion.button
-                          onClick={handlePaypal}
-                          disabled={!paypalEnabled || anyLoading}
-                          aria-disabled={!paypalEnabled}
-                          title={!paypalEnabled ? t("paypalUnavailable") : undefined}
-                          className="w-full py-3 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
-                          style={{ backgroundColor: paypalEnabled ? "#003087" : "#9ca3af" }}
-                          whileHover={!paypalEnabled || anyLoading ? undefined : { scale: 1.03, boxShadow: "0 8px 25px #00308740" }}
-                          whileTap={!paypalEnabled || anyLoading ? undefined : { scale: 0.97 }}
-                        >
-                          {paypalLoading ? <Spinner size={18} /> : t("paypal")}
-                        </motion.button>
-                      </motion.div>
+                      <PaymentMethodCard
+                        brandColor="#003087"
+                        icon={
+                          <FaPaypal
+                            size={24}
+                            style={{ color: paypalEnabled ? "#003087" : "#9ca3af" }}
+                            aria-hidden="true"
+                          />
+                        }
+                        title="PayPal"
+                        description={paypalEnabled ? t("paypalDesc") : t("paypalUnavailable")}
+                        buttonLabel={t("paypal")}
+                        loading={paypalLoading}
+                        disabled={!paypalEnabled || anyLoading}
+                        onClick={handlePaypal}
+                        disabledTooltip={!paypalEnabled ? t("paypalUnavailable") : undefined}
+                      />
                     </StaggerItem>
                   </StaggerChildren>
 
@@ -472,7 +522,7 @@ export default function DonatePage() {
                     {t("agreementNotice")}{" "}
                     <Link
                       href="/donation-agreement"
-                      className="underline underline-offset-2 hover:text-[var(--color-gold-text)] transition-colors"
+                      className="link-animated text-[var(--color-gold-text)] font-medium"
                     >
                       {t("agreementLink")}
                     </Link>

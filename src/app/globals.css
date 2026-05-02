@@ -1,19 +1,105 @@
 @import "tailwindcss";
 
 @theme {
+  /* Brand palette */
   --color-gold: #e0a242;
   --color-gold-dark: #c8912e;
   --color-gold-text: #a1700a;
   --color-dark: #1a1a1a;
   --color-gray: #4a4a4a;
   --color-light: #f5f5f5;
+
+  /* Secondary accent — deeper navy used in hero overlays + select sections */
+  --color-deep: #0a1628;
+  --color-deep-soft: #14243d;
+
+  /* Type */
   --font-heading: "Poppins", sans-serif;
   --font-body: "Source Sans 3", sans-serif;
+
+  /* Easings — Emil Kowalski recommended curves (built-in easings lack punch) */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+
+  /* Section padding scale — replaces ad-hoc py-24 everywhere */
+  --section-py-hero: 8rem;       /* 128px */
+  --section-py-primary: 6rem;    /* 96px */
+  --section-py-secondary: 4rem;  /* 64px */
+  --section-py-tight: 2.5rem;    /* 40px */
 }
 
 html {
   scroll-behavior: smooth;
   color-scheme: light;
+  /* Smooth font rendering on retina/mobile */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Mobile: Safari sometimes makes text huge in landscape; disable */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/*
+ * Body horizontal-overflow guard — rotated hero photos and parallax
+ * containers can occasionally push past the viewport on mobile, causing
+ * a horizontal scroll. Belt-and-braces.
+ */
+body {
+  overflow-x: hidden;
+}
+
+/*
+ * iOS Safari grays the tap area on every touch by default. We have our
+ * own press feedback (transform scale 0.97) — kill the default flash.
+ */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * In-page anchors (#section-id) jump under the sticky header without this.
+ * Header is 64–80px tall, plus 1.5rem breathing room.
+ */
+:target,
+[id]:not(body) {
+  scroll-margin-top: 5.5rem;
+}
+
+/*
+ * Pretty-balance long headings on mobile so they don't break awkwardly
+ * after one or two words. text-wrap: balance is supported in all modern
+ * browsers (iOS 17.4+, Chrome 114+) and gracefully degrades to default.
+ */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/*
+ * Long URLs / emails / Vipps tokens shouldn't push the layout sideways
+ * on narrow screens. break-word kicks in as a last resort — preserves
+ * normal typography for regular text.
+ */
+p, blockquote, figcaption, li, td, th, dd, dt {
+  overflow-wrap: break-word;
+}
+
+/*
+ * touch-action: manipulation kills the 300ms tap delay on iOS for
+ * interactive elements. Modern browsers usually handle this with the
+ * viewport meta tag, but being explicit is safer on older Safari.
+ */
+button,
+a,
+[role="button"],
+input,
+select,
+textarea {
+  touch-action: manipulation;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -40,8 +126,61 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+/*
+ * Press feedback on every interactive element. Specifies transform only
+ * (never `all`). Active-state scale gives instant tactile response —
+ * Emil's rule: a button must feel like the interface heard the press.
+ */
+button,
+[role="button"],
+[data-press],
+a[data-press] {
+  transition: transform 160ms var(--ease-out-strong);
+}
+
+button:active,
+[role="button"]:active,
+[data-press]:active,
+a[data-press]:active {
+  transform: scale(0.97);
+}
+
+/* Respect reduced-motion: skip the press scale */
+@media (prefers-reduced-motion: reduce) {
+  button:active,
+  [role="button"]:active,
+  [data-press]:active,
+  a[data-press]:active {
+    transform: none;
+  }
+}
+
+/*
+ * Animated link underline. Apply `link-animated` to any link to swap a
+ * static color hover for a sweeping underline that grows from the left.
+ * Background-size animates on the GPU (no layout reflow).
+ */
+.link-animated {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  /* Hover transitions use default ease-out — STRONG_OUT crests too fast
+     for hover and feels like a snap. Gentler curve reads as "swell". */
+  transition: background-size 280ms ease-out, color 220ms ease-out;
+}
+
+.link-animated:hover,
+.link-animated:focus-visible {
+  background-size: 100% 1.5px;
+}
+
+/*
+ * Brand-aligned focus-visible. Subtle gold ring + offset, not the global
+ * 3px outline (which felt invasive on every element).
+ */
 :focus-visible {
-  outline: 3px solid var(--color-gold-dark);
+  outline: 2px solid var(--color-gold-dark);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -56,9 +195,59 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   font-weight: 600;
   border-radius: 0.5rem;
-  transition: top 0.2s;
+  transition: top 200ms var(--ease-out-strong);
 }
 
 .skip-link:focus {
   top: 1rem;
+}
+
+/* Tabular numerals for stats — keeps digits aligned during CountUp */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Mobile form inputs: 16px font-size minimum prevents iOS Safari from
+ * zooming in when the input is focused. Critical for donation flows
+ * where the user enters a custom amount on phone.
+ */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  /* Restore design-driven sizes on tablet+ */
+  input,
+  textarea,
+  select {
+    font-size: inherit;
+  }
+}
+
+/*
+ * Safe-area insets — push fixed elements above the iPhone home indicator
+ * (the bottom horizontal bar) and out from the notch.
+ */
+.safe-bottom {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
+}
+
+.safe-top {
+  padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem));
+}
+
+/* Section padding hierarchy utilities (work with Tailwind v4 utility layer) */
+.section-py-hero { padding-top: var(--section-py-hero); padding-bottom: var(--section-py-hero); }
+.section-py { padding-top: var(--section-py-primary); padding-bottom: var(--section-py-primary); }
+.section-py-sm { padding-top: var(--section-py-secondary); padding-bottom: var(--section-py-secondary); }
+.section-py-xs { padding-top: var(--section-py-tight); padding-bottom: var(--section-py-tight); }
+
+/* Mobile section padding: reduce by ~25% so content breathes on small screens */
+@media (max-width: 768px) {
+  .section-py-hero { padding-top: 5rem; padding-bottom: 5rem; }
+  .section-py { padding-top: 4rem; padding-bottom: 4rem; }
+  .section-py-sm { padding-top: 3rem; padding-bottom: 3rem; }
 }

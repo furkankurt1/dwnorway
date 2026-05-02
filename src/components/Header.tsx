@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
@@ -15,6 +15,8 @@ import {
   FaTiktok,
 } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
+
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 const socialIcons = [
   { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
@@ -30,6 +32,14 @@ export default function Header() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Sticky shrink: as soon as the user scrolls past the hero seam (~80px),
+  // tighten the header height. Subtle but communicates motion → reading.
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setScrolled(y > 24);
+  });
 
   const switchLocale = (newLocale: string) => {
     router.replace(pathname, { locale: newLocale as "en" | "no" });
@@ -61,18 +71,39 @@ export default function Header() {
     { href: "/contact-us", label: t("contactUs") },
   ];
 
+  // Auto-close mobile drawer on route change. Sync UI state with router
+  // location — this is a legitimate effect even though it's just a setState.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMobileOpen(false);
+  }, [pathname]);
+
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header
+      // transform: translateZ(0) creates a compositing layer on iOS Safari.
+      // Without it, the sticky header flickers when the URL bar collapses
+      // on scroll. backdrop-filter alone is enough to cause repaint storms.
+      style={{ transform: "translateZ(0)" }}
+      className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-shadow duration-200 ${
+        scrolled ? "shadow-md" : "shadow-sm"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div
+          className={`flex items-center justify-between transition-[height] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+            scrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+          }`}
+        >
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center" data-press>
             <Image
               src="/images/logo.png"
               alt="Dawah Norway"
               width={160}
               height={64}
-              className="h-16 w-auto"
+              className={`w-auto transition-[height] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                scrolled ? "h-10 md:h-12" : "h-12 md:h-16"
+              }`}
               priority
             />
           </Link>
@@ -83,7 +114,7 @@ export default function Header() {
               link.children ? (
                 <div
                   key={link.label}
-                  className="relative group"
+                  className="relative"
                   onMouseEnter={() => setOpenMenu(link.label)}
                   onMouseLeave={() => setOpenMenu(null)}
                 >
@@ -91,30 +122,44 @@ export default function Header() {
                     type="button"
                     aria-haspopup="menu"
                     aria-expanded={openMenu === link.label}
-                    onClick={() => setOpenMenu((o) => (o === link.label ? null : link.label))}
-                    className="text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors font-medium"
+                    onClick={() =>
+                      setOpenMenu((o) => (o === link.label ? null : link.label))
+                    }
+                    className="link-animated text-[var(--color-dark)] hover:text-[var(--color-gold-text)] font-medium py-2"
                   >
                     {link.label}
                   </button>
-                  {openMenu === link.label && (
-                    <div role="menu" className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[220px] border-t-2 border-[var(--color-gold)]">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-4 py-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)] hover:bg-[var(--color-light)] transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <AnimatePresence>
+                    {openMenu === link.label && (
+                      <motion.div
+                        role="menu"
+                        // origin-aware: scales out from the trigger (top), not from
+                        // the center. Emil's principle: popovers should look anchored.
+                        initial={{ opacity: 0, scale: 0.97, y: -4 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.97, y: -4 }}
+                        transition={{ duration: 0.16, ease: STRONG_OUT }}
+                        style={{ transformOrigin: "top left" }}
+                        className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 min-w-[220px] border-t-2 border-[var(--color-gold)] mt-1"
+                      >
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block px-4 py-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)] hover:bg-[var(--color-light)] transition-colors duration-150"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <Link
                   key={link.href}
                   href={link.href!}
-                  className="text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors font-medium"
+                  className="link-animated text-[var(--color-dark)] hover:text-[var(--color-gold-text)] font-medium py-2"
                 >
                   {link.label}
                 </Link>
@@ -124,7 +169,6 @@ export default function Header() {
 
           {/* Right side */}
           <div className="hidden lg:flex items-center gap-4">
-            {/* Social icons */}
             <div className="flex items-center gap-3 text-[var(--color-gray)]">
               {socialIcons.map(({ icon: Icon, href, label }) => (
                 <a
@@ -132,18 +176,21 @@ export default function Header() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--color-gold-text)] transition-colors"
+                  className="hover:text-[var(--color-gold-text)] transition-colors duration-150"
                   aria-label={label}
+                  data-press
                 >
-                  <Icon size={14} />
+                  <Icon size={14} aria-hidden="true" />
                 </a>
               ))}
             </div>
 
             {/* Language switcher */}
             <button
+              type="button"
               onClick={() => switchLocale(locale === "en" ? "no" : "en")}
-              className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-colors"
+              data-press
+              className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-[background-color,color] duration-[280ms] ease-out"
             >
               {locale === "en" ? "Norsk" : "English"}
             </button>
@@ -151,79 +198,107 @@ export default function Header() {
             {/* Donate button */}
             <Link
               href="/donate"
-              className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors"
+              data-press
+              className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
             >
               {t("donate")}
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu toggle — 44x44 touch target (Apple HIG minimum) */}
           <button
             type="button"
-            className="lg:hidden p-2"
+            className="lg:hidden -mr-2 w-11 h-11 flex items-center justify-center rounded-full hover:bg-[var(--color-light)] transition-colors duration-150"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <HiX size={24} aria-hidden="true" /> : <HiMenu size={24} aria-hidden="true" />}
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 45, opacity: 0 }}
+                  transition={{ duration: 0.18, ease: STRONG_OUT }}
+                  className="block"
+                >
+                  <HiX size={24} aria-hidden="true" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ rotate: 45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -45, opacity: 0 }}
+                  transition={{ duration: 0.18, ease: STRONG_OUT }}
+                  className="block"
+                >
+                  <HiMenu size={24} aria-hidden="true" />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile drawer */}
         <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            id="mobile-nav"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden pb-4 border-t border-gray-100 overflow-hidden">
-            <nav className="flex flex-col gap-2 pt-4">
-              {navLinks.map((link) =>
-                link.children ? (
-                  <div key={link.label} className="flex flex-col">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <Link
-                    key={link.href}
-                    href={link.href!}
-                    className="px-4 py-2 text-[var(--color-dark)] hover:text-[var(--color-gold-text)] transition-colors"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
-            </nav>
-            <div className="flex items-center gap-3 mt-4 px-4">
-              <button
-                onClick={() => switchLocale(locale === "en" ? "no" : "en")}
-                className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full"
-              >
-                {locale === "en" ? "Norsk" : "English"}
-              </button>
-              <Link
-                href="/donate"
-                className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold text-sm"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("donate")}
-              </Link>
-            </div>
-          </motion.div>
-        )}
+          {mobileOpen && (
+            <motion.div
+              id="mobile-nav"
+              // Use clip-path instead of height-auto for a GPU-accelerated reveal.
+              // Height-based animations cause layout reflow.
+              initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+              animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+              exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+              transition={{ duration: 0.25, ease: STRONG_OUT }}
+              className="lg:hidden pb-4 border-t border-gray-100 overflow-hidden"
+            >
+              <nav className="flex flex-col gap-1 pt-4">
+                {navLinks.map((link) =>
+                  link.children ? (
+                    <div key={link.label} className="flex flex-col">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="px-4 py-2.5 text-[var(--color-dark)] hover:bg-[var(--color-light)] hover:text-[var(--color-gold-text)] transition-colors duration-150 rounded-md"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={link.href!}
+                      className="px-4 py-2.5 text-[var(--color-dark)] hover:bg-[var(--color-light)] hover:text-[var(--color-gold-text)] transition-colors duration-150 rounded-md"
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                )}
+              </nav>
+              <div className="flex items-center gap-3 mt-4 px-4">
+                <button
+                  type="button"
+                  onClick={() => switchLocale(locale === "en" ? "no" : "en")}
+                  data-press
+                  className="px-3 py-1 text-sm border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full"
+                >
+                  {locale === "en" ? "Norsk" : "English"}
+                </button>
+                <Link
+                  href="/donate"
+                  data-press
+                  className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold text-sm"
+                >
+                  {t("donate")}
+                </Link>
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </header>

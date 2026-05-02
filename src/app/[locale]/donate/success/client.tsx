@@ -1,9 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaHeart } from "react-icons/fa";
+import { ButtonLink } from "@/components/ui/Button";
+
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function DonateSuccessClient() {
   const t = useTranslations("donate");
@@ -12,28 +14,30 @@ export default function DonateSuccessClient() {
     <section className="min-h-[80vh] flex items-center justify-center px-4 py-24">
       <div className="max-w-lg w-full text-center">
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
+          // Spring entry from 0.95 — Emil: never scale from 0; objects in
+          // the real world don't blink into existence.
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          transition={{ type: "spring", stiffness: 280, damping: 22, mass: 0.6 }}
           className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8"
         >
-          <FaCheckCircle size={48} className="text-green-500" />
+          <FaCheckCircle size={48} className="text-green-500" aria-hidden="true" />
         </motion.div>
 
         <motion.h1
-          className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)]"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)] tracking-tight"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.15, ease: STRONG_OUT }}
         >
           {t("successTitle")}
         </motion.h1>
 
         <motion.p
-          className="text-[var(--color-gray)] text-lg mb-10 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-[var(--color-gray)] text-base md:text-lg mb-10 leading-relaxed"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
+          transition={{ duration: 0.4, delay: 0.25, ease: STRONG_OUT }}
         >
           {t("successText")}
         </motion.p>
@@ -41,22 +45,16 @@ export default function DonateSuccessClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          transition={{ duration: 0.4, delay: 0.35 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center"
         >
-          <Link
-            href="/donate"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors"
-          >
-            <FaHeart size={16} />
+          <ButtonLink href="/donate" variant="primary">
+            <FaHeart size={14} aria-hidden="true" />
             {t("successBack")}
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-gray-200 rounded-full font-semibold text-[var(--color-dark)] hover:border-[var(--color-gold)] transition-colors"
-          >
+          </ButtonLink>
+          <ButtonLink href="/" variant="secondary">
             Home
-          </Link>
+          </ButtonLink>
         </motion.div>
       </div>
     </section>

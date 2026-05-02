@@ -3,11 +3,10 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import FadeIn from "@/components/animations/FadeIn";
-import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
+import HoverCard from "@/components/ui/HoverCard";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 import {
@@ -26,22 +25,24 @@ import {
   FaPrayingHands,
 } from "react-icons/fa";
 
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
+
 const resources = [
-  { key: "becomeMuslim", icon: FaMosque, color: "#e0a242" },
-  { key: "course", icon: FaGraduationCap, color: "#3b82f6" },
-  { key: "guide", icon: FaBook, color: "#10b981" },
-  { key: "academy", icon: FaUniversity, color: "#8b5cf6" },
-  { key: "purpose", icon: FaHeart, color: "#ef4444" },
-  { key: "ghusal", icon: FaShower, color: "#06b6d4" },
-  { key: "wudu", icon: FaHandsWash, color: "#14b8a6" },
-  { key: "prayer", icon: FaPray, color: "#e0a242" },
-  { key: "prayerTutorial", icon: FaVideo, color: "#f43f5e" },
-  { key: "quran", icon: FaQuran, color: "#059669" },
-  { key: "seerah", icon: FaBookOpen, color: "#7c3aed" },
-  { key: "foundations", icon: FaPrayingHands, color: "#d97706" },
-  { key: "mentors", icon: FaUserFriends, color: "#2563eb" },
-  { key: "freeBooks", icon: FaBook, color: "#16a34a" },
-  { key: "prayerMat", icon: FaPray, color: "#e0a242" },
+  { key: "becomeMuslim", icon: FaMosque },
+  { key: "course", icon: FaGraduationCap },
+  { key: "guide", icon: FaBook },
+  { key: "academy", icon: FaUniversity },
+  { key: "purpose", icon: FaHeart },
+  { key: "ghusal", icon: FaShower },
+  { key: "wudu", icon: FaHandsWash },
+  { key: "prayer", icon: FaPray },
+  { key: "prayerTutorial", icon: FaVideo },
+  { key: "quran", icon: FaQuran },
+  { key: "seerah", icon: FaBookOpen },
+  { key: "foundations", icon: FaPrayingHands },
+  { key: "mentors", icon: FaUserFriends },
+  { key: "freeBooks", icon: FaBook },
+  { key: "prayerMat", icon: FaPray },
 ] as const;
 
 export default function NewMuslimsPage() {
@@ -61,68 +62,57 @@ export default function NewMuslimsPage() {
             priority
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[var(--color-dark)]/70" />
+          <div className="absolute inset-0 bg-[var(--color-deep)]/70" />
         </div>
-        <div className="relative z-10 text-white py-24 md:py-36">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-heading)] font-bold mb-6"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            {t("title")}
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            {t("intro")}
-          </motion.p>
-        </div>
+        <div className="relative z-10 text-white py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-6 tracking-tight"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: STRONG_OUT }}
+            >
+              {t("title")}
+            </motion.h1>
+            <motion.p
+              className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: STRONG_OUT }}
+            >
+              {t("intro")}
+            </motion.p>
+          </div>
         </div>
       </section>
 
       {/* Resource Cards Grid */}
-      <section className="py-24">
+      <section className="section-py">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <StaggerChildren
-            staggerDelay={0.08}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {resources.map(({ key, icon: Icon, color }) => {
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {resources.map(({ key, icon: Icon }) => {
               const href = siteConfig.newMuslimResources[key] ?? "#";
               const isExternal = href.startsWith("http");
-              const cardContent = (
-                <>
-                  <motion.div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
-                    style={{ backgroundColor: `${color}15` }}
-                    whileHover={{ backgroundColor: color, scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Icon size={24} style={{ color }} className="group-hover:text-white transition-colors" aria-hidden="true" />
-                  </motion.div>
-                  <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-3">
+
+              const cardBody = (
+                <HoverCard
+                  className="bg-white border border-gray-100 rounded-2xl p-7 group h-full block"
+                >
+                  <div className="w-12 h-12 rounded-xl mb-5 bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center transition-colors duration-200 group-hover:bg-[var(--color-gold)] group-hover:text-white">
+                    <Icon size={20} aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2">
                     {t(key)}
                   </h3>
-                  <p className="text-[var(--color-gray)] mb-4">
+                  <p className="text-[var(--color-gray)] text-sm mb-4 leading-relaxed">
                     {t(`${key}Text`)}
                   </p>
-                  <motion.span
-                    className="font-semibold inline-flex items-center gap-1"
-                    style={{ color }}
-                    whileHover={{ x: 5 }}
-                  >
-                    {t("learnMore")} <span aria-hidden="true">→</span>
-                  </motion.span>
-                </>
+                  <span className="link-animated text-[var(--color-gold-text)] font-semibold inline-flex items-center gap-1.5">
+                    {t("learnMore")}
+                    <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </span>
+                </HoverCard>
               );
-
-              const cardClass =
-                "block bg-white border border-gray-200 rounded-2xl p-8 group h-full transition-shadow hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]";
 
               return (
                 <StaggerItem key={key}>
@@ -131,18 +121,18 @@ export default function NewMuslimsPage() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={cardClass}
+                      data-press
                       aria-label={`${t(key)} (${t("learnMore")})`}
                     >
-                      {cardContent}
+                      {cardBody}
                     </a>
                   ) : (
                     <Link
                       href={href as "/"}
-                      className={cardClass}
+                      data-press
                       aria-label={`${t(key)} (${t("learnMore")})`}
                     >
-                      {cardContent}
+                      {cardBody}
                     </Link>
                   )}
                 </StaggerItem>

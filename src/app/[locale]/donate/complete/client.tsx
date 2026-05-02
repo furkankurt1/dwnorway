@@ -3,12 +3,16 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaTimesCircle, FaHeart } from "react-icons/fa";
 import Spinner from "@/components/Spinner";
+import { ButtonLink } from "@/components/ui/Button";
+
+const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 type Status = "loading" | "success" | "failed";
+
+const SPRING = { type: "spring" as const, stiffness: 280, damping: 22, mass: 0.6 };
 
 export default function DonateCompleteClient() {
   const t = useTranslations("donate");
@@ -21,6 +25,7 @@ export default function DonateCompleteClient() {
 
   useEffect(() => {
     if (!sessionId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStatus("failed");
       return;
     }
@@ -55,25 +60,22 @@ export default function DonateCompleteClient() {
       <section className="min-h-[80vh] flex items-center justify-center px-4 py-24">
         <div className="max-w-lg w-full text-center">
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            transition={SPRING}
             className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-8"
           >
-            <FaTimesCircle size={48} className="text-red-500" />
+            <FaTimesCircle size={48} className="text-red-500" aria-hidden="true" />
           </motion.div>
-          <h1 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)]">
+          <h1 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)] tracking-tight">
             {t("completeFailedTitle")}
           </h1>
-          <p className="text-[var(--color-gray)] text-lg mb-10 leading-relaxed">
+          <p className="text-[var(--color-gray)] text-base md:text-lg mb-10 leading-relaxed">
             {t("completeFailedText")}
           </p>
-          <Link
-            href="/donate"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors"
-          >
+          <ButtonLink href="/donate" variant="primary">
             {t("successBack")}
-          </Link>
+          </ButtonLink>
         </div>
       </section>
     );
@@ -83,39 +85,39 @@ export default function DonateCompleteClient() {
     <section className="min-h-[80vh] flex items-center justify-center px-4 py-24">
       <div className="max-w-lg w-full text-center">
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          transition={SPRING}
           className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8"
         >
-          <FaCheckCircle size={48} className="text-green-500" />
+          <FaCheckCircle size={48} className="text-green-500" aria-hidden="true" />
         </motion.div>
 
         <motion.h1
-          className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)]"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] font-bold mb-4 text-[var(--color-dark)] tracking-tight"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.15, ease: STRONG_OUT }}
         >
           {t("successTitle")}
         </motion.h1>
 
         {amount !== null && (
           <motion.p
-            className="text-2xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-gold-text)] mb-4"
+            className="text-2xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-gold-text)] mb-4 tabular-nums"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.25 }}
           >
             {amount} kr
           </motion.p>
         )}
 
         <motion.p
-          className="text-[var(--color-gray)] text-lg mb-2 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-[var(--color-gray)] text-base md:text-lg mb-2 leading-relaxed"
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: STRONG_OUT }}
         >
           {t("successText")}
         </motion.p>
@@ -125,7 +127,7 @@ export default function DonateCompleteClient() {
             className="text-sm text-[var(--color-gray)] mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.45 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
           >
             {t("receiptSent", { email })}
           </motion.p>
@@ -134,22 +136,16 @@ export default function DonateCompleteClient() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          transition={{ duration: 0.4, delay: 0.45 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center"
         >
-          <Link
-            href="/donate"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors"
-          >
-            <FaHeart size={16} />
+          <ButtonLink href="/donate" variant="primary">
+            <FaHeart size={14} aria-hidden="true" />
             {t("successBack")}
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-gray-200 rounded-full font-semibold text-[var(--color-dark)] hover:border-[var(--color-gold)] transition-colors"
-          >
+          </ButtonLink>
+          <ButtonLink href="/" variant="secondary">
             Home
-          </Link>
+          </ButtonLink>
         </motion.div>
       </div>
     </section>

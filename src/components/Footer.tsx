@@ -25,36 +25,36 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--color-dark)] text-white">
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           {/* Navigation */}
           <div>
             <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-6 text-[var(--color-gold)]">
               Dawah Norway
             </h3>
             <nav className="flex flex-col gap-3">
-              <Link href="/" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("home")}
               </Link>
-              <Link href="/why-islam" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/why-islam" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("whyIslam")}
               </Link>
-              <Link href="/who-is-muhammad" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/who-is-muhammad" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("whoIsMuhammad")}
               </Link>
-              <Link href="/new-muslims" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/new-muslims" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("newMuslims")}
               </Link>
-              <Link href="/gallery" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/gallery" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("gallery")}
               </Link>
-              <Link href="/about-us" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/about-us" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("aboutUs")}
               </Link>
-              <Link href="/contact-us" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/contact-us" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("contactUs")}
               </Link>
-              <Link href="/donate" className="text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              <Link href="/donate" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("donate")}
               </Link>
             </nav>
@@ -68,13 +68,13 @@ export default function Footer() {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-2 text-gray-300">
                 <HiMail size={18} className="text-[var(--color-gold)]" />
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-[var(--color-gold)] transition-colors">
+                <a href={`mailto:${siteConfig.email}`} className="link-animated hover:text-[var(--color-gold)]">
                   {siteConfig.email}
                 </a>
               </div>
               <div className="flex items-center gap-2 text-gray-300">
                 <HiPhone size={18} className="text-[var(--color-gold)]" />
-                <a href={`tel:${siteConfig.phone}`} className="hover:text-[var(--color-gold)] transition-colors">
+                <a href={`tel:${siteConfig.phone}`} className="link-animated hover:text-[var(--color-gold)]">
                   {siteConfig.phone}
                 </a>
               </div>
@@ -90,10 +90,11 @@ export default function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--color-gold)] transition-colors"
+                  data-press
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--color-gold)] transition-[background-color] duration-[280ms] ease-out"
                   aria-label={label}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -107,7 +108,8 @@ export default function Footer() {
             <p className="text-gray-300 mb-6">{t("donateText")}</p>
             <Link
               href="/donate"
-              className="inline-block px-6 py-3 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors"
+              data-press
+              className="inline-block px-6 py-3 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
             >
               {nav("donate")}
             </Link>
@@ -120,13 +122,13 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-400">
           <span>{t("copyright")}</span>
           <nav aria-label={t("legal")} className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            <Link href="/privacy-policy" className="hover:text-[var(--color-gold)] transition-colors">
+            <Link href="/privacy-policy" className="link-animated hover:text-[var(--color-gold)]">
               {t("privacyPolicy")}
             </Link>
-            <Link href="/terms" className="hover:text-[var(--color-gold)] transition-colors">
+            <Link href="/terms" className="link-animated hover:text-[var(--color-gold)]">
               {t("terms")}
             </Link>
-            <Link href="/donation-agreement" className="hover:text-[var(--color-gold)] transition-colors">
+            <Link href="/donation-agreement" className="link-animated hover:text-[var(--color-gold)]">
               {t("donationAgreement")}
             </Link>
           </nav>
