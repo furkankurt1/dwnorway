@@ -8,9 +8,12 @@ export default function PrivacyPolicyPage() {
   const t = useTranslations("privacy");
   const footer = useTranslations("footer");
 
-  const sections: { key: "collect" | "use" | "cookies" | "rights" | "contact" }[] = [
+  const sections: {
+    key: "collect" | "use" | "donations" | "cookies" | "rights" | "contact";
+  }[] = [
     { key: "collect" },
     { key: "use" },
+    { key: "donations" },
     { key: "cookies" },
     { key: "rights" },
     { key: "contact" },
