@@ -31,4 +31,10 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # NEXT_PUBLIC_* vars must be present at *build time* — Next.js
+          # inlines them into the client bundle. wrangler.jsonc `vars` are
+          # only available at Worker runtime, so the client never sees them.
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_VIPPS_ENABLED: ${{ vars.NEXT_PUBLIC_VIPPS_ENABLED }}
+          NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${{ vars.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}
