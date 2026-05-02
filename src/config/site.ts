@@ -14,6 +14,14 @@ export const siteConfig = {
     tiktok: "https://www.tiktok.com/@dawahnorway",
   },
 
+  tiktokVideos: [
+    "7628679625706687766",
+    "7601959562043755778",
+    "7599403405672516886",
+    "7596742797034622230",
+    "7508820017094429974",
+  ],
+
   team: [
     {
       name: "Yousuf Dawah",

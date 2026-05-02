@@ -53,8 +53,8 @@ export default function HomePage() {
       {/* ───────── Hero ───────── */}
       <ParallaxSection
         backgroundImages={siteConfig.homeGallery}
-        cycleInterval={6000}
-        overlayColor="rgba(10, 22, 40, 0.62)"
+        cycleInterval={4000}
+        overlayColor="rgba(10, 22, 40, 0.42)"
         className="text-white"
         minHeight="auto"
       >
@@ -443,6 +443,50 @@ export default function HomePage() {
               <ButtonLink href="/gallery" variant="secondary">
                 {t("viewGallery")}
               </ButtonLink>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ───────── TikTok Videos ───────── */}
+      <section className="section-py bg-[var(--color-light)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow={t("videosSubtitle")}
+            title={t("videosTitle")}
+            description={t("videosText")}
+          />
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+            {siteConfig.tiktokVideos.map((id) => (
+              <StaggerItem key={id}>
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                  <div className="relative w-full" style={{ aspectRatio: "9 / 16" }}>
+                    <iframe
+                      src={`https://www.tiktok.com/player/v1/${id}?music_info=1&description=1`}
+                      title={t("videosPlayLabel")}
+                      loading="lazy"
+                      allow="accelerometer; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      className="absolute inset-0 w-full h-full border-0"
+                    />
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
+          <FadeIn delay={0.2}>
+            <div className="text-center mt-12">
+              <a
+                href={siteConfig.social.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-press
+                className="inline-flex items-center gap-2 text-[var(--color-gold-text)] font-semibold link-animated"
+              >
+                <FaTiktok size={16} aria-hidden="true" />
+                {t("videosFollowCta")}
+              </a>
             </div>
           </FadeIn>
         </div>

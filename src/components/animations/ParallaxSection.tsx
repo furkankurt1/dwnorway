@@ -141,7 +141,7 @@ export default function ParallaxSection({
                   className="absolute inset-0 will-change-[opacity]"
                   initial={{ opacity: i === 0 ? 1 : 0 }}
                   animate={{ opacity: active ? 1 : 0 }}
-                  transition={{ duration: 1.4, ease: "easeInOut" }}
+                  transition={{ duration: 0.9, ease: "easeInOut" }}
                 >
                   <Image
                     src={src}
