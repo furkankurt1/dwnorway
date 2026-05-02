@@ -52,8 +52,9 @@ export default function HomePage() {
     <>
       {/* ───────── Hero ───────── */}
       <ParallaxSection
-        backgroundImage="/images/mosque-interior.jpg"
-        overlayColor="rgba(10, 22, 40, 0.7)"
+        backgroundImages={siteConfig.homeGallery}
+        cycleInterval={6000}
+        overlayColor="rgba(10, 22, 40, 0.62)"
         className="text-white"
         minHeight="auto"
       >

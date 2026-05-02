@@ -9,14 +9,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "gallery" });
-
-  return generatePageMetadata({
-    title: t("title"),
-    description: t("intro"),
-    path: "/gallery",
-    locale,
-  });
+  return generatePageMetadata({ path: "/gallery", locale });
 }
 
 export default async function Page({

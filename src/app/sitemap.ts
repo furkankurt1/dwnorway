@@ -1,9 +1,18 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { hreflangFor } from "@/i18n/locale-tags";
 
 const BASE_URL = siteConfig.url;
 const LOCALES = ["en", "no"] as const;
 const DEFAULT_LOCALE = "en";
+
+// Match the trailing-slash convention used by `generatePageMetadata`'s
+// canonical so sitemap URL == canonical URL exactly.
+function localizedUrl(locale: string, route: string): string {
+  return route === "/"
+    ? `${BASE_URL}/${locale}`
+    : `${BASE_URL}/${locale}${route}`;
+}
 
 // Bump when the route's content materially changes. Using build-time constants
 // (not `new Date()`) keeps lastmod stable across crawls — Google penalises
@@ -57,17 +66,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return LOCALES.flatMap((locale) =>
     routes.map((route) => {
-      const path = route === "/" ? "" : route;
       const entry: MetadataRoute.Sitemap[number] = {
-        url: `${BASE_URL}/${locale}${path}`,
+        url: localizedUrl(locale, route),
         lastModified: LAST_UPDATED[route],
         changeFrequency: CHANGE_FREQ[route] ?? "monthly",
         priority: PRIORITY[route] ?? 0.5,
         alternates: {
           languages: {
-            en: `${BASE_URL}/en${path}`,
-            no: `${BASE_URL}/no${path}`,
-            "x-default": `${BASE_URL}/${DEFAULT_LOCALE}${path}`,
+            [hreflangFor("en")]: localizedUrl("en", route),
+            [hreflangFor("no")]: localizedUrl("no", route),
+            "x-default": localizedUrl(DEFAULT_LOCALE, route),
           },
         },
       };

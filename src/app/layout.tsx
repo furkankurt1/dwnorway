@@ -14,6 +14,8 @@ import {
   siteNavigationJsonLd,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
+import { htmlLang } from "@/i18n/locale-tags";
+import { getSeo } from "@/config/seo";
 import "./globals.css";
 
 const BASE_URL = siteConfig.url;
@@ -32,63 +34,39 @@ const sourceSans = Source_Sans_3({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
-  title: {
-    default: "Dawah Norway — Empowering Dawah & Knowledge in Norway",
-    template: "%s | Dawah Norway",
-  },
-  description:
-    "An invitation to Islam. Educating communities, distributing free Qurans, and supporting new Muslims across Norway.",
-  keywords: [
-    "Dawah Norway",
-    "Islam Norway",
-    "Islamic education",
-    "dawah Scandinavia",
-    "new Muslim support",
-    "free Quran Norway",
-    "Muslim community Norway",
-    "Islamic outreach Oslo",
-  ],
-  authors: [{ name: siteConfig.name, url: BASE_URL }],
-  creator: siteConfig.name,
-  publisher: siteConfig.name,
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  openGraph: {
-    type: "website",
-    siteName: siteConfig.name,
-    locale: "en_US",
-    alternateLocale: "nb_NO",
-    images: [
-      {
-        url: "/images/og-default.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Dawah Norway",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/images/og-default.jpg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const home = getSeo(locale, "/");
+  return {
+    metadataBase: new URL(BASE_URL),
+    title: {
+      default: home.title,
+      template: locale === "no" ? "%s | Dawah Norge" : "%s | Dawah Norway",
+    },
+    description: home.description,
+    keywords: home.keywords,
+    authors: [{ name: siteConfig.name, url: BASE_URL }],
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  verification: {},
-};
+    verification: {},
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -100,7 +78,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={locale}
+      lang={htmlLang(locale)}
       className={`${poppins.variable} ${sourceSans.variable}`}
     >
       <head>
@@ -121,7 +99,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(siteNavigationJsonLd()),
+            __html: JSON.stringify(siteNavigationJsonLd(locale)),
           }}
         />
       </head>

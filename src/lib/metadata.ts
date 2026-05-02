@@ -1,64 +1,90 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { getSeo } from "@/config/seo";
+import { hreflangFor, ogLocale } from "@/i18n/locale-tags";
 
 const BASE_URL = siteConfig.url;
 
 type PageSEO = {
-  title: string;
-  description: string;
   path: string;
   locale: string;
+  // Optional overrides — when omitted the values come from src/config/seo.ts.
+  title?: string;
+  description?: string;
+  keywords?: string[];
   image?: string;
+  noindex?: boolean;
 };
 
+function buildUrl(locale: string, path: string): string {
+  return path === "/"
+    ? `${BASE_URL}/${locale}`
+    : `${BASE_URL}/${locale}${path}`;
+}
+
 export function generatePageMetadata({
-  title,
-  description,
   path,
   locale,
+  title,
+  description,
+  keywords,
   image,
+  noindex,
 }: PageSEO): Metadata {
-  const url = `${BASE_URL}/${locale}${path}`;
+  const seo = getSeo(locale, path);
+  const finalTitle = title ?? seo.title;
+  const finalDescription = description ?? seo.description;
+  const finalKeywords = keywords ?? seo.keywords;
+  const url = buildUrl(locale, path);
   const ogImage = image || `${BASE_URL}/images/og-default.jpg`;
-  const fullTitle = title;
-  const alternateLocale = locale === "en" ? "no" : "en";
-
   const isHome = path === "/";
 
+  const altLocale = locale === "en" ? "no" : "en";
+
   return {
-    title: isHome ? { absolute: fullTitle } : fullTitle,
-    description,
+    title: isHome ? { absolute: finalTitle } : finalTitle,
+    description: finalDescription,
+    keywords: finalKeywords,
     alternates: {
       canonical: url,
       languages: {
-        en: `${BASE_URL}/en${path}`,
-        no: `${BASE_URL}/no${path}`,
-        "x-default": `${BASE_URL}/en${path}`,
+        [hreflangFor("en")]: buildUrl("en", path),
+        [hreflangFor("no")]: buildUrl("no", path),
+        "x-default": buildUrl("en", path),
       },
     },
     openGraph: {
-      title: fullTitle,
-      description,
+      title: finalTitle,
+      description: finalDescription,
       url,
       siteName: siteConfig.name,
-      locale: locale === "en" ? "en_US" : "nb_NO",
-      alternateLocale: alternateLocale === "en" ? "en_US" : "nb_NO",
+      locale: ogLocale(locale),
+      alternateLocale: ogLocale(altLocale),
       type: "website",
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: finalTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
-      description,
+      title: finalTitle,
+      description: finalDescription,
       images: [ogImage],
     },
+    ...(noindex
+      ? {
+          robots: {
+            index: false,
+            follow: true,
+            googleBot: { index: false, follow: true },
+          },
+        }
+      : {}),
   };
 }
 
@@ -67,6 +93,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
+    alternateName: "Dawah Norge",
     url: siteConfig.url,
     logo: `${siteConfig.url}/images/logo.png`,
     description:
@@ -116,8 +143,8 @@ export function webSiteJsonLd() {
   };
 }
 
-export function siteNavigationJsonLd() {
-  const items = [
+const NAV_NAMES: Record<"en" | "no", { path: string; name: string }[]> = {
+  en: [
     { name: "Why Islam?", path: "/why-islam" },
     { name: "Who is Muhammad ﷺ", path: "/who-is-muhammad" },
     { name: "New Muslims", path: "/new-muslims" },
@@ -127,18 +154,31 @@ export function siteNavigationJsonLd() {
     { name: "Gallery", path: "/gallery" },
     { name: "Donate", path: "/donate" },
     { name: "Contact Us", path: "/contact-us" },
-  ];
+  ],
+  no: [
+    { name: "Hvorfor Islam?", path: "/why-islam" },
+    { name: "Hvem er Muhammad ﷺ", path: "/who-is-muhammad" },
+    { name: "Nye Muslimer", path: "/new-muslims" },
+    { name: "Om Oss", path: "/about-us" },
+    { name: "Vårt Oppdrag", path: "/about-us/our-mission" },
+    { name: "Vår Visjon", path: "/about-us/our-vision" },
+    { name: "Galleri", path: "/gallery" },
+    { name: "Doner", path: "/donate" },
+    { name: "Kontakt Oss", path: "/contact-us" },
+  ],
+};
+
+export function siteNavigationJsonLd(locale: string) {
+  const items = NAV_NAMES[locale === "no" ? "no" : "en"];
   return items.map((it) => ({
     "@context": "https://schema.org",
     "@type": "SiteNavigationElement",
     name: it.name,
-    url: `${siteConfig.url}/en${it.path}`,
+    url: `${siteConfig.url}/${locale}${it.path}`,
   }));
 }
 
-export function breadcrumbJsonLd(
-  items: { name: string; url: string }[]
-) {
+export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -147,6 +187,67 @@ export function breadcrumbJsonLd(
       position: index + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+type ArticleArgs = {
+  locale: string;
+  path: string;
+  headline: string;
+  description: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+};
+
+export function articleJsonLd({
+  locale,
+  path,
+  headline,
+  description,
+  image,
+  datePublished = "2026-04-24",
+  dateModified = "2026-05-02",
+}: ArticleArgs) {
+  const url = buildUrl(locale, path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    inLanguage: locale === "no" ? "nb" : "en",
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    headline,
+    description,
+    image: image ?? `${siteConfig.url}/images/og-default.jpg`,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/images/logo.png`,
+      },
+    },
+    datePublished,
+    dateModified,
+  };
+}
+
+export function faqJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: it.answer,
+      },
     })),
   };
 }

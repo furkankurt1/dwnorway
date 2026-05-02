@@ -15,6 +15,7 @@ export async function generateMetadata({
     description: t("successText"),
     path: "/donate/success",
     locale,
+    noindex: true,
   });
 }
 

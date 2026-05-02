@@ -15,6 +15,7 @@ export async function generateMetadata({
     description: t("completeCheckingText"),
     path: "/donate/complete",
     locale,
+    noindex: true,
   });
 }
 
