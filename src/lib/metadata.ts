@@ -39,12 +39,15 @@ export function generatePageMetadata({
   const isHome = path === "/";
   const altLocale = locale === "en" ? "no" : "en";
 
-  // When a page passes an explicit image we honour it; otherwise fall back
-  // to the per-locale `opengraph-image.tsx` / `twitter-image.tsx` Next.js
-  // conventions (auto-localized — Norwegian for /no, English for /en).
-  const explicitImage = image
-    ? [{ url: image, width: 1200, height: 630, alt: finalTitle }]
-    : undefined;
+  // Default OG image: a static, pre-built /images/og-default.jpg.
+  // Earlier we used per-locale `opengraph-image.tsx` (dynamic, edge-runtime
+  // ImageResponse) but OpenNext on Cloudflare Workers can't co-locate
+  // edge-runtime functions with static-rendered routes. Static .jpg is
+  // simpler, faster to serve, and gets cached at the CDN edge.
+  const ogImage = image ?? `${BASE_URL}/images/og-default.jpg`;
+  const ogImages = [
+    { url: ogImage, width: 1200, height: 630, alt: finalTitle },
+  ];
 
   return {
     title: isHome ? { absolute: finalTitle } : finalTitle,
@@ -66,13 +69,13 @@ export function generatePageMetadata({
       locale: ogLocale(locale),
       alternateLocale: ogLocale(altLocale),
       type: "website",
-      ...(explicitImage ? { images: explicitImage } : {}),
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       title: finalTitle,
       description: finalDescription,
-      ...(image ? { images: [image] } : {}),
+      images: [ogImage],
     },
     ...(noindex
       ? {
