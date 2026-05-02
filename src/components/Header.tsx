@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePathname as useRawPathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/config/site";
 import {
   FaFacebookF,
@@ -25,11 +25,25 @@ const socialIcons = [
   { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
 ].filter((s) => s.href);
 
+// Strip a leading `/<locale>` segment from a pathname. Done manually
+// against the routing config rather than via next-intl's `usePathname`
+// because the latter occasionally returns the still-prefixed path on
+// re-renders, producing `/<oldLocale>/<newLocale>` URLs when used as the
+// input to `router.replace(path, { locale })`. Manual stripping is
+// idempotent and survives that edge case.
+function stripLocale(pathname: string): string {
+  for (const loc of routing.locales) {
+    if (pathname === `/${loc}`) return "/";
+    if (pathname.startsWith(`/${loc}/`)) return pathname.slice(loc.length + 1);
+  }
+  return pathname || "/";
+}
+
 export default function Header() {
   const t = useTranslations("nav");
   const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
+  const rawPathname = useRawPathname();
+  const pathname = stripLocale(rawPathname || "/");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -41,8 +55,15 @@ export default function Header() {
     setScrolled(y > 24);
   });
 
-  const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale as "en" | "no" });
+  const switchLocale = (newLocale: "en" | "no") => {
+    if (typeof window === "undefined") return;
+    // Persist preference for future / → /<locale> redirects.
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    // Hard navigation — bypasses the next-intl client router so we always
+    // land on a clean `/${newLocale}${pathname}` regardless of any stale
+    // client-side state.
+    const target = pathname === "/" ? `/${newLocale}` : `/${newLocale}${pathname}`;
+    window.location.assign(target);
   };
 
   const navLinks: Array<{
@@ -98,7 +119,7 @@ export default function Header() {
           <Link href="/" className="flex items-center" data-press>
             <Image
               src="/images/logo.png"
-              alt="Dawah Norway"
+              alt={locale === "no" ? "Dawah Norge" : "Dawah Norway"}
               width={160}
               height={64}
               className={`w-auto transition-[height] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${

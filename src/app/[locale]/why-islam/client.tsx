@@ -10,6 +10,7 @@ import StaggerChildren, {
 import HoverCard from "@/components/ui/HoverCard";
 import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
+import Breadcrumb from "@/components/Breadcrumb";
 import {
   FaHeart,
   FaSun,
@@ -23,6 +24,7 @@ import {
 
 export default function WhyIslamPage() {
   const t = useTranslations("whyIslam");
+  const nav = useTranslations("nav");
 
   const sections = [
     { icon: FaHeart, title: t("s1Title"), text: t("s1Text") },
@@ -37,6 +39,8 @@ export default function WhyIslamPage() {
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("whyIslam") }]} />
+
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

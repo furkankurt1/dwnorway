@@ -1,6 +1,11 @@
 import { getTranslations } from "next-intl/server";
-import { generatePageMetadata, breadcrumbJsonLd } from "@/lib/metadata";
+import {
+  generatePageMetadata,
+  breadcrumbJsonLd,
+  imageGalleryJsonLd,
+} from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
+import { getSeo } from "@/config/seo";
 import GalleryPage from "./client";
 
 export async function generateMetadata({
@@ -20,16 +25,31 @@ export default async function Page({
   const { locale } = await params;
   const nav = await getTranslations({ locale, namespace: "nav" });
   const tGallery = await getTranslations({ locale, namespace: "gallery" });
+  const seo = getSeo(locale, "/gallery");
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
     { name: tGallery("title"), url: `${siteConfig.url}/${locale}/gallery` },
   ]);
+  const gallery = imageGalleryJsonLd({
+    locale,
+    path: "/gallery",
+    name: seo.title,
+    description: seo.description,
+    images: siteConfig.gallery.map((img) => ({
+      url: `${siteConfig.url}${img.src}`,
+      caption: img.caption,
+    })),
+  });
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(gallery) }}
       />
       <GalleryPage />
     </>

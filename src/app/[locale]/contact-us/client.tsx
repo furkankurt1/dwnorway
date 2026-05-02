@@ -8,6 +8,7 @@ import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import CopyButton from "@/components/CopyButton";
 import Spinner from "@/components/Spinner";
+import Breadcrumb from "@/components/Breadcrumb";
 import { siteConfig } from "@/config/site";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -43,6 +44,7 @@ type FormStatus = "idle" | "sending" | "sent" | "error";
 
 export default function ContactUsPage() {
   const t = useTranslations("contact");
+  const nav = useTranslations("nav");
   const locale = useLocale();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
@@ -133,6 +135,7 @@ export default function ContactUsPage() {
           onReady={renderTurnstile}
         />
       )}
+      <Breadcrumb items={[{ label: nav("contactUs") }]} />
       {/* Hero */}
       <ParallaxSection
         backgroundImage="/images/about-hero.svg"

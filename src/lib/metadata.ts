@@ -92,9 +92,10 @@ export function generatePageMetadata({
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    // NGO is a more specific subtype of Organization — Google uses the
-    // narrowest matching type when ranking knowledge-graph entities.
-    "@type": "NGO",
+    // NGO + EducationalOrganization — multi-typed entity. NGO captures the
+    // non-profit status; EducationalOrganization signals the dawah-as-
+    // education function, which is what most of our content is about.
+    "@type": ["NGO", "EducationalOrganization"],
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     alternateName: "Dawah Norge",
@@ -161,15 +162,12 @@ export function webSiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
     name: siteConfig.name,
     alternateName: "Dawah Norge",
     url: siteConfig.url,
     inLanguage: ["en", "nb"],
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
   };
 }
 
@@ -279,5 +277,151 @@ export function faqJsonLd(items: { question: string; answer: string }[]) {
         text: it.answer,
       },
     })),
+  };
+}
+
+export function aboutPageJsonLd({
+  locale,
+  path,
+  name,
+  description,
+}: {
+  locale: string;
+  path: string;
+  name: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    inLanguage: locale === "no" ? "nb" : "en",
+    "@id": buildUrl(locale, path),
+    url: buildUrl(locale, path),
+    name,
+    description,
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
+    about: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
+export function contactPageJsonLd({
+  locale,
+  path,
+  name,
+  description,
+}: {
+  locale: string;
+  path: string;
+  name: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    inLanguage: locale === "no" ? "nb" : "en",
+    "@id": buildUrl(locale, path),
+    url: buildUrl(locale, path),
+    name,
+    description,
+    mainEntity: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
+export function imageGalleryJsonLd({
+  locale,
+  path,
+  name,
+  description,
+  images,
+}: {
+  locale: string;
+  path: string;
+  name: string;
+  description: string;
+  images: { url: string; caption: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    inLanguage: locale === "no" ? "nb" : "en",
+    "@id": buildUrl(locale, path),
+    url: buildUrl(locale, path),
+    name,
+    description,
+    associatedMedia: images.slice(0, 24).map((img) => ({
+      "@type": "ImageObject",
+      contentUrl: img.url,
+      caption: img.caption,
+    })),
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
+// Donation rich-result helper. Works alongside the NGO schema — this one
+// describes the *action*, not the entity, which is what Google Donations
+// experiences look for.
+export function donateActionJsonLd({
+  locale,
+  path,
+  name,
+  description,
+}: {
+  locale: string;
+  path: string;
+  name: string;
+  description: string;
+}) {
+  const pageUrl = buildUrl(locale, path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": pageUrl,
+    url: pageUrl,
+    name,
+    description,
+    inLanguage: locale === "no" ? "nb" : "en",
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}/images/og-default.jpg`,
+    },
+    potentialAction: {
+      "@type": "DonateAction",
+      name,
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: pageUrl,
+        actionPlatform: [
+          "https://schema.org/DesktopWebPlatform",
+          "https://schema.org/MobileWebPlatform",
+        ],
+      },
+      recipient: { "@id": `${siteConfig.url}/#organization` },
+    },
+  };
+}
+
+export function personJsonLd({
+  name,
+  jobTitle,
+  image,
+  worksFor,
+}: {
+  name: string;
+  jobTitle: string;
+  image?: string;
+  worksFor?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    jobTitle,
+    ...(image ? { image } : {}),
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+      name: worksFor ?? siteConfig.name,
+    },
   };
 }

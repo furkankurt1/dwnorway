@@ -9,6 +9,7 @@ import StaggerChildren, {
 } from "@/components/animations/StaggerChildren";
 import HoverCard from "@/components/ui/HoverCard";
 import { ButtonLink } from "@/components/ui/Button";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 import {
@@ -49,9 +50,12 @@ const resources = [
 
 export default function NewMuslimsPage() {
   const t = useTranslations("newMuslims");
+  const nav = useTranslations("nav");
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("newMuslims") }]} />
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">

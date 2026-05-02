@@ -9,10 +9,12 @@ import FadeIn from "@/components/animations/FadeIn";
 import StaggerChildren, {
   StaggerItem,
 } from "@/components/animations/StaggerChildren";
+import Breadcrumb from "@/components/Breadcrumb";
 import { siteConfig } from "@/config/site";
 
 export default function GalleryPage() {
   const t = useTranslations("gallery");
+  const nav = useTranslations("nav");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
@@ -50,6 +52,7 @@ export default function GalleryPage() {
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("gallery") }]} />
       <section className="section-py-sm bg-[var(--color-light)]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>

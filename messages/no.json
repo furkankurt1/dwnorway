@@ -19,7 +19,7 @@
     "gallery": "Galleri"
   },
   "hero": {
-    "title": "Dawah Norway",
+    "title": "Dawah Norge",
     "tagline": "En invitasjon til Islam",
     "quran": "Kall til din Herres vei med visdom og god formaning, og diskuter med dem på den beste måten.",
     "quranRef": "An-Nahl 16:125",
@@ -35,12 +35,12 @@
     "newMuslimText": "Enten du er ny i Islam eller fortsatt lærer det grunnleggende, er vår Nye Muslimer-seksjon her for å støtte deg med klare, oppmuntrende ressurser hvert steg på veien.",
     "newMuslimBtn": "Nye Muslimer",
     "whoWeAreTitle": "Hvem Vi Er og Hva Vi Gjør",
-    "whoWeAreText": "Dawah Norway er en ideell organisasjon grunnlagt i 2021, dedikert til å utdanne både muslimske og ikke-muslimske samfunn om Islam gjennom informasjonsbord, dawah-stands og organiserte klasser. Vi opererer i seks byer i Norge med lokale team i Oslo, Østfold, Kristiansand, Stavanger, Trondheim og Tromsø.",
+    "whoWeAreText": "Dawah Norge er en ideell organisasjon grunnlagt i 2021, dedikert til å utdanne både muslimske og ikke-muslimske samfunn om Islam gjennom informasjonsbord, dawah-stands og organiserte klasser. Vi opererer i seks byer i Norge med lokale team i Oslo, Østfold, Kristiansand, Stavanger, Trondheim og Tromsø.",
     "subscribeTitle": "Abonner på Vår Kanal",
     "statsConverts": "Mennesker Akseptert Islam",
     "statsQurans": "Gratis Koraner Distribuert",
     "statsLiterature": "Islamsk Litteratur Distribuert",
-    "whyTitle": "Hvorfor Dawah Norway?",
+    "whyTitle": "Hvorfor Dawah Norge?",
     "whyOutreach": "Samfunnsoppsøkende Arbeid",
     "whyOutreachText": "Skaper forbindelser og fremmer forståelse mellom muslimske og ikke-muslimske samfunn i hele Norge",
     "whyQuran": "Gratis Koran-Distribusjon",
@@ -60,6 +60,8 @@
     "glimpsesSubtitle": "Samfunnet i Aksjon",
     "glimpsesText": "Øyeblikk fanget fra dawah-stands, Koran-distribusjoner og samfunnssamlinger i hele Norge.",
     "viewGallery": "Se Hele Galleriet",
+    "altHolyQuran": "Den hellige Koranen åpen for lesing",
+    "altCommunityMoment": "Dawah Norge fellesskapsøyeblikk",
     "volunteersTitle": "Møt Teamet",
     "volunteersSubtitle": "Våre Frivillige",
     "testimonialsTitle": "Hva Folk Sier",
@@ -133,9 +135,9 @@
   "about": {
     "title": "Om Oss",
     "bismillah": "I Allahs navn, den Mest Nådige, den Mest Barmhjertige",
-    "intro": "Dawah Norway er en ideell organisasjon grunnlagt i 2021 i Norge, dedikert til å utdanne både muslimske og ikke-muslimske samfunn om Islam gjennom informasjonsbord, dawah-stands og organiserte klasser.",
+    "intro": "Dawah Norge er en ideell organisasjon grunnlagt i 2021 i Norge, dedikert til å utdanne både muslimske og ikke-muslimske samfunn om Islam gjennom informasjonsbord, dawah-stands og organiserte klasser.",
     "historyTitle": "Vår Historie",
-    "historyText": "Grunnlagt i 2021 har Dawah Norway vokst til et aktivt fellesskap som inviterer mennesker til Islam med visdom og medfølelse. Vi følger Koranen og autentisk Sunnah, i henhold til 'Aqidah til Ahlus-Sunnah wal-Jama'ah. Med seks lokale team i Norge — i Oslo, Østfold, Kristiansand, Stavanger, Trondheim og Tromsø — jobber vi aktivt for å dele Islams budskap.",
+    "historyText": "Grunnlagt i 2021 har Dawah Norge vokst til et aktivt fellesskap som inviterer mennesker til Islam med visdom og medfølelse. Vi følger Koranen og autentisk Sunnah, i henhold til 'Aqidah til Ahlus-Sunnah wal-Jama'ah. Med seks lokale team i Norge — i Oslo, Østfold, Kristiansand, Stavanger, Trondheim og Tromsø — jobber vi aktivt for å dele Islams budskap.",
     "foundersTitle": "Vårt Team",
     "quranVerse": "La det være en gruppe blant dere som kaller andre til godhet, oppmuntrer til det gode og forbyr det onde — det er de som vil lykkes.",
     "quranRef": "Koranen 3:104"
@@ -153,7 +155,7 @@
   "vision": {
     "title": "Vår Visjon",
     "statement": "Vi ser for oss et Norge der alle har tilgang til autentisk islamsk kunnskap, der samfunn er forent av delt forståelse og respekt for hverandre.",
-    "intro": "Dawah Norway er forpliktet til å invitere mennesker til Islam og bygge bro over kulturelle og trosmessige gap gjennom utdanningsinitiativer i Norge.",
+    "intro": "Dawah Norge er forpliktet til å invitere mennesker til Islam og bygge bro over kulturelle og trosmessige gap gjennom utdanningsinitiativer i Norge.",
     "impactTitle": "Vår Innvirkning",
     "impactText": "Over 1000 mennesker har akseptert Islam gjennom vårt arbeid. Vi har distribuert over 50 000 gratis Koran-eksemplarer og 80 000+ islamske litteraturartikler i hele Norge.",
     "prioritiesTitle": "Strategiske Prioriteringer",
@@ -224,7 +226,7 @@
     "receiptSent": "En kvittering er sendt til {email}"
   },
   "footer": {
-    "connectTitle": "Kontakt Dawah Norway",
+    "connectTitle": "Kontakt Dawah Norge",
     "talkIslam": "La Oss Snakke Om Islam",
     "copyright": "Opphavsrett © 2025 Dawah Norway. Alle rettigheter forbeholdt.",
     "donateText": "Vennligst doner sjenerøst og bidra til vårt pågående dawah-arbeid i hele Norge",

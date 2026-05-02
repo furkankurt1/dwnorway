@@ -264,7 +264,7 @@ export default function HomePage() {
               <div className="relative h-[400px] lg:h-[500px] overflow-hidden rounded-2xl lg:rounded-r-none lg:rounded-l-2xl my-12 lg:my-0">
                 <Image
                   src="/images/quran-open.jpg"
-                  alt="Holy Quran"
+                  alt={t("altHolyQuran")}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
@@ -427,7 +427,7 @@ export default function HomePage() {
                   >
                     <Image
                       src={src}
-                      alt="Dawah Norway community moment"
+                      alt={t("altCommunityMoment")}
                       fill
                       sizes="(max-width: 768px) 50vw, 33vw"
                       className="object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"

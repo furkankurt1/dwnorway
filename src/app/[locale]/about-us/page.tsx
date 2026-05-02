@@ -2,7 +2,8 @@ import { getTranslations } from "next-intl/server";
 import {
   generatePageMetadata,
   breadcrumbJsonLd,
-  articleJsonLd,
+  aboutPageJsonLd,
+  personJsonLd,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
@@ -30,12 +31,21 @@ export default async function Page({
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
     { name: tAbout("title"), url: `${siteConfig.url}/${locale}/about-us` },
   ]);
-  const article = articleJsonLd({
+  const aboutPage = aboutPageJsonLd({
     locale,
     path: "/about-us",
-    headline: seo.title,
+    name: seo.title,
     description: seo.description,
   });
+  const team = siteConfig.team.map((member) =>
+    personJsonLd({
+      name: member.name,
+      jobTitle: member.role,
+      image: member.image
+        ? `${siteConfig.url}${member.image}`
+        : undefined,
+    })
+  );
 
   return (
     <>
@@ -45,8 +55,15 @@ export default async function Page({
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPage) }}
       />
+      {team.map((person) => (
+        <script
+          key={person.name}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+        />
+      ))}
       <AboutUsPage />
     </>
   );

@@ -12,6 +12,7 @@ import { Link } from "@/i18n/navigation";
 import { FaCreditCard, FaMobileAlt, FaArrowLeft, FaPaypal } from "react-icons/fa";
 import { SiVisa, SiMastercard } from "react-icons/si";
 import Spinner from "@/components/Spinner";
+import Breadcrumb from "@/components/Breadcrumb";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   EmbeddedCheckoutProvider,
@@ -116,6 +117,7 @@ function PaymentMethodCard({
 
 export default function DonatePage() {
   const t = useTranslations("donate");
+  const nav = useTranslations("nav");
   const locale = useLocale();
   const searchParams = useSearchParams();
 
@@ -240,6 +242,8 @@ export default function DonatePage() {
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("donate") }]} />
+
       {/* ───────── Hero ───────── */}
       <ParallaxSection
         backgroundImage="/images/donate-hero.svg"

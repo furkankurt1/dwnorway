@@ -64,9 +64,25 @@ export async function generateMetadata(): Promise<Metadata> {
         "max-snippet": -1,
       },
     },
-    verification: {},
+    verification: {
+      // Set via env when GSC / Bing / Yandex give you a token. Empty
+      // fields are dropped from the rendered HTML.
+      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
+      other: {
+        ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
+          ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION }
+          : {}),
+        ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
+          ? { "yandex-verification": process.env.NEXT_PUBLIC_YANDEX_VERIFICATION }
+          : {}),
+      },
+    },
   };
 }
+
+export const viewport = {
+  themeColor: "#bfa055",
+};
 
 export default async function RootLayout({
   children,

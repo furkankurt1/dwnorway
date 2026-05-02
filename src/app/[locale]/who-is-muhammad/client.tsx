@@ -10,6 +10,7 @@ import StaggerChildren, {
 import HoverCard from "@/components/ui/HoverCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import IconBadge from "@/components/ui/IconBadge";
+import Breadcrumb from "@/components/Breadcrumb";
 import {
   FaHeart,
   FaHandshake,
@@ -22,6 +23,7 @@ import {
 
 export default function WhoIsMuhammadPage() {
   const t = useTranslations("muhammad");
+  const nav = useTranslations("nav");
 
   const virtues = [
     { icon: FaHeart, title: t("missionTitle"), text: t("missionText"), quote: t("missionQuote"), ref: t("missionRef") },
@@ -35,6 +37,8 @@ export default function WhoIsMuhammadPage() {
 
   return (
     <>
+      <Breadcrumb items={[{ label: nav("whoIsMuhammad") }]} />
+
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
