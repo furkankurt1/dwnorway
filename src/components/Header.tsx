@@ -226,10 +226,20 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile right-side group: persistent donate pill + menu toggle.
-             Donate stays visible at all times so users never need to dig
-             through a menu to find it. */}
+          {/* Mobile right-side group: locale switch + persistent donate pill + menu toggle.
+             Donate and locale stay visible at all times so users never need
+             to dig through a menu to find them. */}
           <div className="lg:hidden flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => switchLocale(locale === "en" ? "no" : "en")}
+              data-press
+              aria-label={locale === "en" ? "Bytt til norsk" : "Switch to English"}
+              className="px-3 py-1.5 text-xs font-semibold border border-[var(--color-gold-dark)] text-[var(--color-gold-text)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-[background-color,color] duration-[280ms] ease-out"
+            >
+              {locale === "en" ? "NO" : "EN"}
+            </button>
+
             <Link
               href="/donate"
               data-press
