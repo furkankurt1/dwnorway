@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerChildren, {
   StaggerItem,
@@ -111,6 +112,53 @@ export default function WhyIslamPage() {
               {t("ctaBtn")}
             </ButtonLink>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* Internal cross-linking — keeps reader inside the topical cluster
+          and gives Google a clear authority graph on Islam/Norway. */}
+      <section className="section-py-sm bg-[var(--color-light)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="text-2xl md:text-3xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-8 text-center">
+              {t("exploreMoreTitle")}
+            </h2>
+          </FadeIn>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                href: "/who-is-muhammad" as const,
+                title: t("exploreMuhammad"),
+                text: t("exploreMuhammadText"),
+              },
+              {
+                href: "/new-muslims" as const,
+                title: t("exploreNewMuslims"),
+                text: t("exploreNewMuslimsText"),
+              },
+              {
+                href: "/about-us" as const,
+                title: t("exploreAbout"),
+                text: t("exploreAboutText"),
+              },
+            ].map((card) => (
+              <StaggerItem key={card.href}>
+                <Link href={card.href} data-press className="block h-full">
+                  <HoverCard className="bg-white border border-gray-100 rounded-2xl p-6 h-full">
+                    <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2 text-[var(--color-dark)]">
+                      {card.title}
+                    </h3>
+                    <p className="text-[var(--color-gray)] text-sm leading-relaxed mb-4">
+                      {card.text}
+                    </p>
+                    <span className="text-[var(--color-gold-text)] font-semibold text-sm link-animated">
+                      →
+                    </span>
+                  </HoverCard>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerChildren>
         </div>
       </section>
     </>

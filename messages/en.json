@@ -100,7 +100,35 @@
     "freeBooksText": "Access free Islamic literature and Quran copies",
     "prayerMat": "Free Guided Prayer Mat",
     "prayerMatText": "A prayer mat with visual instructions to help you pray",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "shahadaTitle": "How to Become a Muslim — The Shahada",
+    "shahadaIntro": "Becoming a Muslim is simple. You enter Islam by sincerely declaring the Shahada — the testimony of faith. No certificate, ceremony, or permission from anyone is required. Allah accepts you the moment your heart submits.",
+    "shahadaArabic": "أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّٰهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّٰهِ",
+    "shahadaTransliteration": "Ash-hadu an la ilaha illa Allah, wa ash-hadu anna Muhammadan rasulullah",
+    "shahadaMeaning": "I bear witness that there is no god worthy of worship except Allah, and I bear witness that Muhammad is the Messenger of Allah.",
+    "shahadaCtaText": "Want to take this step with someone walking beside you? We are here.",
+    "shahadaCtaBtn": "Talk to a Mentor",
+    "norwayTitle": "Your First Steps as a Muslim in Norway",
+    "norwayIntro": "Dawah Norway has teams in six cities — Oslo, Trondheim, Stavanger, Kristiansand, Tromsø and Østfold — ready to support you with mosque connections, free Qurans and one-to-one mentorship in Norwegian or English.",
+    "norwayStep1": "Take a ritual bath (ghusl) and learn how to perform wudu before prayer.",
+    "norwayStep2": "Find your nearest mosque for Friday prayer and ask us if you need help locating one.",
+    "norwayStep3": "Order a free Quran in English or Norwegian via our contact form — we ship anywhere in Norway.",
+    "norwayStep4": "Connect with a mentor who can answer questions in your language as you learn the prayer and the basics of the faith.",
+    "faqTitle": "Frequently Asked Questions",
+    "faqQ1": "How do I become a Muslim in Norway?",
+    "faqA1": "You become a Muslim by sincerely declaring the Shahada (above). No certificate or permission is required, but we recommend reaching out for guidance and community.",
+    "faqQ2": "Do I have to change my name?",
+    "faqA2": "No. Islam does not require you to change your name unless its meaning contradicts Islamic belief. Most converts keep their existing name.",
+    "faqQ3": "What do I do after taking the Shahada?",
+    "faqA3": "Take a ritual bath (ghusl), learn wudu and the five daily prayers. We offer one-to-one guidance, a free Quran, and a mentor.",
+    "faqQ4": "Where can I find a mosque in Norway?",
+    "faqA4": "There are mosques in Oslo, Trondheim, Stavanger, Kristiansand, Tromsø and Østfold. Email info@dawahnorway.com and we will help you find the nearest one.",
+    "faqQ5": "Can I get a free Quran?",
+    "faqA5": "Yes — we distribute free Qurans across Norway. Use the contact form or email info@dawahnorway.com.",
+    "exploreMoreTitle": "Continue Exploring",
+    "exploreWhyIslam": "Why Islam?",
+    "exploreMuhammad": "Who is Muhammad ﷺ?",
+    "exploreAbout": "About Dawah Norway"
   },
   "about": {
     "title": "About Us",
@@ -209,6 +237,10 @@
     "home": "Home",
     "ariaLabel": "Breadcrumb"
   },
+  "notFound": {
+    "message": "Page not found",
+    "home": "Go home"
+  },
   "cookies": {
     "title": "We value your privacy",
     "text": "We use essential cookies to keep this site working. We would also like to use optional analytics cookies to understand how visitors use the site. You can accept or decline at any time.",
@@ -239,7 +271,14 @@
     "s8Text": "Islam's message applies to all humanity across ages, inviting personal spiritual journeys based on faith and righteousness rather than earthly distinctions.",
     "ctaTitle": "Ready to take the next step?",
     "ctaText": "Explore how to embrace Islam and connect with our community.",
-    "ctaBtn": "Become a Muslim"
+    "ctaBtn": "Become a Muslim",
+    "exploreMoreTitle": "Continue Reading",
+    "exploreMuhammad": "Who is Muhammad ﷺ?",
+    "exploreMuhammadText": "Discover the life and character of Islam's final prophet.",
+    "exploreNewMuslims": "Becoming a Muslim",
+    "exploreNewMuslimsText": "Step-by-step guide to embracing Islam and the support waiting for you in Norway.",
+    "exploreAbout": "About Dawah Norway",
+    "exploreAboutText": "Meet the team behind Norway's growing dawah community."
   },
   "muhammad": {
     "title": "Who is Muhammad ﷺ?",
@@ -272,7 +311,14 @@
     "gandhiQuote": "It was the rigid simplicity, the utter self-effacement of the Prophet, the scrupulous regard for his pledges, his intense devotion to his friends and followers, his intrepidity, his fearlessness, his absolute trust in God and in his own mission. These and not the sword carried everything before them and surmounted every obstacle.",
     "gandhiRef": "Mahatma Gandhi",
     "shawQuote": "The world is in dire need of a man with the mind of Muhammad. I came to the conclusion that he was never an enemy of Christianity, and must be called instead the saviour of humanity.",
-    "shawRef": "George Bernard Shaw"
+    "shawRef": "George Bernard Shaw",
+    "exploreMoreTitle": "Continue Reading",
+    "exploreWhyIslam": "Why Islam?",
+    "exploreWhyIslamText": "Eight reasons people embrace Islam — from a clear understanding of God to a balanced way of life.",
+    "exploreNewMuslims": "Becoming a Muslim",
+    "exploreNewMuslimsText": "How to take the Shahada, your first steps as a Muslim, and the support waiting for you in Norway.",
+    "exploreAbout": "About Dawah Norway",
+    "exploreAboutText": "Meet the team sharing this message across Norway since 2021."
   },
   "gallery": {
     "title": "Gallery",

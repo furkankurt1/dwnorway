@@ -104,38 +104,44 @@ export default function ParallaxSection({
       className={`relative overflow-hidden ${className}`}
       style={{ minHeight }}
     >
-      {/* Slideshow path */}
+      {/* Slideshow path
+         Pure opacity crossfade. Earlier I had a per-slide Ken Burns scale
+         that snapped back to its starting value when the slide became
+         inactive — but that snap happened *during* the 1.2s fade-out
+         while the slide was still 30-40% visible, producing a clear
+         glitch. Removed entirely.
+
+         A continuous, very subtle breathing scale on the outer container
+         (1.0 → 1.04 → 1.0 over 24s) gives the still images life without
+         per-slide state issues. */}
       {slideshow && backgroundImages && (
         <motion.div
           className="absolute inset-0"
           style={disableParallax ? {} : { y }}
         >
-          {backgroundImages.map((src, i) => {
-            const active = i === activeIndex;
-            return (
-              <motion.div
-                key={src}
-                className="absolute inset-0"
-                initial={{ opacity: i === 0 ? 1 : 0 }}
-                animate={{ opacity: active ? 1 : 0 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              >
-                {/* Ken Burns slow zoom — only the active slide grows.
-                   When the slide becomes inactive it snaps back, but
-                   that snap happens behind the next slide's opacity, so
-                   the user never sees it. */}
-                <motion.div
-                  className="absolute inset-0"
-                  initial={{ scale: 1.04 }}
-                  animate={
-                    active && !prefersReducedMotion
-                      ? { scale: 1.12 }
-                      : { scale: 1.04 }
+          <motion.div
+            className="absolute inset-0"
+            animate={prefersReducedMotion ? undefined : { scale: [1, 1.04, 1] }}
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: 24,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "loop",
                   }
-                  transition={{
-                    duration: active ? cycleInterval / 1000 + 1.2 : 0,
-                    ease: "linear",
-                  }}
+            }
+          >
+            {backgroundImages.map((src, i) => {
+              const active = i === activeIndex;
+              return (
+                <motion.div
+                  key={src}
+                  className="absolute inset-0 will-change-[opacity]"
+                  initial={{ opacity: i === 0 ? 1 : 0 }}
+                  animate={{ opacity: active ? 1 : 0 }}
+                  transition={{ duration: 1.4, ease: "easeInOut" }}
                 >
                   <Image
                     src={src}
@@ -147,21 +153,30 @@ export default function ParallaxSection({
                     aria-hidden="true"
                   />
                 </motion.div>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </motion.div>
         </motion.div>
       )}
 
-      {/* Single static image path (existing behavior) */}
+      {/* Single static image path — uses next/image with priority so the
+          hero contributes a proper LCP candidate (CSS bg-image previously
+          missed AVIF/WebP serving and the priority hint). */}
       {!slideshow && backgroundImage && (
         <motion.div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-            ...(disableParallax ? {} : { y, scale }),
-          }}
-        />
+          className="absolute inset-0"
+          style={disableParallax ? {} : { y, scale }}
+        >
+          <Image
+            src={backgroundImage}
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
+        </motion.div>
       )}
 
       {overlay && (

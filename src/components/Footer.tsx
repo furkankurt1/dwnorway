@@ -65,7 +65,9 @@ export default function Footer() {
             <h3 className="text-xl font-[family-name:var(--font-heading)] font-semibold mb-6 text-[var(--color-gold)]">
               {t("connectTitle")}
             </h3>
-            <div className="space-y-3 mb-6">
+            {/* Semantic <address> tells crawlers and assistive tech this is
+                the org's primary contact block. Pairs with the NGO JSON-LD. */}
+            <address className="not-italic space-y-3 mb-6">
               <div className="flex items-center gap-2 text-gray-300">
                 <HiMail size={18} className="text-[var(--color-gold)]" />
                 <a href={`mailto:${siteConfig.email}`} className="link-animated hover:text-[var(--color-gold)]">
@@ -82,7 +84,7 @@ export default function Footer() {
                 <HiLocationMarker size={18} className="text-[var(--color-gold)] mt-0.5 shrink-0" />
                 <span>{siteConfig.address}</span>
               </div>
-            </div>
+            </address>
             <div className="flex gap-4">
               {socialIcons.map(({ icon: Icon, href, label }) => (
                 <a

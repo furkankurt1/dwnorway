@@ -7,7 +7,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/donate/complete"],
+        // Both donate result pages get noindex via metadata, but blocking
+        // crawl saves crawl budget and avoids them appearing in cache.
+        disallow: [
+          "/api/",
+          "/_next/",
+          "/donate/complete",
+          "/donate/success",
+        ],
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,

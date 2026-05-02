@@ -1,6 +1,11 @@
 import { getTranslations } from "next-intl/server";
-import { generatePageMetadata, breadcrumbJsonLd } from "@/lib/metadata";
+import {
+  generatePageMetadata,
+  breadcrumbJsonLd,
+  articleJsonLd,
+} from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
+import { getSeo } from "@/config/seo";
 import OurMissionPage from "./client";
 
 export async function generateMetadata({
@@ -21,17 +26,28 @@ export default async function Page({
   const nav = await getTranslations({ locale, namespace: "nav" });
   const tAbout = await getTranslations({ locale, namespace: "about" });
   const tMission = await getTranslations({ locale, namespace: "mission" });
+  const seo = getSeo(locale, "/about-us/our-mission");
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
     { name: tAbout("title"), url: `${siteConfig.url}/${locale}/about-us` },
     { name: tMission("title"), url: `${siteConfig.url}/${locale}/about-us/our-mission` },
   ]);
+  const article = articleJsonLd({
+    locale,
+    path: "/about-us/our-mission",
+    headline: seo.title,
+    description: seo.description,
+  });
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
       />
       <OurMissionPage />
     </>

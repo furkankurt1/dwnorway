@@ -36,10 +36,15 @@ export function generatePageMetadata({
   const finalDescription = description ?? seo.description;
   const finalKeywords = keywords ?? seo.keywords;
   const url = buildUrl(locale, path);
-  const ogImage = image || `${BASE_URL}/images/og-default.jpg`;
   const isHome = path === "/";
-
   const altLocale = locale === "en" ? "no" : "en";
+
+  // When a page passes an explicit image we honour it; otherwise fall back
+  // to the per-locale `opengraph-image.tsx` / `twitter-image.tsx` Next.js
+  // conventions (auto-localized — Norwegian for /no, English for /en).
+  const explicitImage = image
+    ? [{ url: image, width: 1200, height: 630, alt: finalTitle }]
+    : undefined;
 
   return {
     title: isHome ? { absolute: finalTitle } : finalTitle,
@@ -61,20 +66,13 @@ export function generatePageMetadata({
       locale: ogLocale(locale),
       alternateLocale: ogLocale(altLocale),
       type: "website",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: finalTitle,
-        },
-      ],
+      ...(explicitImage ? { images: explicitImage } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: finalTitle,
       description: finalDescription,
-      images: [ogImage],
+      ...(image ? { images: [image] } : {}),
     },
     ...(noindex
       ? {
@@ -91,13 +89,25 @@ export function generatePageMetadata({
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    // NGO is a more specific subtype of Organization — Google uses the
+    // narrowest matching type when ranking knowledge-graph entities.
+    "@type": "NGO",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     alternateName: "Dawah Norge",
+    legalName: "Dawah Norway",
+    taxID: "931 087 509",
     url: siteConfig.url,
-    logo: `${siteConfig.url}/images/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}/images/logo.png`,
+      width: 142,
+      height: 102,
+    },
+    image: `${siteConfig.url}/images/og-default.jpg`,
     description:
       "An invitation to Islam — actively working across Norway to share the message with wisdom and compassion",
+    slogan: "An Invitation to Islam",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Østre Aker vei 101",
@@ -105,13 +115,16 @@ export function organizationJsonLd() {
       addressLocality: "Oslo",
       addressCountry: "NO",
     },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: siteConfig.phone,
-      email: siteConfig.email,
-      contactType: "customer service",
-      availableLanguage: ["English", "Norwegian"],
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: siteConfig.phone,
+        email: siteConfig.email,
+        contactType: "customer service",
+        availableLanguage: ["English", "Norwegian"],
+        areaServed: "NO",
+      },
+    ],
     sameAs: [
       siteConfig.social.facebook,
       siteConfig.social.instagram,
@@ -119,10 +132,24 @@ export function organizationJsonLd() {
       siteConfig.social.tiktok,
     ].filter(Boolean),
     foundingDate: "2021",
-    areaServed: {
-      "@type": "Country",
-      name: "Norway",
+    foundingLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Oslo",
+        addressCountry: "NO",
+      },
     },
+    areaServed: [
+      { "@type": "Country", name: "Norway" },
+      { "@type": "City", name: "Oslo" },
+      { "@type": "City", name: "Trondheim" },
+      { "@type": "City", name: "Stavanger" },
+      { "@type": "City", name: "Kristiansand" },
+      { "@type": "City", name: "Tromsø" },
+      { "@type": "AdministrativeArea", name: "Østfold" },
+    ],
+    knowsLanguage: ["en", "nb", "ar"],
     nonprofitStatus: "NonprofitType",
   };
 }

@@ -100,7 +100,35 @@
     "freeBooksText": "Tilgang til gratis islamsk litteratur og Koran-eksemplarer",
     "prayerMat": "Gratis Bønnematte med Veiledning",
     "prayerMatText": "En bønnematte med visuelle instruksjoner for å hjelpe deg å be",
-    "learnMore": "Lær Mer"
+    "learnMore": "Lær Mer",
+    "shahadaTitle": "Hvordan bli muslim — Shahada",
+    "shahadaIntro": "Å bli muslim er enkelt. Du går inn i Islam ved å oppriktig uttale Shahada — trosbekjennelsen. Du trenger ikke sertifikat, seremoni eller tillatelse fra noen. Allah aksepterer deg i det øyeblikket hjertet ditt overgir seg.",
+    "shahadaArabic": "أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّٰهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّٰهِ",
+    "shahadaTransliteration": "Ash-hadu an la ilaha illa Allah, wa ash-hadu anna Muhammadan rasulullah",
+    "shahadaMeaning": "Jeg vitner om at det ikke finnes noen gud verdig tilbedelse utenom Allah, og jeg vitner om at Muhammad er Allahs sendebud.",
+    "shahadaCtaText": "Vil du ta dette steget med noen ved siden av deg? Vi er her for deg.",
+    "shahadaCtaBtn": "Snakk med en mentor",
+    "norwayTitle": "Dine første steg som muslim i Norge",
+    "norwayIntro": "Dawah Norge har lokale team i seks byer — Oslo, Trondheim, Stavanger, Kristiansand, Tromsø og Østfold — klare til å hjelpe deg med moské-kontakter, gratis Koran og personlig mentorskap på norsk eller engelsk.",
+    "norwayStep1": "Ta en rituell vask (ghusl) og lær hvordan du utfører wudu før bønn.",
+    "norwayStep2": "Finn nærmeste moské for fredagsbønnen — spør oss hvis du trenger hjelp til å finne en.",
+    "norwayStep3": "Bestill en gratis Koran på norsk eller engelsk via kontaktskjemaet — vi sender hvor som helst i Norge.",
+    "norwayStep4": "Få kontakt med en mentor som kan svare på spørsmål på ditt språk mens du lærer bønnen og troens grunnlag.",
+    "faqTitle": "Ofte stilte spørsmål",
+    "faqQ1": "Hvordan blir jeg muslim i Norge?",
+    "faqA1": "Du blir muslim ved å oppriktig uttale Shahada (over). Du trenger ikke sertifikat eller tillatelse, men vi anbefaler å ta kontakt for veiledning og fellesskap.",
+    "faqQ2": "Må jeg endre navn?",
+    "faqA2": "Nei. Islam krever ikke at du endrer navnet ditt med mindre betydningen strider mot islamsk tro. De fleste konvertitter beholder navnet sitt.",
+    "faqQ3": "Hva gjør jeg etter at jeg har tatt Shahada?",
+    "faqA3": "Ta en rituell vask (ghusl), lær wudu og de fem daglige bønnene. Vi tilbyr personlig veiledning, gratis Koran og en mentor.",
+    "faqQ4": "Hvor finner jeg en moské i Norge?",
+    "faqA4": "Det finnes moskeer i Oslo, Trondheim, Stavanger, Kristiansand, Tromsø og Østfold. Send e-post til info@dawahnorway.com så hjelper vi deg å finne nærmeste.",
+    "faqQ5": "Kan jeg få en gratis Koran?",
+    "faqA5": "Ja — vi distribuerer gratis Koraner i hele Norge. Bruk kontaktskjemaet eller send e-post til info@dawahnorway.com.",
+    "exploreMoreTitle": "Fortsett å utforske",
+    "exploreWhyIslam": "Hvorfor Islam?",
+    "exploreMuhammad": "Hvem er Muhammad ﷺ?",
+    "exploreAbout": "Om Dawah Norge"
   },
   "about": {
     "title": "Om Oss",
@@ -209,6 +237,10 @@
     "home": "Hjem",
     "ariaLabel": "Brødsmulesti"
   },
+  "notFound": {
+    "message": "Siden ble ikke funnet",
+    "home": "Til forsiden"
+  },
   "cookies": {
     "title": "Vi verdsetter ditt personvern",
     "text": "Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere. Vi vil også gjerne bruke valgfrie analyseinformasjonskapsler for å forstå hvordan besøkende bruker nettstedet. Du kan akseptere eller avslå når som helst.",
@@ -239,7 +271,14 @@
     "s8Text": "Islams budskap gjelder hele menneskeheten på tvers av tid, og inviterer til personlige åndelige reiser basert på tro og rettferdighet fremfor jordiske forskjeller.",
     "ctaTitle": "Klar til å ta neste steg?",
     "ctaText": "Utforsk hvordan du omfavner Islam og blir en del av vårt fellesskap.",
-    "ctaBtn": "Bli Muslim"
+    "ctaBtn": "Bli Muslim",
+    "exploreMoreTitle": "Fortsett å lese",
+    "exploreMuhammad": "Hvem er Muhammad ﷺ?",
+    "exploreMuhammadText": "Oppdag livet og karakteren til Islams siste profet.",
+    "exploreNewMuslims": "Å bli muslim",
+    "exploreNewMuslimsText": "Trinnvis veiledning for å omfavne Islam og støtten som venter deg i Norge.",
+    "exploreAbout": "Om Dawah Norge",
+    "exploreAboutText": "Møt teamet bak Norges voksende dawah-fellesskap."
   },
   "muhammad": {
     "title": "Hvem er Muhammad ﷺ?",
@@ -272,7 +311,14 @@
     "gandhiQuote": "Det var Profetens ubøyelige enkelhet, den fullstendige selvutslettelse, den nøye overholdelse av løfter, hans intense hengivenhet til venner og tilhengere, hans uredselhet og absolutte tillit til Gud og til sitt oppdrag. Disse — ikke sverdet — bar alt foran seg og overvant ethvert hinder.",
     "gandhiRef": "Mahatma Gandhi",
     "shawQuote": "Verden har et sterkt behov for en mann med Muhammads sinn. Jeg kom til den konklusjon at han aldri var en fiende av kristendommen, og må heller kalles menneskehetens frelser.",
-    "shawRef": "George Bernard Shaw"
+    "shawRef": "George Bernard Shaw",
+    "exploreMoreTitle": "Fortsett å lese",
+    "exploreWhyIslam": "Hvorfor Islam?",
+    "exploreWhyIslamText": "Åtte grunner til at folk omfavner Islam — fra en klar gudsforståelse til en balansert livsstil.",
+    "exploreNewMuslims": "Å bli muslim",
+    "exploreNewMuslimsText": "Hvordan ta Shahada, dine første steg som muslim, og støtten som venter deg i Norge.",
+    "exploreAbout": "Om Dawah Norge",
+    "exploreAboutText": "Møt teamet som har delt dette budskapet i hele Norge siden 2021."
   },
   "gallery": {
     "title": "Galleri",

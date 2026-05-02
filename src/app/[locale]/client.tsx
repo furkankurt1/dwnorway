@@ -292,12 +292,16 @@ export default function HomePage() {
 
       {/* ───────── Who We Are ───────── */}
       <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center overflow-hidden">
-        <div
-          // bg-fixed parallax disabled on mobile (md+ only) — mobile browsers
-          // jank-attach with bg-fixed; on touch the perf hit isn't worth it.
-          className="absolute inset-0 bg-cover bg-center md:bg-fixed"
-          style={{ backgroundImage: "url('/images/quran-reading.jpg')" }}
-        />
+        <div className="absolute inset-0">
+          <Image
+            src="/images/quran-reading.jpg"
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-[var(--color-deep)]/70" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 md:py-32">
           <FadeIn>
