@@ -46,6 +46,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${poppins.variable} ${sourceSans.variable}`}>
       <head>
+        <meta name="color-scheme" content="light" />
+        <meta name="supported-color-schemes" content="light" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

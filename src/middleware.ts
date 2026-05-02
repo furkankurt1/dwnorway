@@ -105,7 +105,9 @@ export default function middleware(request: NextRequest) {
     url.host = CANONICAL_HOST;
     url.protocol = "https:";
     url.port = "";
-    return NextResponse.redirect(url, 301);
+    const response = NextResponse.redirect(url, 301);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
   }
 
   const hasLocalePrefix = routing.locales.some(
@@ -122,7 +124,9 @@ export default function middleware(request: NextRequest) {
     const locale = hasLocalePrefix ? localePrefix.slice(1) : pickLocale(request);
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}${legacyTarget}`;
-    return NextResponse.redirect(url, 301);
+    const response = NextResponse.redirect(url, 301);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
   }
 
   if (!hasLocalePrefix) {

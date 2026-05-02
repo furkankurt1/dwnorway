@@ -38,66 +38,135 @@ export default function HomePage() {
       {/* Hero Section with Parallax */}
       <ParallaxSection
         backgroundImage="/images/mosque-interior.jpg"
-        overlayColor="rgba(10, 22, 40, 0.55)"
+        overlayColor="rgba(10, 22, 40, 0.7)"
         className="text-white"
-        minHeight="100vh"
+        minHeight="80vh"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-44 text-center flex flex-col items-center justify-center min-h-[80vh]">
-          <motion.h1
-            className="text-5xl md:text-7xl lg:text-9xl font-[family-name:var(--font-heading)] font-bold mb-6"
-            initial={{ opacity: 0, y: -30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            {hero("title")}
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-3xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] font-semibold mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            {hero("tagline")}
-          </motion.p>
-          <motion.blockquote
-            className="max-w-3xl mx-auto mb-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-          >
-            <p className="text-lg md:text-xl italic text-gray-300 leading-relaxed">
-              &ldquo;{hero("quran")}&rdquo;
-            </p>
-            <cite className="text-[var(--color-gold)] text-sm mt-3 block not-italic">
-              — {hero("quranRef")}
-            </cite>
-          </motion.blockquote>
-          <motion.div
-            className="flex justify-center gap-4 mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
-            {[
-              { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
-              { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
-              { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
-              { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
-            ].filter(s => s.href).map(({ icon: Icon, href, label }) => (
-              <motion.a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-all duration-300"
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 min-h-[80vh] flex items-center">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
+            {/* Left service photos — desktop only */}
+            <div className="hidden lg:flex lg:col-span-3 flex-col gap-5">
+              <motion.div
+                className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
+                initial={{ opacity: 0, x: -40, rotate: -8 }}
+                animate={{ opacity: 1, x: 0, rotate: -3 }}
+                transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
               >
-                <Icon size={16} aria-hidden="true" />
-              </motion.a>
-            ))}
-          </motion.div>
+                <Image
+                  src={siteConfig.homeGallery[0]}
+                  alt={t("glimpsesTitle")}
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 ml-8"
+                initial={{ opacity: 0, x: -40, rotate: 8 }}
+                animate={{ opacity: 1, x: 0, rotate: 4 }}
+                transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+              >
+                <Image
+                  src={siteConfig.homeGallery[1]}
+                  alt={t("whyOutreach")}
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+
+            {/* Center text */}
+            <div className="lg:col-span-6 text-center flex flex-col items-center">
+              <motion.h1
+                className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                {hero("title")}
+              </motion.h1>
+              <motion.p
+                className="text-lg md:text-xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] font-semibold mb-6"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                {hero("tagline")}
+              </motion.p>
+              <motion.blockquote
+                className="max-w-2xl mx-auto mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.4 }}
+              >
+                <p className="text-base md:text-lg italic text-gray-200 leading-relaxed">
+                  &ldquo;{hero("quran")}&rdquo;
+                </p>
+                <cite className="text-[var(--color-gold)] text-xs md:text-sm mt-2 block not-italic">
+                  — {hero("quranRef")}
+                </cite>
+              </motion.blockquote>
+              <motion.div
+                className="flex justify-center gap-3 mt-2"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                {[
+                  { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
+                  { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
+                  { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
+                  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
+                ].filter(s => s.href).map(({ icon: Icon, href, label }) => (
+                  <motion.a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-all duration-300"
+                    whileHover={{ scale: 1.15, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Icon size={14} aria-hidden="true" />
+                  </motion.a>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right service photos — desktop only */}
+            <div className="hidden lg:flex lg:col-span-3 flex-col gap-5">
+              <motion.div
+                className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 mr-8"
+                initial={{ opacity: 0, x: 40, rotate: 8 }}
+                animate={{ opacity: 1, x: 0, rotate: 3 }}
+                transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+              >
+                <Image
+                  src={siteConfig.homeGallery[2]}
+                  alt={t("whyQuran")}
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15"
+                initial={{ opacity: 0, x: 40, rotate: -8 }}
+                animate={{ opacity: 1, x: 0, rotate: -4 }}
+                transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
+              >
+                <Image
+                  src={siteConfig.homeGallery[3]}
+                  alt={t("whyWorkshop")}
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+          </div>
         </div>
       </ParallaxSection>
 
