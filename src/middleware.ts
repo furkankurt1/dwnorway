@@ -90,7 +90,7 @@ const LEGACY_PATH_REDIRECTS: Record<string, string> = {
   "/home-style-3": "",
 };
 
-export default function proxy(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase() ?? "";
 
   const { pathname } = request.nextUrl;
