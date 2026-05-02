@@ -205,15 +205,28 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile menu toggle — 44x44 touch target (Apple HIG minimum) */}
-          <button
-            type="button"
-            className="lg:hidden -mr-2 w-11 h-11 flex items-center justify-center rounded-full hover:bg-[var(--color-light)] transition-colors duration-150"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
+          {/* Mobile right-side group: persistent donate pill + menu toggle.
+             Donate stays visible at all times so users never need to dig
+             through a menu to find it. */}
+          <div className="lg:hidden flex items-center gap-2">
+            <Link
+              href="/donate"
+              data-press
+              className="px-4 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold text-sm shadow-sm hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
+              aria-label={t("donate")}
+            >
+              {t("donate")}
+            </Link>
+
+            {/* Menu toggle — 44x44 touch target (Apple HIG minimum) */}
+            <button
+              type="button"
+              className="-mr-2 w-11 h-11 flex items-center justify-center rounded-full hover:bg-[var(--color-light)] transition-colors duration-150"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
                 <motion.span
@@ -239,7 +252,8 @@ export default function Header() {
                 </motion.span>
               )}
             </AnimatePresence>
-          </button>
+            </button>
+          </div>
         </div>
 
         {/* Mobile drawer */}

@@ -30,6 +30,7 @@ import {
   FaHandHoldingUsd,
   FaKaaba,
   FaUserCircle,
+  FaHeart,
 } from "react-icons/fa";
 
 const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
@@ -109,7 +110,7 @@ export default function HomePage() {
                 {hero("tagline")}
               </motion.p>
               <motion.blockquote
-                className="max-w-2xl mx-auto mb-8"
+                className="max-w-2xl mx-auto mb-6 md:mb-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.25 }}
@@ -121,25 +122,58 @@ export default function HomePage() {
                   — {hero("quranRef")}
                 </cite>
               </motion.blockquote>
+
+              {/* Primary CTA — donate. Verse 47:7 sits above as the
+                  motivational rationale; button below is the action. */}
               <motion.div
-                className="flex justify-center gap-3 mt-2"
+                className="flex flex-col items-center gap-4 w-full max-w-md mx-auto mb-6 md:mb-8"
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.4, ease: STRONG_OUT }}
+                transition={{ duration: 0.5, delay: 0.4, ease: STRONG_OUT }}
               >
-                {SOCIALS.map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    data-press
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-[background-color] duration-[280ms] ease-out"
-                  >
-                    <Icon size={14} aria-hidden="true" />
-                  </a>
-                ))}
+                <p className="text-sm md:text-base italic text-gray-200/90 leading-relaxed text-center px-2">
+                  &ldquo;{hero("supportVerse")}&rdquo;
+                  <span className="block text-[var(--color-gold)] text-[11px] md:text-xs mt-1 not-italic tracking-wide">
+                    — {hero("supportVerseRef")}
+                  </span>
+                </p>
+                <ButtonLink
+                  href="/donate"
+                  variant="primary"
+                  size="lg"
+                  className="w-full sm:w-auto shadow-[0_8px_24px_rgba(224,162,66,0.35)] hover:shadow-[0_12px_32px_rgba(224,162,66,0.5)]"
+                >
+                  <FaHeart size={14} aria-hidden="true" />
+                  {hero("donateCta")}
+                </ButtonLink>
+              </motion.div>
+
+              {/* Secondary: follow on social. Smaller, less attention-grabbing
+                  than the donate CTA. Goal: donate is the primary action. */}
+              <motion.div
+                className="flex flex-col items-center gap-2"
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.55, ease: STRONG_OUT }}
+              >
+                <span className="text-[10px] md:text-xs text-gray-300/70 uppercase tracking-[0.18em]">
+                  {hero("followUs")}
+                </span>
+                <div className="flex justify-center gap-2.5">
+                  {SOCIALS.map(({ icon: Icon, href, label }) => (
+                    <a
+                      key={href}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      data-press
+                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-[var(--color-gold)] transition-[background-color] duration-[280ms] ease-out"
+                    >
+                      <Icon size={13} aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
               </motion.div>
             </div>
 

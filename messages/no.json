@@ -22,7 +22,11 @@
     "title": "Dawah Norway",
     "tagline": "En invitasjon til Islam",
     "quran": "Kall til din Herres vei med visdom og god formaning, og diskuter med dem på den beste måten.",
-    "quranRef": "An-Nahl 16:125"
+    "quranRef": "An-Nahl 16:125",
+    "supportVerse": "Hvis dere hjelper Allahs sak, vil Han hjelpe dere og gjøre føttene deres faste.",
+    "supportVerseRef": "Muhammad 47:7",
+    "donateCta": "Støtt vårt dawah-arbeid",
+    "followUs": "Følg oss"
   },
   "home": {
     "donateTitle": "Støtt Vårt Oppdrag",

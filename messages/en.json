@@ -22,7 +22,11 @@
     "title": "Dawah Norway",
     "tagline": "An Invitation to Islam",
     "quran": "Invite to the way of your Lord with wisdom and good instruction, and argue with them in a way that is best.",
-    "quranRef": "An-Nahl 16:125"
+    "quranRef": "An-Nahl 16:125",
+    "supportVerse": "If you support [the cause of] Allah, He will support you and plant your feet firmly.",
+    "supportVerseRef": "Muhammad 47:7",
+    "donateCta": "Support our dawah",
+    "followUs": "Follow us"
   },
   "home": {
     "donateTitle": "Support Our Mission",
