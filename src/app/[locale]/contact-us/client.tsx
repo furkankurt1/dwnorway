@@ -47,6 +47,7 @@ export default function ContactUsPage() {
   const nav = useTranslations("nav");
   const locale = useLocale();
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorCode, setErrorCode] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
   const turnstileWidgetIdRef = useRef<string | null>(null);
@@ -82,10 +83,12 @@ export default function ContactUsPage() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setErrorCode("turnstile_missing");
       setStatus("error");
       return;
     }
     setStatus("sending");
+    setErrorCode("");
     const form = e.target as HTMLFormElement;
     const fd = new FormData(form);
     const data = {
@@ -103,14 +106,21 @@ export default function ContactUsPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("send failed");
+      if (!res.ok) {
+        // Surface the API error code so the user sees a specific message
+        // (rate_limited, too_long, invalid_email, ...) instead of the
+        // catch-all "Something went wrong".
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error || "send_failed");
+      }
       setStatus("sent");
       form.reset();
       setTurnstileToken("");
       if (turnstileWidgetIdRef.current && window.turnstile) {
         window.turnstile.reset(turnstileWidgetIdRef.current);
       }
-    } catch {
+    } catch (err) {
+      setErrorCode(err instanceof Error ? err.message : "send_failed");
       setStatus("error");
       if (turnstileWidgetIdRef.current && window.turnstile) {
         window.turnstile.reset(turnstileWidgetIdRef.current);
@@ -281,9 +291,9 @@ export default function ContactUsPage() {
                     />
                   </div>
                   {[
-                    { id: "name", label: t("name"), type: "text", required: true },
-                    { id: "email", label: t("email"), type: "email", required: true },
-                    { id: "country", label: t("country"), type: "text", required: true },
+                    { id: "name", label: t("name"), type: "text", required: true, maxLength: 80 },
+                    { id: "email", label: t("email"), type: "email", required: true, maxLength: 100 },
+                    { id: "country", label: t("country"), type: "text", required: true, maxLength: 50 },
                   ].map((field) => (
                     <div key={field.id}>
                       <label
@@ -298,6 +308,10 @@ export default function ContactUsPage() {
                         name={field.id}
                         required={field.required}
                         aria-required={field.required}
+                        // Mirrors server-side MAX_LENGTHS in api/contact/route.ts
+                        // so the browser blocks overflow before submission
+                        // instead of surfacing a 413 from the API.
+                        maxLength={field.maxLength}
                         autoComplete={
                           field.id === "email"
                             ? "email"
@@ -324,6 +338,7 @@ export default function ContactUsPage() {
                       rows={5}
                       required
                       aria-required="true"
+                      maxLength={1500}
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[var(--color-gold-dark)] focus:ring-2 focus:ring-[var(--color-gold-dark)]/30 outline-none transition-all duration-200 bg-white resize-none"
                     />
                   </div>
@@ -339,6 +354,9 @@ export default function ContactUsPage() {
                       id="phone"
                       name="phone"
                       autoComplete="tel"
+                      maxLength={15}
+                      pattern="[0-9 +()\-]{0,15}"
+                      inputMode="tel"
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[var(--color-gold-dark)] focus:ring-2 focus:ring-[var(--color-gold-dark)]/30 outline-none transition-all duration-200 bg-white"
                     />
                   </div>
@@ -365,7 +383,19 @@ export default function ContactUsPage() {
                         exit={{ opacity: 0 }}
                         className="p-4 rounded-xl bg-red-50 text-red-800 border border-red-200 text-sm"
                       >
-                        {t("error")}
+                        {(() => {
+                          const codeMap: Record<string, string> = {
+                            too_long: "errorTooLong",
+                            invalid_email: "errorInvalidEmail",
+                            missing_fields: "errorMissingFields",
+                            rate_limited: "errorRateLimited",
+                            turnstile_failed: "errorTurnstile",
+                            turnstile_missing: "errorTurnstile",
+                            mail_unavailable: "errorMailUnavailable",
+                          };
+                          const key = codeMap[errorCode];
+                          return key ? t(key as "error") : t("error");
+                        })()}
                       </motion.div>
                     )}
                   </AnimatePresence>

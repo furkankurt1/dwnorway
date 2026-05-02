@@ -2,12 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
+// Mirrored on the client as `maxLength` HTML attributes — keep in sync
+// with src/app/[locale]/contact-us/client.tsx so the browser blocks
+// overflow before submission rather than 413-ing at the API.
 const MAX_LENGTHS = {
-  name: 100,
-  email: 200,
-  country: 100,
-  phone: 30,
-  message: 2000,
+  name: 80,        // covers most full names (first + middle + last)
+  email: 100,      // RFC 5321 allows 254, but 100 is practical
+  country: 50,     // longest country name is ~40 chars
+  phone: 15,       // E.164 max digit count
+  message: 1500,   // reasonable contact-form message; 2000 was lax
 } as const;
 
 const RATE_LIMIT_MAX = 5;
