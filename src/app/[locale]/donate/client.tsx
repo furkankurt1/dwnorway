@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
 import ParallaxSection from "@/components/animations/ParallaxSection";
 import StaggerChildren, { StaggerItem } from "@/components/animations/StaggerChildren";
+import { Link } from "@/i18n/navigation";
 import { FaCreditCard, FaMobileAlt, FaArrowLeft, FaPaypal } from "react-icons/fa";
 import { SiVisa, SiMastercard } from "react-icons/si";
 import Spinner from "@/components/Spinner";
@@ -466,6 +467,17 @@ export default function DonatePage() {
                       </motion.div>
                     </StaggerItem>
                   </StaggerChildren>
+
+                  <p className="text-center text-sm text-[var(--color-gray)] mt-8">
+                    {t("agreementNotice")}{" "}
+                    <Link
+                      href="/donation-agreement"
+                      className="underline underline-offset-2 hover:text-[var(--color-gold-text)] transition-colors"
+                    >
+                      {t("agreementLink")}
+                    </Link>
+                    .
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

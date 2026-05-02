@@ -183,6 +183,8 @@
     "stripeBadge": "Secured by Stripe",
     "acceptedCards": "We accept",
     "noSavedData": "We never store your card details.",
+    "agreementNotice": "Recurring donations are governed by our",
+    "agreementLink": "Donation Agreement Terms",
     "completeTitle": "Donation Complete",
     "completeCheckingText": "Checking your payment…",
     "completeFailedTitle": "Payment not completed",
@@ -196,6 +198,7 @@
     "donateText": "Kindly donate generously and contribute to our ongoing dawah efforts across Norway",
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms of Service",
+    "donationAgreement": "Donation Agreement",
     "legal": "Legal"
   },
   "breadcrumbs": {
@@ -274,16 +277,18 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "updated": "Last updated: April 2026",
+    "updated": "Last updated: 2 May 2026",
     "intro": "Dawah Norway is committed to protecting your privacy. This policy explains what information we collect, how we use it, and the rights you have.",
     "collectTitle": "Information we collect",
     "collectText": "We collect information you voluntarily share with us through our contact form (name, email, country, message, and optional phone number) and basic technical data (IP address, browser type) for security purposes.",
     "useTitle": "How we use your information",
     "useText": "We use your information only to respond to your inquiries, support your journey with Islamic resources, and improve the quality of our outreach. We never sell or share your data with third parties for marketing.",
+    "donationsTitle": "Donations and payment data",
+    "donationsText": "When you donate via Vipps, Stripe, or PayPal, we receive limited transaction information from the provider — your name, the donated amount, and a reference ID. We do not receive or store card numbers or full payment details. For recurring donations via Vipps, we additionally receive an agreement ID required to manage the subscription. Donation records are retained for 5 years after the end of the financial year, as required by the Norwegian Bookkeeping Act (§ 13). Vipps MobilePay AS, Stripe, Inc., and PayPal each act as independent data controllers for the payment data they process — see their respective privacy policies for details.",
     "cookiesTitle": "Cookies",
     "cookiesText": "We use essential cookies required for the site to function and optional analytics cookies that help us understand how the site is used. You can control cookie preferences at any time.",
     "rightsTitle": "Your rights",
-    "rightsText": "You have the right to access, correct, or delete the personal information we hold about you. To exercise these rights, contact us at info@dawahnorway.com.",
+    "rightsText": "You have the right to access, correct, or delete the personal information we hold about you. To exercise these rights, contact us at info@dawahnorway.com. If you believe we are processing your personal data unlawfully, you may complain to the Norwegian Data Protection Authority (Datatilsynet — postkasse@datatilsynet.no, www.datatilsynet.no).",
     "contactTitle": "Contact",
     "contactText": "For any questions about this privacy policy, reach out to info@dawahnorway.com or call +47 489 20 006."
   },

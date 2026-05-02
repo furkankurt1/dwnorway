@@ -119,12 +119,15 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-400">
           <span>{t("copyright")}</span>
-          <nav aria-label={t("legal")} className="flex gap-6">
+          <nav aria-label={t("legal")} className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link href="/privacy-policy" className="hover:text-[var(--color-gold)] transition-colors">
               {t("privacyPolicy")}
             </Link>
             <Link href="/terms" className="hover:text-[var(--color-gold)] transition-colors">
               {t("terms")}
+            </Link>
+            <Link href="/donation-agreement" className="hover:text-[var(--color-gold)] transition-colors">
+              {t("donationAgreement")}
             </Link>
           </nav>
         </div>

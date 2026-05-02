@@ -183,6 +183,8 @@
     "stripeBadge": "Sikret av Stripe",
     "acceptedCards": "Vi aksepterer",
     "noSavedData": "Vi lagrer aldri kortopplysningene dine.",
+    "agreementNotice": "Faste donasjoner reguleres av våre",
+    "agreementLink": "Vilkår for donasjonsavtale",
     "completeTitle": "Donasjon Fullført",
     "completeCheckingText": "Sjekker betalingen din…",
     "completeFailedTitle": "Betalingen ble ikke fullført",
@@ -196,6 +198,7 @@
     "donateText": "Vennligst doner sjenerøst og bidra til vårt pågående dawah-arbeid i hele Norge",
     "privacyPolicy": "Personvernerklæring",
     "terms": "Vilkår for Bruk",
+    "donationAgreement": "Donasjonsavtale",
     "legal": "Juridisk"
   },
   "breadcrumbs": {
@@ -274,16 +277,18 @@
   },
   "privacy": {
     "title": "Personvernerklæring",
-    "updated": "Sist oppdatert: april 2026",
+    "updated": "Sist oppdatert: 2. mai 2026",
     "intro": "Dawah Norway er forpliktet til å beskytte ditt personvern. Denne erklæringen forklarer hvilken informasjon vi samler inn, hvordan vi bruker den og hvilke rettigheter du har.",
     "collectTitle": "Informasjon vi samler inn",
     "collectText": "Vi samler inn informasjon du frivillig deler med oss via kontaktskjemaet (navn, e-post, land, melding og valgfritt telefonnummer) og grunnleggende teknisk data (IP-adresse, nettlesertype) av sikkerhetshensyn.",
     "useTitle": "Hvordan vi bruker informasjonen",
     "useText": "Vi bruker informasjonen kun til å svare på henvendelser, støtte din reise med islamske ressurser og forbedre kvaliteten på vårt arbeid. Vi selger eller deler aldri dine data med tredjeparter for markedsføring.",
+    "donationsTitle": "Donasjoner og betalingsdata",
+    "donationsText": "Når du donerer via Vipps, Stripe eller PayPal, mottar vi begrenset transaksjonsinformasjon fra leverandøren — ditt navn, beløpet og en referanse-ID. Vi mottar eller lagrer ikke kortnummer eller fullstendige betalingsdetaljer. Ved faste donasjoner via Vipps mottar vi i tillegg en avtale-ID som er nødvendig for å administrere avtalen. Donasjonsbilag oppbevares i 5 år etter regnskapsårets utløp, som påkrevd av bokføringsloven § 13. Vipps MobilePay AS, Stripe, Inc. og PayPal opptrer hver som selvstendige behandlingsansvarlige for betalingsdataene de behandler — se deres respektive personvernerklæringer for detaljer.",
     "cookiesTitle": "Informasjonskapsler",
     "cookiesText": "Vi bruker nødvendige informasjonskapsler for at nettstedet skal fungere, og valgfrie analyseinformasjonskapsler som hjelper oss å forstå hvordan nettstedet brukes. Du kan styre preferansene dine når som helst.",
     "rightsTitle": "Dine rettigheter",
-    "rightsText": "Du har rett til å få tilgang til, korrigere eller slette personopplysningene vi har om deg. Kontakt oss på info@dawahnorway.com for å utøve disse rettighetene.",
+    "rightsText": "Du har rett til å få tilgang til, korrigere eller slette personopplysningene vi har om deg. Kontakt oss på info@dawahnorway.com for å utøve disse rettighetene. Hvis du mener vi behandler dine personopplysninger i strid med regelverket, kan du klage til Datatilsynet (postkasse@datatilsynet.no, www.datatilsynet.no).",
     "contactTitle": "Kontakt",
     "contactText": "For spørsmål om denne erklæringen, kontakt info@dawahnorway.com eller ring +47 489 20 006."
   },
