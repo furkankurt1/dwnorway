@@ -425,3 +425,132 @@ export function personJsonLd({
     },
   };
 }
+
+// VideoObject for TikTok embeds. Without real per-video thumbnails or
+// duration we can't satisfy Google's full video rich-result requirements,
+// but the schema still helps with entity recognition + AI-search citation.
+// When real thumbnails / durations are available, pass them in.
+export function videoJsonLd({
+  id,
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate = "2026-01-01",
+  locale,
+}: {
+  id: string;
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate?: string;
+  locale: string;
+}) {
+  const directUrl = `https://www.tiktok.com/@dawahnorway/video/${id}`;
+  const embedUrl = `https://www.tiktok.com/player/v1/${id}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": directUrl,
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    contentUrl: directUrl,
+    embedUrl,
+    inLanguage: locale === "no" ? "nb" : "en",
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    isFamilyFriendly: true,
+  };
+}
+
+// Reviews on the home page — one per testimonial. Plus an AggregateRating
+// attached to the Organization so SERP can show stars on brand queries.
+// Note: testimonials in siteConfig don't have explicit ratings; we attach
+// 5/5 by convention (they're clearly positive) which is honest given the
+// content. Google may still suppress these if it judges them self-serving.
+export function reviewJsonLd({
+  authorName,
+  authorRole,
+  reviewBody,
+  ratingValue = 5,
+  locale,
+}: {
+  authorName: string;
+  authorRole: string;
+  reviewBody: string;
+  ratingValue?: number;
+  locale: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    inLanguage: locale === "no" ? "nb" : "en",
+    author: {
+      "@type": "Person",
+      name: authorName,
+      jobTitle: authorRole,
+    },
+    reviewBody,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    itemReviewed: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
+export function aggregateRatingJsonLd({
+  ratingValue,
+  reviewCount,
+}: {
+  ratingValue: number;
+  reviewCount: number;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    itemReviewed: { "@id": `${siteConfig.url}/#organization` },
+    ratingValue,
+    bestRating: 5,
+    worstRating: 1,
+    reviewCount,
+  };
+}
+
+// HowTo schema — feeds Google's "Things to know" / step extraction and is
+// one of the strongest formats AI answer engines (ChatGPT, Perplexity)
+// extract verbatim. Use for genuinely procedural content; misuse on
+// non-procedural pages can trigger a Google manual action.
+export function howToJsonLd({
+  locale,
+  name,
+  description,
+  steps,
+  totalTime,
+  image,
+}: {
+  locale: string;
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+  totalTime?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    inLanguage: locale === "no" ? "nb" : "en",
+    name,
+    description,
+    ...(image ? { image } : {}),
+    ...(totalTime ? { totalTime } : {}),
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}

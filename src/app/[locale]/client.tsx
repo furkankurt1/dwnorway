@@ -14,6 +14,7 @@ import HoverCard from "@/components/ui/HoverCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
+import TikTokEmbed from "@/components/TikTokEmbed";
 import { siteConfig } from "@/config/site";
 import {
   FaFacebookF,
@@ -457,20 +458,20 @@ export default function HomePage() {
             description={t("videosText")}
           />
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-            {siteConfig.tiktokVideos.map((id) => (
+            {siteConfig.tiktokVideos.map((id, i) => (
               <StaggerItem key={id}>
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
-                  <div className="relative w-full" style={{ aspectRatio: "9 / 16" }}>
-                    <iframe
-                      src={`https://www.tiktok.com/player/v1/${id}?music_info=1&description=1`}
-                      title={t("videosPlayLabel")}
-                      loading="lazy"
-                      allow="accelerometer; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      className="absolute inset-0 w-full h-full border-0"
-                    />
-                  </div>
+                  {/* Facade pattern: iframe is only mounted after a real
+                      user click. Eliminates the 5× cookie banner that
+                      TikTok serves on every fresh iframe load. */}
+                  <TikTokEmbed
+                    id={id}
+                    playLabel={t("videosPlayLabel")}
+                    thumbnail={
+                      siteConfig.homeGallery[i % siteConfig.homeGallery.length]
+                    }
+                    title={t("altCommunityMoment")}
+                  />
                 </div>
               </StaggerItem>
             ))}

@@ -104,6 +104,15 @@ export default async function RootLayout({
         {/* Bing/Yandex treat hreflang as a weak signal — supplement with
             content-language meta. Mirrors the html `lang` attribute. */}
         <meta httpEquiv="content-language" content={htmlLang(locale)} />
+        {/* Resource hints for third-party origins users will hit on
+            specific routes. preconnect = TLS warm-up (most aggressive,
+            use sparingly), dns-prefetch = name resolution only. */}
+        <link rel="preconnect" href="https://www.tiktok.com" />
+        <link rel="dns-prefetch" href="https://www.tiktok.com" />
+        <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://js.stripe.com" />
+        <link rel="dns-prefetch" href="https://www.paypalobjects.com" />
+        <link rel="dns-prefetch" href="https://api.vipps.no" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

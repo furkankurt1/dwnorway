@@ -4,6 +4,7 @@ import {
   breadcrumbJsonLd,
   articleJsonLd,
   faqJsonLd,
+  howToJsonLd,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
@@ -96,6 +97,25 @@ export default async function Page({
   });
   const faq = faqJsonLd(locale === "no" ? FAQ_NO : FAQ_EN);
 
+  // HowTo for the Shahada + first-week protocol — strongest extraction
+  // format for AI answer engines on a "how to become Muslim" query.
+  const howTo = howToJsonLd({
+    locale,
+    name: t("shahadaTitle"),
+    description: t("shahadaIntro"),
+    image: `${siteConfig.url}/images/mosque-dome.jpg`,
+    steps: [
+      {
+        name: t("shahadaTitle"),
+        text: `${t("shahadaTransliteration")} — ${t("shahadaMeaning")}`,
+      },
+      { name: t("norwayStep1"), text: t("norwayStep1") },
+      { name: t("norwayStep2"), text: t("norwayStep2") },
+      { name: t("norwayStep3"), text: t("norwayStep3") },
+      { name: t("norwayStep4"), text: t("norwayStep4") },
+    ],
+  });
+
   return (
     <>
       <script
@@ -109,6 +129,10 @@ export default async function Page({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howTo) }}
       />
       <NewMuslimsPage />
     </>
