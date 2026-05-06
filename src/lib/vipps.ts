@@ -19,15 +19,16 @@ export async function getVippsToken(): Promise<string> {
     return cachedToken.value;
   }
 
-  const credentials = btoa(
-    `${process.env.VIPPS_CLIENT_ID}:${process.env.VIPPS_CLIENT_SECRET}`
-  );
-
+  // Vipps' /accesstoken/get is *not* OAuth Basic — it expects client_id and
+  // client_secret as discrete headers alongside Ocp-Apim-Subscription-Key.
+  // Sending Basic auth returns 401 "Missing client_id or client_secret".
   const res = await fetch(`${VIPPS_BASE_URL}/accesstoken/get`, {
     method: "POST",
     headers: {
-      Authorization: `Basic ${credentials}`,
+      client_id: process.env.VIPPS_CLIENT_ID!,
+      client_secret: process.env.VIPPS_CLIENT_SECRET!,
       "Ocp-Apim-Subscription-Key": process.env.VIPPS_SUBSCRIPTION_KEY!,
+      "Merchant-Serial-Number": process.env.VIPPS_MERCHANT_SERIAL_NUMBER!,
       "Content-Type": "application/json",
     },
   });
