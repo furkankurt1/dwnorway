@@ -68,6 +68,18 @@ export const siteConfig = {
     "Tromsø",
   ],
 
+  // City landing pages (/[locale]/[city]). Locale-blind structural data;
+  // all user-facing copy lives in messages.cityPages.<slug>. `name` is the
+  // display form (brand/proper noun, same in both locales).
+  cityPageList: [
+    { slug: "oslo", name: "Oslo", region: "Oslo", lat: 59.9139, lng: 10.7522 },
+    { slug: "bergen", name: "Bergen", region: "Vestland", lat: 60.3913, lng: 5.3221 },
+    { slug: "trondheim", name: "Trondheim", region: "Trøndelag", lat: 63.4305, lng: 10.3951 },
+    { slug: "stavanger", name: "Stavanger", region: "Rogaland", lat: 58.97, lng: 5.7331 },
+    { slug: "kristiansand", name: "Kristiansand", region: "Agder", lat: 58.1467, lng: 7.9956 },
+    { slug: "tromso", name: "Tromsø", region: "Troms", lat: 69.6492, lng: 18.9553 },
+  ],
+
   testimonials: [
     {
       name: "Farhan Ahmed",

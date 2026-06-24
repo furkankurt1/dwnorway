@@ -161,6 +161,27 @@ export default function OurTeamPage() {
         </div>
       </section>
 
+      {/* City landing pages — internal links so each city page is crawlable
+          from a relevant, high-authority parent. */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-dark)] mb-8">
+            {t("citiesTitle")}
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {siteConfig.cityPageList.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/${c.slug}` as "/"}
+                className="px-5 py-2.5 rounded-full border border-[var(--color-gold)]/40 text-[var(--color-dark)] font-medium hover:bg-[var(--color-gold)] hover:text-white transition-colors"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Join CTA */}
       <section className="bg-[var(--color-dark)] py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto text-white">

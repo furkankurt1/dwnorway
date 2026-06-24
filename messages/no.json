@@ -528,7 +528,8 @@
     "joinTitle": "Bli Med i Teamet",
     "joinText": "Vi ser alltid etter engasjerte frivillige som ønsker å dele Islams budskap i hele Norge. Enten du kan hjelpe på en dawah-stand, bistå med Koran-distribusjon eller støtte nye muslimer — det er en plass for deg.",
     "joinCta": "Kontakt Oss for Å Bli Frivillig",
-    "coreTitle": "Teamet bak Dawah Norge"
+    "coreTitle": "Teamet bak Dawah Norge",
+    "citiesTitle": "Finn Dawah Norge i din by"
   },
   "pillars": {
     "shahadah": "Tro",
@@ -679,5 +680,152 @@
     "exploreNewMuslimsText": "Hvordan ta Shahada og dine første steg som muslim i Norge.",
     "exploreFreeQuran": "Få en gratis Koran",
     "exploreFreeQuranText": "Bestill en gratis Koran hvor som helst i Norge, helt gratis."
+  },
+  "cityPages": {
+    "oslo": {
+      "metaTitle": "Islam i Oslo — Gratis Koran og støtte",
+      "metaDescription": "Lær om islam i Oslo. Få en gratis Koran, still spørsmål, eller finn veiledning for å bli muslim. Dawah Norge holder til i Oslo og er aktiv i hele byen.",
+      "keywords": [
+        "islam Oslo",
+        "gratis koran Oslo",
+        "bli muslim Oslo",
+        "dawah Oslo",
+        "konvertere til islam Oslo",
+        "muslimsk fellesskap Oslo",
+        "lære om islam Oslo",
+        "koran på norsk Oslo"
+      ],
+      "h1": "Islam i Oslo — Gratis Koran, spørsmål og støtte",
+      "intro": "Oslo er Norges hovedstad og største by, med mennesker fra alle bakgrunner og stadig flere som er nysgjerrige på islam. Dawah Norge holder til her i Oslo, og våre frivillige er ute i byen for å gi en varm og saklig introduksjon til troen. Enten du vil lese Koranen selv, stille ærlige spørsmål, eller ta dine første steg som ny muslim, finnes det et imøtekommende sted for deg i Oslo.",
+      "h2a": "Å oppdage islam i Oslo",
+      "body1": "Som hjertet av Norge samler Oslo studenter, familier, fagfolk og nyankomne fra hele verden. Blant dem er det mange som ønsker å forstå hva islam faktisk lærer, bortenfor overskrifter og antagelser. Frivillige fra Dawah Norge holder jevnlig dawah-stands og informasjonsbord på offentlige steder rundt om i Oslo, vanligvis på lørdager, der hvem som helst kan komme innom for en avslappet prat. Det er ingen forpliktelser og ingen press. Vi er ganske enkelt her for å svare på spørsmål om Gud, Koranen, profeten Muhammad og hverdagslivet til en muslim. Bor du i Oslo og har lurt på hva islam egentlig handler om, er dette en enkel og vennlig måte å finne ut av det på.",
+      "h2b": "Gratis Koran og å bli muslim i Oslo",
+      "body2": "Du kan be om en gratis Koran hvor som helst i Oslo, tilgjengelig på norsk, engelsk eller arabisk, helt uten kostnad. Å lese Koranen på ditt eget språk er en av de klareste måtene å forstå islams budskap direkte, uten en mellommann. For deg som vurderer å ta Shahada og bli muslim i Oslo, tilbyr vi også omsorgsfull én-til-én-veiledning. En mentor kan følge deg gjennom det grunnleggende om bønn, tro og praksis i ditt eget tempo, og knytte deg til det større muslimske fellesskapet i byen. Ta kontakt med Dawah Norge for å bestille din gratis Koran, stille et spørsmål, eller avtale å møte en mentor i Oslo. Alle er velkomne, og hver samtale starter med respekt.",
+      "ctaText": "Bestill en gratis Koran i Oslo",
+      "faqQ1": "Hvor kan jeg få en gratis Koran i Oslo?",
+      "faqA1": "Du kan be om en gratis Koran hvor som helst i Oslo gjennom Dawah Norge, tilgjengelig på norsk, engelsk eller arabisk uten kostnad. Ta kontakt med oss med dine opplysninger, så ordner vi at en kopi når deg. Frivillige deler også ut Koraner på dawah-stands rundt i byen.",
+      "faqQ2": "Hvordan blir jeg muslim i Oslo?",
+      "faqA2": "For å bli muslim i Oslo uttaler du Shahada — at det ikke finnes noen gud utenom Gud, og at Muhammad er Hans sendebud. Dawah Norge tilbyr gratis én-til-én-veiledning som leder deg gjennom tro, bønn og de neste stegene i ditt eget tempo. Ta kontakt, så støtter en mentor deg."
+    },
+    "bergen": {
+      "metaTitle": "Islam i Bergen — Gratis Koran og støtte",
+      "metaDescription": "Lær om islam i Bergen, Vestland. Be om en gratis Koran, still spørsmål eller få mentorhjelp til å bli muslim. Dawah Norge hjelper folk på Vestlandet.",
+      "keywords": [
+        "islam Bergen",
+        "gratis koran Bergen",
+        "bli muslim Bergen",
+        "dawah Bergen",
+        "muslimsk fellesskap Bergen",
+        "lære om islam Bergen",
+        "koran på norsk Bergen"
+      ],
+      "h1": "Islam i Bergen — Gratis Koran og en vennlig hånd",
+      "intro": "Bergen, Norges nest største by og hjertet av Vestland på vestkysten, er hjem for mennesker med all slags bakgrunn — også et økende antall som er nysgjerrige på islam. Enten du har bodd her lenge og utforsker troen for første gang, eller bare ønsker ærlige svar, er Dawah Norge her for å hjelpe. Vi tilbyr gratis Koraner, vennlige samtaler og tålmodig veiledning til alle i Bergen-området, helt uten press og uten kostnad.",
+      "h2a": "Å oppdage islam i Bergen",
+      "body1": "Mellom de syv fjellene og havet har Bergen lenge vært et møtested for reisende, handelsfolk og nykommere fra hele verden. Den åpenheten gjelder også spørsmål om tro. I norske byer lever, jobber og studerer muslimer som en del av hverdagen, og Bergen er intet unntak. Hvis du noen gang har lurt på hva muslimer faktisk tror — om Gud, om meningen med livet, om profeten Muhammad ﷺ — trenger du ikke reise langt for å få svar. Frivillige i Dawah Norge holder dawah-stands og deler ut gratis Koraner i byer over hele Norge, og folk i Bergen og resten av Vestland er hjertelig velkomne til å ta kontakt. Du kan lese Koranen på norsk, engelsk eller arabisk og gjøre deg opp din egen mening, i ditt eget tempo.",
+      "h2b": "Bli muslim i Bergen",
+      "body2": "Å velge å bli muslim i Bergen er et personlig og meningsfullt skritt, og du trenger ikke ta det alene. Mange ønsker først å lære det grunnleggende: hvem Gud er i islam, hva de fem daglige bønnene betyr, og hvordan man uttaler Shahada, trosbekjennelsen. Dawah Norge knytter nye og nysgjerrige muslimer til mentorer som svarer på spørsmål, forklarer bønnen og gir støtte underveis på en varm og fordomsfri måte. Hvis du ønsker en gratis Koran levert, vil snakke gjennom spørsmålene dine, eller føler deg klar til å omfavne islam, er det bare å ta kontakt. Det koster ingenting og forplikter deg ikke — bare et oppriktig velkommen og et fellesskap som er klart til å følge deg uansett hvor du er på reisen.",
+      "ctaText": "Be om en gratis Koran i Bergen",
+      "faqQ1": "Hvor kan jeg få en gratis Koran i Bergen?",
+      "faqA1": "Dawah Norge tilbyr gratis Koraner til alle i Bergen-området, helt uten kostnad. Du kan be om et eksemplar på norsk, engelsk eller arabisk og få det levert til deg. Ta kontakt via nettsiden, så vil en frivillig sørge for at du får en Koran i hende.",
+      "faqQ2": "Hvordan blir jeg muslim i Bergen?",
+      "faqA2": "For å bli muslim uttaler du oppriktig Shahada — at det ikke finnes noen gud utenom Gud, og at Muhammad er Hans sendebud. Dawah Norge kan knytte deg til en mentor i Bergen-området som forklarer hvert steg, svarer på spørsmål og støtter deg. Ta kontakt når du føler deg klar."
+    },
+    "trondheim": {
+      "metaTitle": "Islam i Trondheim — gratis koran & støtte",
+      "metaDescription": "Nysgjerrig på islam i Trondheim? Få en gratis koran, møt lokale frivillige og finn personlig veiledning for nye muslimer i Trøndelag.",
+      "keywords": [
+        "islam Trondheim",
+        "gratis koran Trondheim",
+        "bli muslim Trondheim",
+        "muslimer i Trondheim",
+        "Dawah Norge Trondheim",
+        "lære om islam Trondheim",
+        "koran Trøndelag",
+        "konvertere til islam Trondheim"
+      ],
+      "h1": "Islam i Trondheim — gratis koran og ærlige svar",
+      "intro": "Trondheim, det historiske hjertet i Midt-Norge og den største byen i Trøndelag, har et voksende og mangfoldig fellesskap — også muslimer som bor, studerer og jobber her. Er du nysgjerrig på islam i Trondheim, ønsker å lese Koranen selv, eller vurderer å bli muslim, er Dawah Norge her for å hjelpe deg på en varm måte og helt uten press.",
+      "h2a": "Gratis koran og dawah i Trondheim",
+      "body1": "Frivillige i Dawah Norge reiser rundt i landet, holder dawah-stands og deler ut gratis koraner i byer som Trondheim — som regel på lørdager. Enten du er student ved en av byens universiteter, har bodd her lenge eller bare er på gjennomreise, kan du be om en gratis koran i Trondheim helt kostnadsfritt. Vi tilbyr eksemplarer på norsk, engelsk og arabisk, slik at du kan lese islams budskap på det språket du er mest komfortabel med. Det er ingen baktanke og ingen forpliktelse: mange ønsker rett og slett å forstå hva islam faktisk lærer, bort fra overskrifter og antakelser. Å lese Koranen er en av de tydeligste måtene å gjøre nettopp det på — direkte, i ditt eget tempo og på dine egne premisser.",
+      "h2b": "Å bli muslim i Trondheim",
+      "body2": "Vurderer du å bli muslim i Trondheim, trenger du ikke å ta det steget alene. Dawah Norge tilbyr personlig veiledning for nye muslimer og for alle som utforsker troen, enten du har noen ærlige spørsmål eller føler deg klar til å omfavne islam. En veileder kan ta deg gjennom det grunnleggende — troen på én Gud, bønnen og hvordan man lever som muslim i norsk hverdag — i et tempo som passer deg. Folk i Trondheim og resten av Trøndelag er velkomne til å ta kontakt, stille spørsmål og bli kjent med andre på samme reise. Islam har en lang tradisjon for å ta imot oppriktige søkende, og vi støtter gjerne din med tålmodighet og respekt.",
+      "ctaText": "Be om en gratis koran eller snakk med en veileder i Trondheim",
+      "faqQ1": "Hvor kan jeg få en gratis koran i Trondheim?",
+      "faqA1": "Du kan be om en gratis koran i Trondheim direkte fra Dawah Norge. Frivillige deler ut gratis eksemplarer på norsk, engelsk og arabisk på dawah-stands og ved forespørsel over hele Norge. Ta kontakt via kontaktsiden vår og si fra hvilket språk du foretrekker.",
+      "faqQ2": "Hvordan blir jeg muslim i Trondheim?",
+      "faqA2": "Å bli muslim begynner med troen på én Gud og å akseptere islams budskap. I Trondheim tilbyr Dawah Norge gratis veiledning uten press som hjelper deg med spørsmålene dine og de første stegene. Ta kontakt, så støtter en veileder deg i et tempo som føles riktig for deg."
+    },
+    "stavanger": {
+      "metaTitle": "Islam i Stavanger — gratis koran og hjelp",
+      "metaDescription": "Nysgjerrig på islam i Stavanger? Få en gratis koran, still spørsmål, eller ta dine første steg som ny muslim med Dawah Norge i Rogaland.",
+      "keywords": [
+        "islam Stavanger",
+        "gratis koran Stavanger",
+        "bli muslim Stavanger",
+        "muslimer i Stavanger",
+        "Dawah Norge Stavanger",
+        "lære om islam Rogaland"
+      ],
+      "h1": "Islam i Stavanger",
+      "intro": "Stavanger, på sørvestkysten av Norge i Rogaland fylke, er hjem for mennesker med mange ulike bakgrunner og livssyn — og stadig flere innbyggere som er nysgjerrige på islam. Enten du utforsker troen for første gang, ønsker en gratis koran, eller vurderer å bli muslim, er Dawah Norge her for å hjelpe deg på en varm måte og helt uten press.",
+      "h2a": "Lære om islam i Stavanger",
+      "body1": "Islam er en av troene som praktiseres av mennesker i norske byer, og Stavanger er intet unntak. Mange her har spørsmål: Hvem er Gud i islam? Hva tror muslimer egentlig på? Passer religionen sammen med hverdagen i Norge? Dette er gode spørsmål som fortjener tydelige og ærlige svar, ikke bare overskrifter.\n\nFrivillige i Dawah Norge reiser rundt i landet, også i Rogaland-regionen, for å stå på dawah-stander og dele informasjon på en vennlig og respektfull måte. Bor du i eller rundt Stavanger, kan du ta kontakt for å spørre om alt som har med islam å gjøre — fra hva Koranen betyr til hvordan muslimer ber, faster og lever. Det er helt uforpliktende og uten fordømmelse. Vi ønsker rett og slett å gjøre korrekt informasjon om islam lett tilgjengelig for alle i Stavanger-området som vil lære.",
+      "h2b": "Få en gratis koran eller bli muslim i Stavanger",
+      "body2": "En av de enkleste måtene å lære om islam på er å lese troens sentrale tekst. Dawah Norge deler ut gratis koraner på norsk, engelsk og arabisk, og folk i Stavanger og Rogaland kan be om et eksemplar helt kostnadsfritt. Å lese Koranen på sitt eget språk er ofte det første steget mange tar på reisen sin.\n\nFøler du deg klar til å gå videre og bli muslim i Stavanger, tilbyr vi også en-til-en-mentorskap. Nye muslimer blir koblet sammen med noen som kan svare på spørsmål, forklare det grunnleggende om bønn og tro, og gi støtte underveis slik at du aldri føler deg alene. Enten du bare er nysgjerrig eller allerede overbevist, er du velkommen. Ta kontakt med Dawah Norge i dag, så hjelper en frivillig deg gjerne videre i ditt eget tempo.",
+      "ctaText": "Be om en gratis koran i Stavanger",
+      "faqQ1": "Hvor kan jeg få en gratis koran i Stavanger?",
+      "faqA1": "Dawah Norge tilbyr gratis koraner på norsk, engelsk og arabisk til folk i Stavanger og Rogaland. Ta kontakt med oss for å be om ditt eksemplar helt kostnadsfritt, så ordner en frivillig med at du får en koran.",
+      "faqQ2": "Hvordan blir jeg muslim i Stavanger?",
+      "faqA2": "Å bli muslim starter med oppriktig tro og å si trosbekjennelsen (shahada). Dawah Norge tilbyr gratis og vennlig mentorskap for nye muslimer i Stavanger — ta kontakt, så veileder en frivillig deg gjennom spørsmål og de første stegene uten noe press."
+    },
+    "kristiansand": {
+      "metaTitle": "Islam i Kristiansand — gratis Koran og hjelp",
+      "metaDescription": "Lær om islam i Kristiansand. Be om en gratis Koran, still spørsmål, eller få personlig hjelp til å bli muslim i Sør-Norges største by.",
+      "keywords": [
+        "islam Kristiansand",
+        "gratis koran Kristiansand",
+        "bli muslim Kristiansand",
+        "dawah Kristiansand",
+        "muslimsk fellesskap Agder",
+        "konvertere til islam Kristiansand"
+      ],
+      "h1": "Islam i Kristiansand — lær, spør og få en gratis Koran",
+      "intro": "Nysgjerrig på islam i Kristiansand? Enten du bor i sentrum, på Lund, i Vågsbygd eller andre steder i Agder, er Dawah Norge her for å svare på spørsmålene dine med varme og ærlighet. Som Sør-Norges største by er Kristiansand hjem for mennesker med mange ulike bakgrunner, og stadig flere innbyggere ønsker å forstå hva muslimer faktisk tror på. Vi tilbyr gratis Koraner, vennlige samtaler og personlig støtte — uten press og uten forpliktelser.",
+      "h2a": "Dawah og gratis Koran i Kristiansand",
+      "body1": "Frivillige i Dawah Norge holder dawah-stands og deler ut gratis Koraner i byer over hele Norge, og folk i Kristiansand og resten av Agder er hjertelig velkomne til å delta. Arbeidet vårt er enkelt: vi inviterer mennesker til å lære om islam og gjør autentiske ressurser lett tilgjengelige. Ønsker du en gratis Koran i Kristiansand, kan du be om en på norsk, engelsk eller arabisk, helt uten kostnad — den er din å lese i ditt eget tempo. Mange begynner nettopp her, ved å lese Koranen selv og se hva den faktisk sier. Ved siden av boken er du alltid velkommen til å stille et spørsmål, lufte en tvil eller snakke gjennom noe du har hørt om islam. Vi mener at et ærlig spørsmål fortjener et ærlig og respektfullt svar, og det forventes aldri noe mer enn en god samtale.",
+      "h2b": "Å bli muslim i Kristiansand",
+      "body2": "Føler du deg klar til å ta neste steg, kan vi hjelpe deg med å bli muslim i Kristiansand og følge deg videre. Å omfavne islam begynner med Shahada — en oppriktig bekjennelse av troen på én Gud og på Muhammad ﷺ som Hans siste sendebud — og det trenger ikke gjøres alene. Dawah Norge tilbyr personlig veiledning for nye muslimer, slik at du kan lære bønnen, forstå troens grunnleggende deler og finne et fellesskap i ditt eget tempo. Å bli muslim er en personlig beslutning, og vi er her for å støtte deg tålmodig, enten du bestemmer deg i dag eller bare ønsker å fortsette å lære. Uansett hvor i Agder du befinner deg — ta kontakt, be om en gratis Koran, spør etter en mentor, eller bare start en samtale. Vi hører gjerne fra deg.",
+      "ctaText": "Be om en gratis Koran eller snakk med en mentor",
+      "faqQ1": "Hvor kan jeg få en gratis Koran i Kristiansand?",
+      "faqA1": "Du kan be om en gratis Koran hvor som helst i Kristiansand og Agder gjennom Dawah Norge. Den er tilgjengelig på norsk, engelsk og arabisk, helt uten kostnad. Ta kontakt med oss, så ordner vi en kopi til deg — helt uforpliktende.",
+      "faqQ2": "Hvordan blir jeg muslim i Kristiansand?",
+      "faqA2": "Å bli muslim begynner med Shahada, den oppriktige bekjennelsen av troen på én Gud og på Muhammad ﷺ som Hans sendebud. I Kristiansand tilbyr Dawah Norge personlig veiledning som hjelper deg å ta dette steget, lære bønnen og finne et støttende fellesskap når du føler deg klar."
+    },
+    "tromso": {
+      "metaTitle": "Islam i Tromsø — gratis koran & støtte",
+      "metaDescription": "Lær om islam i Tromsø, Nord-Norge. Bestill en gratis koran, still spørsmål, eller få veiledning til å bli muslim. Dawah Norge hjelper deg.",
+      "keywords": [
+        "islam Tromsø",
+        "gratis koran Tromsø",
+        "bli muslim Tromsø",
+        "dawah Tromsø",
+        "muslimer i Tromsø",
+        "lære om islam Troms",
+        "konvertere til islam Tromsø",
+        "islam Nord-Norge"
+      ],
+      "h1": "Islam i Tromsø",
+      "intro": "Tromsø, den største byen i Nord-Norge og et knutepunkt nord for polarsirkelen, er hjem til mennesker med mange ulike bakgrunner og en voksende nysgjerrighet på islam. Enten du er muslim som bor i nord eller bare ønsker å forstå troen bedre, hjelper Dawah Norge deg gjerne. Vi tilbyr gratis koran, ærlige svar og vennlig støtte til alle i Tromsø og Troms-området, uten press og helt kostnadsfritt.",
+      "h2a": "Å oppdage islam i Tromsø",
+      "body1": "Når man bor så langt nord, i midnattssolens og de lange mørketidenes land, kan man begynne å undre seg over livets dypere spørsmål. Islam gir et tydelig svar: det finnes én Skaper, og livet har mening og ansvar. Mennesker i Tromsø utforsker disse tankene, leser Koranen og møter muslimer for første gang.\n\nFrivillige i Dawah Norge reiser rundt i hele landet, også i nord, for å sette opp dawah-stands og dele hva islam faktisk lærer. Du trenger ingen forkunnskaper for å begynne. Leter du etter ærlig informasjon om islam i Tromsø, fri for stereotypier og medierøyk, er du på rett sted. Vi ønsker alle spørsmål velkommen, fra de nysgjerrige til de skeptiske, og svarer med tålmodighet og respekt.",
+      "h2b": "Gratis koran og å bli muslim i Tromsø",
+      "body2": "Å lese Koranen selv er den beste måten å forstå islam på. Vi gir bort en gratis koran på norsk, engelsk eller arabisk til alle i Tromsø og resten av Troms. Ta kontakt og fortell oss hvilket språk du foretrekker, så ordner vi med et eksemplar til deg helt kostnadsfritt.\n\nFøler du deg klar til å bli muslim i Tromsø, går vi gjerne veien sammen med deg. Det finnes ingen prøve og intet hastverk, kun en oppriktig trosbekjennelse og et fellesskap som er klart til å støtte deg. Mange har spørsmål før de tar det steget, og veilederne våre snakker gjerne med deg én til én. Ta kontakt i dag, uansett hvor i Nord-Norge du befinner deg.",
+      "ctaText": "Bestill din gratis koran i Tromsø",
+      "faqQ1": "Hvor kan jeg få en gratis koran i Tromsø?",
+      "faqA1": "Dawah Norge gir bort gratis koraner på norsk, engelsk og arabisk til alle i Tromsø og Troms-området. Ta kontakt via nettsiden vår, fortell hvilket språk du ønsker, så ordner vi med et eksemplar til deg helt uten kostnad eller forpliktelse.",
+      "faqQ2": "Hvordan blir jeg muslim i Tromsø?",
+      "faqA2": "Å bli muslim er enkelt: du bekjenner oppriktig at det ikke finnes noen gud utenom Gud, og at Muhammad er Hans sendebud. Det koster ingenting og krever ingen formaliteter. Dawah Norge tilbyr gratis veiledning én til én i Tromsø-området for å svare på spørsmål og støtte deg underveis."
+    }
   }
 }

@@ -36,6 +36,12 @@ const LAST_UPDATED: Record<string, Date> = {
   "/why-islam": new Date("2026-04-24"),
   "/what-is-islam": new Date("2026-06-24"),
   "/five-pillars": new Date("2026-06-24"),
+  "/oslo": new Date("2026-06-24"),
+  "/bergen": new Date("2026-06-24"),
+  "/trondheim": new Date("2026-06-24"),
+  "/stavanger": new Date("2026-06-24"),
+  "/kristiansand": new Date("2026-06-24"),
+  "/tromso": new Date("2026-06-24"),
 };
 
 const PRIORITY: Record<string, number> = {
@@ -49,6 +55,12 @@ const PRIORITY: Record<string, number> = {
   "/what-is-islam": 0.8,
   "/who-is-muhammad": 0.8,
   "/five-pillars": 0.7,
+  "/oslo": 0.75,
+  "/bergen": 0.7,
+  "/trondheim": 0.7,
+  "/stavanger": 0.7,
+  "/kristiansand": 0.7,
+  "/tromso": 0.7,
   "/about-us": 0.7,
   "/about-us/our-team": 0.7,
   "/contact-us": 0.7,
