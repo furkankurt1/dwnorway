@@ -124,6 +124,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
+  /*
+   * Long Norwegian compound words (e.g. "Personvernerklæring") have no
+   * spaces, so text-wrap: balance can't break them and they clip at the
+   * viewport edge on narrow phones. The global break-word guard above only
+   * targets p/li/td — headings need their own. Breaks only as a last resort,
+   * so normal headings are untouched.
+   */
+  overflow-wrap: break-word;
 }
 
 /*

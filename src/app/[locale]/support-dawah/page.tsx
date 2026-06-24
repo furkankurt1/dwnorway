@@ -3,12 +3,11 @@ import {
   generatePageMetadata,
   breadcrumbJsonLd,
   articleJsonLd,
-  faqJsonLd,
   countWords,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
-import WhoIsMuhammadPage from "./client";
+import SupportDawahPage from "./client";
 
 export async function generateMetadata({
   params,
@@ -16,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return generatePageMetadata({ path: "/who-is-muhammad", locale });
+  return generatePageMetadata({ path: "/support-dawah", locale });
 }
 
 export default async function Page({
@@ -26,28 +25,22 @@ export default async function Page({
 }) {
   const { locale } = await params;
   const nav = await getTranslations({ locale, namespace: "nav" });
-  const tMuhammad = await getTranslations({ locale, namespace: "muhammad" });
+  const t = await getTranslations({ locale, namespace: "supportDawah" });
   const messages = await getMessages({ locale });
-  const seo = getSeo(locale, "/who-is-muhammad");
+  const seo = getSeo(locale, "/support-dawah");
+
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
-    { name: tMuhammad("title"), url: `${siteConfig.url}/${locale}/who-is-muhammad` },
+    { name: t("title"), url: `${siteConfig.url}/${locale}/support-dawah` },
   ]);
+
   const article = articleJsonLd({
     locale,
-    path: "/who-is-muhammad",
+    path: "/support-dawah",
     headline: seo.title,
     description: seo.description,
-    image: `${siteConfig.url}/images/muhammad-pbuh.webp`,
-    wordCount: countWords(messages.muhammad),
+    wordCount: countWords(messages.supportDawah),
   });
-  const faq = faqJsonLd([
-    { question: tMuhammad("faqQ1"), answer: tMuhammad("faqA1") },
-    { question: tMuhammad("faqQ2"), answer: tMuhammad("faqA2") },
-    { question: tMuhammad("faqQ3"), answer: tMuhammad("faqA3") },
-    { question: tMuhammad("faqQ4"), answer: tMuhammad("faqA4") },
-    { question: tMuhammad("faqQ5"), answer: tMuhammad("faqA5") },
-  ]);
 
   return (
     <>
@@ -59,11 +52,7 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
-      />
-      <WhoIsMuhammadPage />
+      <SupportDawahPage />
     </>
   );
 }

@@ -21,11 +21,14 @@ export default function robots(): MetadataRoute.Robots {
     "Applebot-Extended", // Apple Intelligence
   ];
 
+  // Paths are locale-prefixed at runtime (/en/donate/success, /no/donate/...),
+  // so a bare "/donate/success" never matches. Use a wildcard segment to
+  // cover every locale. Googlebot + Bingbot honour "*" in robots paths.
   const sharedDisallow = [
     "/api/",
     "/_next/",
-    "/donate/complete",
-    "/donate/success",
+    "/*/donate/complete",
+    "/*/donate/success",
   ];
 
   return {

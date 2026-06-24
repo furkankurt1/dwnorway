@@ -89,7 +89,8 @@ export function generatePageMetadata({
   };
 }
 
-export function organizationJsonLd() {
+export function organizationJsonLd(locale: string = "en") {
+  const isNo = locale === "no";
   return {
     "@context": "https://schema.org",
     // NGO + EducationalOrganization — multi-typed entity. NGO captures the
@@ -97,6 +98,9 @@ export function organizationJsonLd() {
     // education function, which is what most of our content is about.
     "@type": ["NGO", "EducationalOrganization"],
     "@id": `${siteConfig.url}/#organization`,
+    // Brand name stays "Dawah Norway" (English) on both locales — that's
+    // how it's registered in Brønnøysund. `alternateName` carries the
+    // Norwegian variant so Google can match either.
     name: siteConfig.name,
     alternateName: "Dawah Norge",
     legalName: "Dawah Norway",
@@ -109,9 +113,11 @@ export function organizationJsonLd() {
       height: 102,
     },
     image: `${siteConfig.url}/images/og-default.jpg`,
-    description:
-      "An invitation to Islam — actively working across Norway to share the message with wisdom and compassion",
-    slogan: "An Invitation to Islam",
+    description: isNo
+      ? "En invitasjon til Islam — aktivt arbeid i hele Norge for å dele budskapet med visdom og medfølelse"
+      : "An invitation to Islam — actively working across Norway to share the message with wisdom and compassion",
+    slogan: isNo ? "En invitasjon til Islam" : "An Invitation to Islam",
+    inLanguage: isNo ? "nb" : "en",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Østre Aker vei 101",
@@ -119,6 +125,12 @@ export function organizationJsonLd() {
       addressLocality: "Oslo",
       addressCountry: "NO",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude,
+    },
+    hasMap: "https://www.google.com/maps/search/?api=1&query=Dawah+Norway+Østre+Aker+vei+101+Oslo",
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -129,12 +141,25 @@ export function organizationJsonLd() {
         areaServed: "NO",
       },
     ],
+    // sameAs anchors the entity to external authorities. The Brønnøysund
+    // (brreg) record is derivable from taxID and is the strongest neutral
+    // proof of legal identity — it disambiguates this NGO for AI engines.
     sameAs: [
       siteConfig.social.facebook,
       siteConfig.social.instagram,
       siteConfig.social.youtube,
       siteConfig.social.tiktok,
+      "https://virksomhet.brreg.no/nb/oppslag/enheter/931087509",
     ].filter(Boolean),
+    // Founders are linked to their Person nodes (emitted on /about-us and
+    // /about-us/our-team) via shared @id so the knowledge graph connects them.
+    founder: siteConfig.team
+      .filter((m) => m.roleKey === "founder")
+      .map((m) => ({
+        "@type": "Person",
+        "@id": personId(m.name),
+        name: m.name,
+      })),
     foundingDate: "2021",
     foundingLocation: {
       "@type": "Place",
@@ -151,11 +176,26 @@ export function organizationJsonLd() {
       { "@type": "City", name: "Stavanger" },
       { "@type": "City", name: "Kristiansand" },
       { "@type": "City", name: "Tromsø" },
+      { "@type": "City", name: "Bergen" },
+      { "@type": "City", name: "Drammen" },
       { "@type": "AdministrativeArea", name: "Østfold" },
     ],
     knowsLanguage: ["en", "nb", "ar"],
     nonprofitStatus: "NonprofitType",
   };
+}
+
+// Stable @id for a team member's Person node, shared across /about-us,
+// /about-us/our-team and the Organization.founder linkage so the graph
+// resolves to one entity per person.
+export function personId(name: string): string {
+  const slug = name
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "") // strip combining diacritics
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+  return `${siteConfig.url}/#person-${slug}`;
 }
 
 export function webSiteJsonLd() {
@@ -173,10 +213,15 @@ export function webSiteJsonLd() {
 
 const NAV_NAMES: Record<"en" | "no", { path: string; name: string }[]> = {
   en: [
+    { name: "Free Quran", path: "/free-quran" },
+    { name: "What is Islam?", path: "/what-is-islam" },
     { name: "Why Islam?", path: "/why-islam" },
     { name: "Who is Muhammad ﷺ", path: "/who-is-muhammad" },
+    { name: "The Five Pillars of Islam", path: "/five-pillars" },
     { name: "New Muslims", path: "/new-muslims" },
+    { name: "Support Dawah", path: "/support-dawah" },
     { name: "About Us", path: "/about-us" },
+    { name: "Our Team", path: "/about-us/our-team" },
     { name: "Our Mission", path: "/about-us/our-mission" },
     { name: "Our Vision", path: "/about-us/our-vision" },
     { name: "Gallery", path: "/gallery" },
@@ -184,10 +229,15 @@ const NAV_NAMES: Record<"en" | "no", { path: string; name: string }[]> = {
     { name: "Contact Us", path: "/contact-us" },
   ],
   no: [
+    { name: "Gratis Koran", path: "/free-quran" },
+    { name: "Hva er Islam?", path: "/what-is-islam" },
     { name: "Hvorfor Islam?", path: "/why-islam" },
     { name: "Hvem er Muhammad ﷺ", path: "/who-is-muhammad" },
+    { name: "Islams fem søyler", path: "/five-pillars" },
     { name: "Nye Muslimer", path: "/new-muslims" },
+    { name: "Støtt Dawah", path: "/support-dawah" },
     { name: "Om Oss", path: "/about-us" },
+    { name: "Vårt Team", path: "/about-us/our-team" },
     { name: "Vårt Oppdrag", path: "/about-us/our-mission" },
     { name: "Vår Visjon", path: "/about-us/our-vision" },
     { name: "Galleri", path: "/gallery" },
@@ -219,6 +269,27 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   };
 }
 
+// Recursively counts words across all string values in a translations
+// namespace (object / array / string). Used to populate Article.wordCount,
+// which signals long-form authority to Google and AI answer engines without
+// hard-coding a number that drifts as copy changes.
+export function countWords(source: unknown): number {
+  if (typeof source === "string") {
+    const trimmed = source.trim();
+    return trimmed ? trimmed.split(/\s+/).length : 0;
+  }
+  if (Array.isArray(source)) {
+    return source.reduce((sum, v) => sum + countWords(v), 0);
+  }
+  if (source && typeof source === "object") {
+    return Object.values(source).reduce<number>(
+      (sum, v) => sum + countWords(v),
+      0
+    );
+  }
+  return 0;
+}
+
 type ArticleArgs = {
   locale: string;
   path: string;
@@ -227,6 +298,16 @@ type ArticleArgs = {
   image?: string;
   datePublished?: string;
   dateModified?: string;
+  // Approximate word count of the rendered article body — compute with
+  // countWords(messages.<namespace>) at the server component.
+  wordCount?: number;
+  // CSS selectors for SpeakableSpecification — the parts of the page a voice
+  // assistant should read aloud (typically the h1 + lead paragraph). Only
+  // emitted when the page actually has stable selectors for those elements.
+  speakable?: string[];
+  // Geographic focus of the article (city pages). Emits Place/contentLocation
+  // so Google + AI engines tie the page to a Norwegian locality.
+  contentLocation?: { name: string; locality?: string };
 };
 
 export function articleJsonLd({
@@ -237,6 +318,9 @@ export function articleJsonLd({
   image,
   datePublished = "2026-04-24",
   dateModified = "2026-05-02",
+  wordCount,
+  speakable,
+  contentLocation,
 }: ArticleArgs) {
   const url = buildUrl(locale, path);
   return {
@@ -247,21 +331,35 @@ export function articleJsonLd({
     headline,
     description,
     image: image ?? `${siteConfig.url}/images/og-default.jpg`,
-    author: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/images/logo.png`,
-      },
-    },
+    // author + publisher reference the single Organization node so every
+    // Article folds into one entity graph instead of duplicating the org.
+    author: { "@id": `${siteConfig.url}/#organization` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
     datePublished,
     dateModified,
+    ...(wordCount ? { wordCount } : {}),
+    ...(contentLocation
+      ? {
+          contentLocation: {
+            "@type": "Place",
+            name: contentLocation.name,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: contentLocation.locality ?? contentLocation.name,
+              addressCountry: "NO",
+            },
+          },
+        }
+      : {}),
+    ...(speakable && speakable.length
+      ? {
+          speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: speakable,
+          },
+        }
+      : {}),
   };
 }
 
@@ -401,23 +499,47 @@ export function donateActionJsonLd({
   };
 }
 
+// Default expertise topics for Dawah Norway team members. Person entities
+// with `knowsAbout` are read by Google's knowledge graph and AI answer
+// engines as topical-authority signals — they tie the named individual to
+// the subjects the site ranks for. Override per-person when someone has a
+// narrower specialism.
+const TEAM_KNOWS_ABOUT = [
+  "Islam",
+  "Dawah",
+  "Islamic theology",
+  "Quran",
+  "Norwegian Muslim community",
+];
+
 export function personJsonLd({
   name,
   jobTitle,
   image,
   worksFor,
+  knowsAbout = TEAM_KNOWS_ABOUT,
+  sameAs,
+  id,
 }: {
   name: string;
   jobTitle: string;
   image?: string;
   worksFor?: string;
+  knowsAbout?: string[];
+  sameAs?: string[];
+  // Stable @id (use personId(name)) so Organization.founder and the team
+  // pages resolve to one shared Person entity.
+  id?: string;
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    ...(id ? { "@id": id } : {}),
     name,
     jobTitle,
     ...(image ? { image } : {}),
+    ...(knowsAbout && knowsAbout.length ? { knowsAbout } : {}),
+    ...(sameAs && sameAs.length ? { sameAs } : {}),
     worksFor: {
       "@type": "Organization",
       "@id": `${siteConfig.url}/#organization`,
@@ -463,59 +585,47 @@ export function videoJsonLd({
   };
 }
 
-// Reviews on the home page — one per testimonial. Plus an AggregateRating
-// attached to the Organization so SERP can show stars on brand queries.
-// Note: testimonials in siteConfig don't have explicit ratings; we attach
-// 5/5 by convention (they're clearly positive) which is honest given the
-// content. Google may still suppress these if it judges them self-serving.
-export function reviewJsonLd({
-  authorName,
-  authorRole,
-  reviewBody,
-  ratingValue = 5,
-  locale,
-}: {
-  authorName: string;
-  authorRole: string;
-  reviewBody: string;
-  ratingValue?: number;
-  locale: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    inLanguage: locale === "no" ? "nb" : "en",
-    author: {
-      "@type": "Person",
-      name: authorName,
-      jobTitle: authorRole,
-    },
-    reviewBody,
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue,
-      bestRating: 5,
-      worstRating: 1,
-    },
-    itemReviewed: { "@id": `${siteConfig.url}/#organization` },
-  };
-}
+// NOTE: Self-authored Review + AggregateRating on our own Organization were
+// removed (2026-06-24). Google's review-snippet policy disallows ratings the
+// business produces about itself; a fabricated 5/5 aggregate risks a manual
+// action and earns no rich result. Testimonials remain as visible HTML on the
+// home page. If genuine third-party reviews are collected later (e.g. Google
+// Business Profile), attach Review to a Service/CreativeWork — never to
+// #organization with a self-assigned rating.
 
-export function aggregateRatingJsonLd({
-  ratingValue,
-  reviewCount,
+// Product + Offer (price 0) for the free Quran. Lets Google + AI engines
+// understand /free-quran as a concrete, free, NO-wide offering — eligible for
+// merchant/offer treatment and strongly citable for "free Quran" intent.
+export function freeQuranOfferJsonLd({
+  locale,
+  path,
+  name,
+  description,
 }: {
-  ratingValue: number;
-  reviewCount: number;
+  locale: string;
+  path: string;
+  name: string;
+  description: string;
 }) {
+  const url = buildUrl(locale, path);
   return {
     "@context": "https://schema.org",
-    "@type": "AggregateRating",
-    itemReviewed: { "@id": `${siteConfig.url}/#organization` },
-    ratingValue,
-    bestRating: 5,
-    worstRating: 1,
-    reviewCount,
+    "@type": "Product",
+    name,
+    description,
+    category: "Book",
+    inLanguage: ["nb", "en", "ar"],
+    brand: { "@id": `${siteConfig.url}/#organization` },
+    image: `${siteConfig.url}/images/og-default.jpg`,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "NOK",
+      availability: "https://schema.org/InStock",
+      areaServed: { "@type": "Country", name: "Norway" },
+      url,
+      seller: { "@id": `${siteConfig.url}/#organization` },
+    },
   };
 }
 

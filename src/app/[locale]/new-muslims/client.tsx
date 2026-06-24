@@ -32,21 +32,21 @@ import {
 const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 const resources = [
-  { key: "becomeMuslim", icon: FaMosque },
-  { key: "course", icon: FaGraduationCap },
-  { key: "guide", icon: FaBook },
-  { key: "academy", icon: FaUniversity },
-  { key: "purpose", icon: FaHeart },
-  { key: "ghusal", icon: FaShower },
-  { key: "wudu", icon: FaHandsWash },
-  { key: "prayer", icon: FaPray },
-  { key: "prayerTutorial", icon: FaVideo },
-  { key: "quran", icon: FaQuran },
-  { key: "seerah", icon: FaBookOpen },
-  { key: "foundations", icon: FaPrayingHands },
-  { key: "mentors", icon: FaUserFriends },
-  { key: "freeBooks", icon: FaBook },
-  { key: "prayerMat", icon: FaPray },
+  { key: "becomeMuslim", icon: FaMosque, image: "/images/mosque-dome.jpg" },
+  { key: "course", icon: FaGraduationCap, image: "/images/quran-reading.jpg" },
+  { key: "guide", icon: FaBook, image: "/images/quran-open.jpg" },
+  { key: "academy", icon: FaUniversity, image: "/images/mosque-interior.jpg" },
+  { key: "purpose", icon: FaHeart, image: "/images/why-islam.webp" },
+  { key: "ghusal", icon: FaShower, image: "/images/charity-hands.jpg" },
+  { key: "wudu", icon: FaHandsWash, image: "/images/charity-hands.jpg" },
+  { key: "prayer", icon: FaPray, image: "/images/mosque-interior.jpg" },
+  { key: "prayerTutorial", icon: FaVideo, image: "/images/hero-mosque.jpg" },
+  { key: "quran", icon: FaQuran, image: "/images/quran-open.jpg" },
+  { key: "seerah", icon: FaBookOpen, image: "/images/muhammad-pbuh.webp" },
+  { key: "foundations", icon: FaPrayingHands, image: "/images/mosque-dome.jpg" },
+  { key: "mentors", icon: FaUserFriends, image: "/images/our-work-street.webp" },
+  { key: "freeBooks", icon: FaBook, image: "/images/hero-quran.jpg" },
+  { key: "prayerMat", icon: FaPray, image: "/images/mosque-interior.jpg" },
 ] as const;
 
 export default function NewMuslimsPage() {
@@ -62,8 +62,7 @@ export default function NewMuslimsPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/mosque-dome.jpg"
-            alt=""
-            aria-hidden="true"
+            alt={t("heroAlt")}
             fill
             sizes="100vw"
             priority
@@ -85,7 +84,7 @@ export default function NewMuslimsPage() {
               <ArticleMeta updated="2026-05-02" />
             </div>
             <motion.p
-              className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4"
+              className="speakable-intro text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2, ease: STRONG_OUT }}
@@ -176,27 +175,38 @@ export default function NewMuslimsPage() {
       <section className="section-py">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {resources.map(({ key, icon: Icon }) => {
+            {resources.map(({ key, icon: Icon, image }) => {
               const href = siteConfig.newMuslimResources[key] ?? "#";
               const isExternal = href.startsWith("http");
 
               const cardBody = (
-                <HoverCard
-                  className="bg-white border border-gray-100 rounded-2xl p-7 group h-full block"
-                >
-                  <div className="w-12 h-12 rounded-xl mb-5 bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center transition-colors duration-200 group-hover:bg-[var(--color-gold)] group-hover:text-white">
-                    <Icon size={20} aria-hidden="true" />
+                <HoverCard className="bg-white border border-gray-100 rounded-2xl overflow-hidden group h-full flex flex-col">
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={image}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-[var(--color-deep)]/20 group-hover:bg-[var(--color-deep)]/10 transition-colors duration-300" />
+                    <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-white/90 text-[var(--color-gold)] flex items-center justify-center shadow-sm">
+                      <Icon size={17} aria-hidden="true" />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold mb-2">
-                    {t(key)}
-                  </h3>
-                  <p className="text-[var(--color-gray)] text-sm mb-4 leading-relaxed">
-                    {t(`${key}Text`)}
-                  </p>
-                  <span className="link-animated text-[var(--color-gold-text)] font-semibold inline-flex items-center gap-1.5">
-                    {t("learnMore")}
-                    <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-                  </span>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-base font-[family-name:var(--font-heading)] font-semibold mb-2 text-[var(--color-dark)]">
+                      {t(key)}
+                    </h3>
+                    <p className="text-[var(--color-gray)] text-sm mb-4 leading-relaxed flex-1">
+                      {t(`${key}Text`)}
+                    </p>
+                    <span className="link-animated text-[var(--color-gold-text)] font-semibold inline-flex items-center gap-1.5 text-sm">
+                      {t("learnMore")}
+                      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                    </span>
+                  </div>
                 </HoverCard>
               );
 
@@ -209,6 +219,7 @@ export default function NewMuslimsPage() {
                       rel="noopener noreferrer"
                       data-press
                       aria-label={`${t(key)} (${t("learnMore")})`}
+                      className="h-full block"
                     >
                       {cardBody}
                     </a>
@@ -217,6 +228,7 @@ export default function NewMuslimsPage() {
                       href={href as "/"}
                       data-press
                       aria-label={`${t(key)} (${t("learnMore")})`}
+                      className="h-full block"
                     >
                       {cardBody}
                     </Link>
@@ -267,8 +279,9 @@ export default function NewMuslimsPage() {
               {t("exploreMoreTitle")}
             </h2>
           </FadeIn>
-          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
+              { href: "/free-quran" as const, label: t("exploreFreeQuran") },
               { href: "/why-islam" as const, label: t("exploreWhyIslam") },
               {
                 href: "/who-is-muhammad" as const,

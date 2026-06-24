@@ -23,6 +23,7 @@ const PRESET_AMOUNTS = [100, 200, 500, 1000];
 const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 type Frequency = "once" | "monthly";
+type MethodKey = "vipps" | "paypal" | "card";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -67,7 +68,7 @@ function PaymentMethodCard({
   const reduce = useReducedMotion();
   return (
     <motion.div
-      className={`bg-white border-2 rounded-2xl p-6 text-center h-full grid grid-rows-[auto_auto_1fr_auto_auto] gap-3 ${
+      className={`bg-white border-2 rounded-2xl p-3 sm:p-6 text-center h-full grid grid-rows-[auto_auto_1fr_auto_auto] gap-2 sm:gap-3 ${
         disabled ? "border-gray-100 opacity-60" : "border-gray-200"
       }`}
       whileHover={
@@ -86,17 +87,27 @@ function PaymentMethodCard({
       // animations; for hover it crests too fast and feels "jumpy".
       transition={{ duration: 0.32, ease: "easeOut" }}
     >
+      {/* Icon container shrinks on mobile and the inline <svg> is forced
+          to a smaller size via [&_svg]:* so the icon doesn't overflow the
+          tighter box. Parent class wins over the size={24} the icon was
+          rendered with — react-icons writes width/height attributes, and
+          CSS width/height beats those. */}
       <div
-        className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto"
+        className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto [&_svg]:w-5 [&_svg]:h-5 sm:[&_svg]:w-6 sm:[&_svg]:h-6"
         style={{ backgroundColor: disabled ? "#e5e7eb" : `${brandColor}15` }}
       >
         {icon}
       </div>
-      <h3 className="text-lg font-[family-name:var(--font-heading)] font-semibold">
+      <h3 className="text-sm sm:text-lg font-[family-name:var(--font-heading)] font-semibold">
         {title}
       </h3>
-      <p className="text-[var(--color-gray)] text-sm self-start">{description}</p>
-      <div className="h-6 flex items-center justify-center text-gray-400">
+      {/* Description and logos drop out on mobile — at 3-up the cards are
+          ~100px wide each and any prose just wraps into noise. The brand
+          icon + name is enough to identify the method. */}
+      <p className="hidden sm:block text-[var(--color-gray)] text-sm self-start">
+        {description}
+      </p>
+      <div className="hidden sm:flex h-6 items-center justify-center text-gray-400">
         {logosSlot}
       </div>
       <button
@@ -106,7 +117,7 @@ function PaymentMethodCard({
         aria-disabled={disabled}
         title={disabled ? disabledTooltip : undefined}
         data-press
-        className="w-full py-3 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 transition-[background-color,box-shadow] duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-md"
+        className="w-full py-2 sm:py-3 px-2 sm:px-4 text-white rounded-full font-semibold text-xs sm:text-base flex items-center justify-center gap-2 transition-[background-color,box-shadow] duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-md"
         style={{ backgroundColor: disabled ? "#9ca3af" : brandColor }}
       >
         {loading ? <Spinner size={18} /> : buttonLabel}
@@ -131,15 +142,30 @@ export default function DonatePage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [failedStatus, setFailedStatus] = useState(false);
+  // Two-step flow: user picks a method first, then sees the amount form.
+  // `null` = method picker visible; non-null = amount form for that method.
+  const [selectedMethod, setSelectedMethod] = useState<MethodKey | null>(null);
 
   const effectiveAmount = useCustom ? parseInt(customAmount, 10) : amount;
 
   const anyLoading = vippsLoading || stripeLoading || paypalLoading;
   const vippsDisabled = !vippsEnabled;
+  const stripeEnabled = !!stripePromise;
 
   useEffect(() => {
     if (searchParams.get("status") === "failed") setFailedStatus(true);
   }, [searchParams]);
+
+  // Pre-select the payment method when the user arrives via a link like
+  // `/donate?method=vipps`. We only honour the param if that method is
+  // actually available — otherwise fall through to the picker so the user
+  // isn't trapped on a disabled card.
+  useEffect(() => {
+    const m = searchParams.get("method");
+    if (m === "vipps" && vippsEnabled) setSelectedMethod("vipps");
+    else if (m === "paypal" && paypalEnabled) setSelectedMethod("paypal");
+    else if (m === "card" && stripeEnabled) setSelectedMethod("card");
+  }, [searchParams, stripeEnabled]);
 
   useEffect(() => {
     setErrorMsg("");
@@ -237,22 +263,62 @@ export default function DonatePage() {
     setStripeLoading(false);
   }, []);
 
-  const stripeEnabled = !!stripePromise;
   const amountSuffix = frequency === "monthly" ? t("perMonth") : "";
+
+  // Look-up table for the selected-method header + pay button. Keeps the
+  // amount form generic — only the brand chrome and the handler differ
+  // per method.
+  const methodMeta: Record<MethodKey, {
+    brandColor: string;
+    name: string;
+    icon: ReactNode;
+    payLabel: string;
+    loading: boolean;
+    handler: () => void;
+  }> = {
+    vipps: {
+      brandColor: "#ff5b24",
+      name: "Vipps",
+      icon: <FaMobileAlt size={18} style={{ color: "#ff5b24" }} aria-hidden="true" />,
+      payLabel: t("vipps"),
+      loading: vippsLoading,
+      handler: handleVipps,
+    },
+    paypal: {
+      brandColor: "#003087",
+      name: "PayPal",
+      icon: <FaPaypal size={18} style={{ color: "#003087" }} aria-hidden="true" />,
+      payLabel: t("paypal"),
+      loading: paypalLoading,
+      handler: handlePaypal,
+    },
+    card: {
+      brandColor: "#e0a242",
+      name: t("card"),
+      icon: <FaCreditCard size={18} style={{ color: "#e0a242" }} aria-hidden="true" />,
+      payLabel: t("card"),
+      loading: stripeLoading,
+      handler: handleStripe,
+    },
+  };
+  const currentMethod = selectedMethod ? methodMeta[selectedMethod] : null;
 
   return (
     <>
       <Breadcrumb items={[{ label: nav("donate") }]} />
 
-      {/* ───────── Hero ───────── */}
+      {/* ───────── Hero ─────────
+          Mobile-trimmed: padding, type scale and the intro paragraph are
+          all collapsed below `md` so the payment options sit above the
+          fold on phones. Desktop keeps the full hero. */}
       <ParallaxSection
         backgroundImage="/images/donate-hero.svg"
         overlayColor="rgba(10, 22, 40, 0.55)"
-        className="text-white py-16 md:py-24 lg:py-32"
+        className="text-white py-8 md:py-24 lg:py-32"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-4 tracking-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] font-bold mb-1.5 md:mb-4 tracking-tight"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: STRONG_OUT }}
@@ -260,7 +326,7 @@ export default function DonatePage() {
             {t("title")}
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] mb-6"
+            className="text-base md:text-2xl text-[var(--color-gold)] font-[family-name:var(--font-heading)] mb-0 md:mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -268,7 +334,7 @@ export default function DonatePage() {
             {t("subtitle")}
           </motion.p>
           <motion.p
-            className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+            className="hidden md:block text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: STRONG_OUT }}
@@ -278,8 +344,11 @@ export default function DonatePage() {
         </div>
       </ParallaxSection>
 
-      {/* ───────── Amount + Payment ───────── */}
-      <section className="section-py">
+      {/* ───────── Amount + Payment ─────────
+          Mobile uses tighter top padding (pt-6) so the payment options sit
+          closer to the hero and land above the fold. Desktop matches the
+          standard section rhythm (py-24 = section-py = 6rem). */}
+      <section className="pt-6 pb-16 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <AnimatePresence>
@@ -331,15 +400,156 @@ export default function DonatePage() {
                     </EmbeddedCheckoutProvider>
                   </div>
                 </motion.div>
-              ) : (
+              ) : !selectedMethod ? (
+                // ─── Method picker ─────────────────────────────────────
+                // First step: user chooses how they want to donate. Clicking
+                // a card moves them to the amount form for that method.
+                // Amount/frequency aren't shown yet so the page isn't busy.
                 <motion.div
-                  key="selector"
+                  key="picker"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {/* Frequency + Amount */}
-                  <div className="bg-white rounded-2xl border-2 border-gray-100 p-8 mb-8 shadow-sm">
+                  <div className="text-center mb-8">
+                    <h2 className="text-2xl md:text-3xl font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)] mb-2">
+                      {t("chooseMethodTitle")}
+                    </h2>
+                    <p className="text-[var(--color-gray)] text-sm md:text-base max-w-xl mx-auto">
+                      {t("chooseMethodIntro")}
+                    </p>
+                  </div>
+
+                  {/* Mobile: 3 columns side-by-side (cards collapse to a
+                      compact icon + name + Continue layout). sm and up
+                      keeps the breathable 2/3-column rhythm with full
+                      descriptions visible. */}
+                  <StaggerChildren className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
+                    <StaggerItem>
+                      <PaymentMethodCard
+                        brandColor="#ff5b24"
+                        icon={
+                          <FaMobileAlt
+                            size={24}
+                            style={{ color: vippsDisabled ? "#9ca3af" : "#ff5b24" }}
+                            aria-hidden="true"
+                          />
+                        }
+                        title="Vipps"
+                        description={vippsDisabled ? t("vippsUnavailable") : t("vippsDesc")}
+                        buttonLabel={t("chooseCta")}
+                        loading={false}
+                        disabled={vippsDisabled}
+                        onClick={() => setSelectedMethod("vipps")}
+                        disabledTooltip={vippsDisabled ? t("vippsUnavailable") : undefined}
+                      />
+                    </StaggerItem>
+
+                    {stripeEnabled && (
+                      <StaggerItem>
+                        <PaymentMethodCard
+                          brandColor="#e0a242"
+                          icon={
+                            <FaCreditCard
+                              size={24}
+                              style={{ color: "#e0a242" }}
+                              aria-hidden="true"
+                            />
+                          }
+                          title={t("card")}
+                          description={t("cardDesc")}
+                          logosSlot={
+                            <div className="flex gap-3">
+                              <SiVisa size={26} aria-label="Visa" />
+                              <SiMastercard size={26} aria-label="Mastercard" />
+                            </div>
+                          }
+                          buttonLabel={t("chooseCta")}
+                          loading={false}
+                          disabled={false}
+                          onClick={() => setSelectedMethod("card")}
+                        />
+                      </StaggerItem>
+                    )}
+
+                    <StaggerItem>
+                      <PaymentMethodCard
+                        brandColor="#003087"
+                        icon={
+                          <FaPaypal
+                            size={24}
+                            style={{ color: paypalEnabled ? "#003087" : "#9ca3af" }}
+                            aria-hidden="true"
+                          />
+                        }
+                        title="PayPal"
+                        description={paypalEnabled ? t("paypalDesc") : t("paypalUnavailable")}
+                        buttonLabel={t("chooseCta")}
+                        loading={false}
+                        disabled={!paypalEnabled}
+                        onClick={() => setSelectedMethod("paypal")}
+                        disabledTooltip={!paypalEnabled ? t("paypalUnavailable") : undefined}
+                      />
+                    </StaggerItem>
+                  </StaggerChildren>
+
+                  <p className="text-center text-sm text-[var(--color-gray)] mt-8">
+                    {t("agreementNotice")}{" "}
+                    <Link
+                      href="/donation-agreement"
+                      className="link-animated text-[var(--color-gold-text)] font-medium"
+                    >
+                      {t("agreementLink")}
+                    </Link>
+                    .
+                  </p>
+                </motion.div>
+              ) : (
+                // ─── Amount form for the selected method ───────────────
+                // Second step: brand-tinted header recaps the chosen
+                // method (with a back-out link), then the standard
+                // frequency + amount form, then a single brand-coloured
+                // pay button that fires the method-specific handler.
+                <motion.div
+                  key="amount"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: STRONG_OUT }}
+                >
+                  <div
+                    className="flex items-center justify-between gap-3 rounded-2xl px-4 sm:px-5 py-3 mb-6 border-2"
+                    style={{
+                      backgroundColor: `${currentMethod!.brandColor}10`,
+                      borderColor: `${currentMethod!.brandColor}33`,
+                    }}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span
+                        className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: `${currentMethod!.brandColor}1f` }}
+                      >
+                        {currentMethod!.icon}
+                      </span>
+                      <span className="text-sm text-[var(--color-gray)] truncate">
+                        {t("selectedMethod")}{" "}
+                        <span className="font-semibold text-[var(--color-dark)]">
+                          {currentMethod!.name}
+                        </span>
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMethod(null)}
+                      data-press
+                      className="link-animated flex items-center gap-1.5 text-xs sm:text-sm text-[var(--color-gray)] hover:text-[var(--color-gold-text)] shrink-0"
+                    >
+                      <FaArrowLeft size={11} aria-hidden="true" />
+                      {t("changeMethod")}
+                    </button>
+                  </div>
+
+                  <div className="bg-white rounded-2xl border-2 border-gray-100 p-6 sm:p-8 mb-6 shadow-sm">
                     <div className="mb-6">
                       <div className="text-center text-sm text-[var(--color-gray)] mb-3">
                         {t("selectFrequency")}
@@ -387,11 +597,18 @@ export default function DonatePage() {
                             type="button"
                             onClick={() => {
                               setAmount(preset);
+                              // Mirror the preset into the custom field so
+                              // the input and the selected pill always agree
+                              // — previously a user who typed 220 and then
+                              // clicked the 500 preset still saw 220 in the
+                              // input, which read as "which one will I be
+                              // charged?".
+                              setCustomAmount(String(preset));
                               setUseCustom(false);
                               setErrorMsg("");
                             }}
                             data-press
-                            className={`py-3 rounded-xl font-semibold text-lg border-2 transition-[background-color,border-color,color] duration-300 ease-out tabular-nums ${
+                            className={`py-3 rounded-xl font-semibold text-base sm:text-lg border-2 transition-[background-color,border-color,color] duration-300 ease-out tabular-nums ${
                               active
                                 ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-white"
                                 : "border-gray-200 hover:border-[var(--color-gold)]/60 text-[var(--color-dark)]"
@@ -453,76 +670,22 @@ export default function DonatePage() {
                     </div>
                   </div>
 
-                  <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <StaggerItem>
-                      <PaymentMethodCard
-                        brandColor="#ff5b24"
-                        icon={
-                          <FaMobileAlt
-                            size={24}
-                            style={{ color: vippsDisabled ? "#9ca3af" : "#ff5b24" }}
-                            aria-hidden="true"
-                          />
-                        }
-                        title="Vipps"
-                        description={vippsDisabled ? t("vippsUnavailable") : t("vippsDesc")}
-                        buttonLabel={t("vipps")}
-                        loading={vippsLoading}
-                        disabled={vippsDisabled || anyLoading}
-                        onClick={handleVipps}
-                        disabledTooltip={vippsDisabled ? t("vippsUnavailable") : undefined}
-                      />
-                    </StaggerItem>
-
-                    {stripeEnabled && (
-                      <StaggerItem>
-                        <PaymentMethodCard
-                          brandColor="#e0a242"
-                          icon={
-                            <FaCreditCard
-                              size={24}
-                              style={{ color: "#e0a242" }}
-                              aria-hidden="true"
-                            />
-                          }
-                          title={t("card")}
-                          description={t("cardDesc")}
-                          logosSlot={
-                            <div className="flex gap-3">
-                              <SiVisa size={26} aria-label="Visa" />
-                              <SiMastercard size={26} aria-label="Mastercard" />
-                            </div>
-                          }
-                          buttonLabel={t("card")}
-                          loading={stripeLoading}
-                          disabled={anyLoading}
-                          onClick={handleStripe}
-                        />
-                      </StaggerItem>
+                  <button
+                    type="button"
+                    onClick={currentMethod!.handler}
+                    disabled={anyLoading}
+                    data-press
+                    className="w-full py-4 text-white rounded-full font-semibold text-base flex items-center justify-center gap-2 transition-[background-color,box-shadow] duration-300 ease-out disabled:cursor-not-allowed disabled:opacity-60 hover:shadow-md"
+                    style={{ backgroundColor: currentMethod!.brandColor }}
+                  >
+                    {currentMethod!.loading ? (
+                      <Spinner size={20} />
+                    ) : (
+                      currentMethod!.payLabel
                     )}
+                  </button>
 
-                    <StaggerItem>
-                      <PaymentMethodCard
-                        brandColor="#003087"
-                        icon={
-                          <FaPaypal
-                            size={24}
-                            style={{ color: paypalEnabled ? "#003087" : "#9ca3af" }}
-                            aria-hidden="true"
-                          />
-                        }
-                        title="PayPal"
-                        description={paypalEnabled ? t("paypalDesc") : t("paypalUnavailable")}
-                        buttonLabel={t("paypal")}
-                        loading={paypalLoading}
-                        disabled={!paypalEnabled || anyLoading}
-                        onClick={handlePaypal}
-                        disabledTooltip={!paypalEnabled ? t("paypalUnavailable") : undefined}
-                      />
-                    </StaggerItem>
-                  </StaggerChildren>
-
-                  <p className="text-center text-sm text-[var(--color-gray)] mt-8">
+                  <p className="text-center text-sm text-[var(--color-gray)] mt-6">
                     {t("agreementNotice")}{" "}
                     <Link
                       href="/donation-agreement"

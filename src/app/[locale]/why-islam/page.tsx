@@ -1,8 +1,9 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getMessages } from "next-intl/server";
 import {
   generatePageMetadata,
   breadcrumbJsonLd,
   articleJsonLd,
+  countWords,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
@@ -25,6 +26,7 @@ export default async function Page({
   const { locale } = await params;
   const nav = await getTranslations({ locale, namespace: "nav" });
   const tWhy = await getTranslations({ locale, namespace: "whyIslam" });
+  const messages = await getMessages({ locale });
   const seo = getSeo(locale, "/why-islam");
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
@@ -36,6 +38,8 @@ export default async function Page({
     headline: seo.title,
     description: seo.description,
     image: `${siteConfig.url}/images/why-islam.webp`,
+    wordCount: countWords(messages.whyIslam),
+    speakable: ["h1", ".speakable-intro"],
   });
 
   return (

@@ -205,16 +205,6 @@ export default function ContactUsPage() {
                       </a>
                       <CopyButton value={siteConfig.email} />
                     </div>
-                    <div className="flex items-center gap-1 mt-1">
-                      <a
-                        href={`mailto:${siteConfig.emailAlt}`}
-                        className="flex items-center gap-2 text-[var(--color-gold-text)] hover:underline"
-                      >
-                        <HiMail size={18} aria-hidden="true" />
-                        {siteConfig.emailAlt}
-                      </a>
-                      <CopyButton value={siteConfig.emailAlt} />
-                    </div>
                   </div>
                   <div>
                     <h3 className="font-semibold text-[var(--color-dark)] mb-2">

@@ -36,11 +36,20 @@ export default function Footer() {
               <Link href="/" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("home")}
               </Link>
+              <Link href="/free-quran" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
+                {nav("freeQuran")}
+              </Link>
+              <Link href="/what-is-islam" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
+                {nav("whatIsIslam")}
+              </Link>
               <Link href="/why-islam" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("whyIslam")}
               </Link>
               <Link href="/who-is-muhammad" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("whoIsMuhammad")}
+              </Link>
+              <Link href="/five-pillars" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
+                {nav("fivePillars")}
               </Link>
               <Link href="/new-muslims" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("newMuslims")}
@@ -50,6 +59,12 @@ export default function Footer() {
               </Link>
               <Link href="/about-us" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("aboutUs")}
+              </Link>
+              <Link href="/about-us/our-team" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
+                {nav("ourTeam")}
+              </Link>
+              <Link href="/support-dawah" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
+                {nav("supportDawah")}
               </Link>
               <Link href="/contact-us" className="link-animated text-gray-300 hover:text-[var(--color-gold)] self-start py-1 -my-1">
                 {nav("contactUs")}
@@ -83,6 +98,18 @@ export default function Footer() {
               <div className="flex items-start gap-2 text-gray-300">
                 <HiLocationMarker size={18} className="text-[var(--color-gold)] mt-0.5 shrink-0" />
                 <span>{siteConfig.address}</span>
+              </div>
+              {/* Org. number — Brønnøysund registry link is an authoritative
+                  trust signal (legal identity) and disambiguates the entity. */}
+              <div className="text-gray-400 text-sm pt-1">
+                <a
+                  href="https://virksomhet.brreg.no/nb/oppslag/enheter/931087509"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-animated hover:text-[var(--color-gold)]"
+                >
+                  {t("orgNumber")}: {siteConfig.orgNumber}
+                </a>
               </div>
             </address>
             <div className="flex gap-4">

@@ -72,24 +72,25 @@ export default function Header() {
     children?: Array<{ href: string; label: string }>;
   }> = [
     { href: "/", label: t("home") },
+    { href: "/free-quran", label: t("freeQuran") },
     {
-      label: t("islam"),
+      label: t("learnIslam"),
       children: [
         { href: "/why-islam", label: t("whyIslam") },
         { href: "/who-is-muhammad", label: t("whoIsMuhammad") },
-        { href: "/new-muslims", label: t("newMuslims") },
       ],
     },
+    { href: "/support-dawah", label: t("supportDawah") },
+    { href: "/new-muslims", label: t("newMuslims") },
     {
-      label: t("aboutUs"),
+      label: t("dawahNorway"),
       children: [
         { href: "/about-us", label: t("aboutUs") },
-        { href: "/about-us/our-mission", label: t("ourMission") },
-        { href: "/about-us/our-vision", label: t("ourVision") },
+        { href: "/about-us/our-team", label: t("ourTeam") },
+        { href: "/gallery", label: t("gallery") },
+        { href: "/contact-us", label: t("contactUs") },
       ],
     },
-    { href: "/gallery", label: t("gallery") },
-    { href: "/contact-us", label: t("contactUs") },
   ];
 
   // Auto-close mobile drawer on route change. Sync UI state with router

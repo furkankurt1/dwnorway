@@ -12,6 +12,7 @@ import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
 import Breadcrumb from "@/components/Breadcrumb";
 import ArticleMeta from "@/components/ArticleMeta";
+import QuranRef from "@/components/QuranRef";
 import {
   FaHeart,
   FaSun,
@@ -47,8 +48,7 @@ export default function WhyIslamPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/why-islam.webp"
-            alt=""
-            aria-hidden="true"
+            alt={t("heroAlt")}
             fill
             priority
             sizes="100vw"
@@ -66,7 +66,7 @@ export default function WhyIslamPage() {
             </div>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4">
+            <p className="speakable-intro text-base md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed mt-4">
               {t("intro")}
             </p>
           </FadeIn>
@@ -81,7 +81,7 @@ export default function WhyIslamPage() {
               &ldquo;{t("s1Quote")}&rdquo;
             </blockquote>
             <cite className="block mt-4 text-[var(--color-gold-text)] text-xs md:text-sm not-italic tracking-[0.18em] uppercase">
-              — {t("s1Ref")}
+              — <QuranRef>{t("s1Ref")}</QuranRef>
             </cite>
           </FadeIn>
         </div>
@@ -132,8 +132,13 @@ export default function WhyIslamPage() {
               {t("exploreMoreTitle")}
             </h2>
           </FadeIn>
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
+              {
+                href: "/free-quran" as const,
+                title: t("exploreFreeQuran"),
+                text: t("exploreFreeQuranText"),
+              },
               {
                 href: "/who-is-muhammad" as const,
                 title: t("exploreMuhammad"),
