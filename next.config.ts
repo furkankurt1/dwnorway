@@ -1,8 +1,26 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import { execSync } from "node:child_process";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+
+// Unique per deploy → baked into the client bundle as NEXT_PUBLIC_BUILD_ID.
+// The service worker registers as /sw.js?v=<BUILD_ID>, so every push changes
+// the registration URL: the browser fetches the new SW, which deletes old
+// caches on activate. Without this the id was always "dev" and the SW (plus
+// any stale cached shell) never refreshed — users kept seeing the old site.
+// git short SHA tracks "per push"; timestamp fallback keeps it unique if git
+// is unavailable (e.g. a CI checkout without history).
+const BUILD_ID = (() => {
+  try {
+    return execSync("git rev-parse --short HEAD", { stdio: ["ignore", "pipe", "ignore"] })
+      .toString()
+      .trim();
+  } catch {
+    return `b${Date.now()}`;
+  }
+})();
 
 // Map of legacy Facebook-style filenames (formerly under /dwn/) to their
 // SEO-renamed counterparts under /dawah-norge/. Generated alongside the
@@ -49,6 +67,11 @@ const DWN_RENAMES: Record<string, string> = {
 };
 
 const nextConfig: NextConfig = {
+  // Exposed to the client so ServiceWorker.tsx can version the SW cache per
+  // deploy. NEXT_PUBLIC_* values in `env` are inlined into the client bundle.
+  env: {
+    NEXT_PUBLIC_BUILD_ID: BUILD_ID,
+  },
   images: {
     unoptimized: true,
   },
