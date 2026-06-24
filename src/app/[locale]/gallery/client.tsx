@@ -11,19 +11,7 @@ import StaggerChildren, {
 } from "@/components/animations/StaggerChildren";
 import Breadcrumb from "@/components/Breadcrumb";
 import { siteConfig } from "@/config/site";
-
-// Maps the English caption stored in `siteConfig.gallery` to a translation
-// key so alt text + visible captions become locale-aware. Captions in the
-// config stay English (used as fallback + for Open Graph / sitemap) but the
-// rendered UI uses the translated form.
-const CAPTION_KEY: Record<string, string> = {
-  "Dawah Stand": "captionDawahStand",
-  "Street Outreach": "captionStreetOutreach",
-  "Community Event": "captionCommunityEvent",
-  "Quran Distribution": "captionQuranDistribution",
-  "Team Gathering": "captionTeamGathering",
-  "Public Lecture": "captionPublicLecture",
-};
+import { CAPTION_KEY } from "@/config/gallery-captions";
 
 export default function GalleryPage() {
   const t = useTranslations("gallery");

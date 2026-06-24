@@ -610,7 +610,7 @@ export default function DonatePage() {
                             data-press
                             className={`py-3 rounded-xl font-semibold text-base sm:text-lg border-2 transition-[background-color,border-color,color] duration-300 ease-out tabular-nums ${
                               active
-                                ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-white"
+                                ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-[var(--color-dark)]"
                                 : "border-gray-200 hover:border-[var(--color-gold)]/60 text-[var(--color-dark)]"
                             }`}
                           >

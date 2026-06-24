@@ -221,7 +221,7 @@ export default function Header() {
             <Link
               href="/donate"
               data-press
-              className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
+              className="px-5 py-2 bg-[var(--color-gold)] text-[var(--color-dark)] rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
             >
               {t("donate")}
             </Link>
@@ -244,7 +244,7 @@ export default function Header() {
             <Link
               href="/donate"
               data-press
-              className="px-4 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold text-sm shadow-sm hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
+              className="px-4 py-2 bg-[var(--color-gold)] text-[var(--color-dark)] rounded-full font-semibold text-sm shadow-sm hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
               aria-label={t("donate")}
             >
               {t("donate")}
@@ -338,7 +338,7 @@ export default function Header() {
                 <Link
                   href="/donate"
                   data-press
-                  className="px-5 py-2 bg-[var(--color-gold)] text-white rounded-full font-semibold text-sm"
+                  className="px-5 py-2 bg-[var(--color-gold)] text-[var(--color-dark)] rounded-full font-semibold text-sm"
                 >
                   {t("donate")}
                 </Link>

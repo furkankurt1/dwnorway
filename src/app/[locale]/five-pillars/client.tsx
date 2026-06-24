@@ -131,7 +131,7 @@ export default function FivePillarsPage() {
             </p>
             <Link
               href="/new-muslims"
-              className="inline-block px-8 py-3 bg-[var(--color-gold)] text-white font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
+              className="inline-block px-8 py-3 bg-[var(--color-gold)] text-[var(--color-dark)] font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
             >
               {t("ctaBtn")}
             </Link>

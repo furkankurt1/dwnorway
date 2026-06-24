@@ -6,6 +6,7 @@ import {
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
+import { CAPTION_KEY } from "@/config/gallery-captions";
 import GalleryPage from "./client";
 
 export async function generateMetadata({
@@ -35,10 +36,15 @@ export default async function Page({
     path: "/gallery",
     name: seo.title,
     description: seo.description,
-    images: siteConfig.gallery.map((img) => ({
-      url: `${siteConfig.url}${img.src}`,
-      caption: img.caption,
-    })),
+    images: siteConfig.gallery.map((img) => {
+      const key = CAPTION_KEY[img.caption];
+      return {
+        url: `${siteConfig.url}${img.src}`,
+        caption: key
+          ? tGallery(key as Parameters<typeof tGallery>[0])
+          : img.caption,
+      };
+    }),
   });
 
   return (

@@ -406,7 +406,18 @@
     "captionCommunityEvent": "Fellesskapsarrangement",
     "captionQuranDistribution": "Gratis Koran-distribusjon",
     "captionTeamGathering": "Dawah-team-samling",
-    "captionPublicLecture": "Islamsk foredrag i Norge"
+    "captionPublicLecture": "Islamsk foredrag i Norge",
+    "captionStreetDawah": "Gatedawah",
+    "captionCommunityDiscussion": "Samfunnssamtale",
+    "captionLectureSession": "Foredrag",
+    "captionPublicEngagement": "Offentlig engasjement",
+    "captionOutreachBooth": "Informasjonsbod",
+    "captionEvent": "Arrangement",
+    "captionCommunityGathering": "Fellesskapssamling",
+    "captionIslamicOutreachBooth": "Islamsk informasjonsbod",
+    "captionInformationBooth": "Informasjonsbord",
+    "captionEveningDiscussion": "Kveldssamtale",
+    "captionStreetQuranDistribution": "Korandistribusjon på gaten"
   },
   "privacy": {
     "title": "Personvernerklæring",

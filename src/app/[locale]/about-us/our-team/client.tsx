@@ -189,7 +189,7 @@ export default function OurTeamPage() {
           <p className="text-white/80 mb-8 leading-relaxed">{t("joinText")}</p>
           <Link
             href="/contact-us"
-            className="inline-block px-8 py-3 bg-[var(--color-gold)] text-white font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
+            className="inline-block px-8 py-3 bg-[var(--color-gold)] text-[var(--color-dark)] font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
           >
             {t("joinCta")}
           </Link>

@@ -406,7 +406,18 @@
     "captionCommunityEvent": "Community event",
     "captionQuranDistribution": "Free Quran distribution",
     "captionTeamGathering": "Dawah team gathering",
-    "captionPublicLecture": "Islamic lecture in Norway"
+    "captionPublicLecture": "Islamic lecture in Norway",
+    "captionStreetDawah": "Street Dawah",
+    "captionCommunityDiscussion": "Community Discussion",
+    "captionLectureSession": "Lecture Session",
+    "captionPublicEngagement": "Public Engagement",
+    "captionOutreachBooth": "Outreach Booth",
+    "captionEvent": "Event",
+    "captionCommunityGathering": "Community Gathering",
+    "captionIslamicOutreachBooth": "Islamic Outreach Booth",
+    "captionInformationBooth": "Information Booth",
+    "captionEveningDiscussion": "Evening Discussion",
+    "captionStreetQuranDistribution": "Street Quran Distribution"
   },
   "privacy": {
     "title": "Privacy Policy",

@@ -28,7 +28,7 @@ export default async function NotFound() {
       <p className="text-xl text-[var(--color-gray)] mb-8">{t("message")}</p>
       <Link
         href="/"
-        className="px-8 py-3 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors mb-12"
+        className="px-8 py-3 bg-[var(--color-gold)] text-[var(--color-dark)] rounded-full font-semibold hover:bg-[var(--color-gold-dark)] transition-colors mb-12"
       >
         {t("home")}
       </Link>

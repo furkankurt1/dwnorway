@@ -138,7 +138,7 @@ export default function Footer() {
             <Link
               href="/donate"
               data-press
-              className="inline-block px-6 py-3 bg-[var(--color-gold)] text-white rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
+              className="inline-block px-6 py-3 bg-[var(--color-gold)] text-[var(--color-dark)] rounded-full font-semibold hover:bg-[var(--color-gold-dark)] hover:shadow-md transition-[background-color,box-shadow] duration-[280ms] ease-out"
             >
               {nav("donate")}
             </Link>

@@ -16,7 +16,7 @@ const sizes: Record<Size, string> = {
 const variants: Record<Variant, string> = {
   /* Solid gold — primary CTA */
   primary:
-    "bg-[var(--color-gold)] text-white hover:bg-[var(--color-gold-dark)] shadow-sm hover:shadow-md",
+    "bg-[var(--color-gold)] text-[var(--color-dark)] hover:bg-[var(--color-gold-dark)] shadow-sm hover:shadow-md",
   /* Outline gold — secondary CTA */
   secondary:
     "border-2 border-[var(--color-gold-dark)] text-[var(--color-gold-text)] hover:bg-[var(--color-gold)] hover:text-white hover:border-[var(--color-gold)]",

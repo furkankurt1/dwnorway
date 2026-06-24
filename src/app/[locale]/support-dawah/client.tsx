@@ -168,7 +168,7 @@ export default function SupportDawahPage() {
                 key={title}
                 className={`rounded-2xl p-8 flex flex-col ${
                   primary
-                    ? "bg-[var(--color-gold)] text-white"
+                    ? "bg-[var(--color-gold)] text-[var(--color-dark)]"
                     : "bg-[var(--color-light)]"
                 }`}
               >

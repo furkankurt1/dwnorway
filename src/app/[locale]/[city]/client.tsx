@@ -61,7 +61,7 @@ export default function CityPage({ slug, name }: { slug: string; name: string })
             <div className="flex flex-wrap gap-4 pt-2">
               <Link
                 href="/free-quran"
-                className="inline-block px-7 py-3 bg-[var(--color-gold)] text-white font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
+                className="inline-block px-7 py-3 bg-[var(--color-gold)] text-[var(--color-dark)] font-semibold rounded-full hover:bg-[var(--color-gold-dark)] transition-colors duration-200"
               >
                 {k("ctaText")}
               </Link>
