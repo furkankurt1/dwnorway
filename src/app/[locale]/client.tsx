@@ -16,6 +16,7 @@ import IconBadge from "@/components/ui/IconBadge";
 import { ButtonLink } from "@/components/ui/Button";
 import TikTokEmbed from "@/components/TikTokEmbed";
 import HeroTikTok from "@/components/HeroTikTok";
+import QuranRef from "@/components/QuranRef";
 import { siteConfig } from "@/config/site";
 import {
   FaFacebookF,
@@ -33,6 +34,9 @@ import {
   FaKaaba,
   FaUserCircle,
   FaHeart,
+  FaPaypal,
+  FaMobileAlt,
+  FaCreditCard,
 } from "react-icons/fa";
 
 const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
@@ -48,6 +52,9 @@ export default function HomePage() {
   const t = useTranslations("home");
   const hero = useTranslations("hero");
   const donate = useTranslations("donate");
+  const tPillars = useTranslations("pillars");
+  const tRoles = useTranslations("roles");
+  const tTestimonials = useTranslations("testimonials");
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -143,7 +150,7 @@ export default function HomePage() {
                   &ldquo;{hero("quran")}&rdquo;
                 </p>
                 <cite className="text-[var(--color-gold)] text-xs md:text-sm mt-2 block not-italic">
-                  — {hero("quranRef")}
+                  — <QuranRef>{hero("quranRef")}</QuranRef>
                 </cite>
               </motion.blockquote>
 
@@ -158,18 +165,39 @@ export default function HomePage() {
                 <p className="text-sm md:text-base italic text-gray-200/90 leading-relaxed text-center px-2">
                   &ldquo;{hero("supportVerse")}&rdquo;
                   <span className="block text-[var(--color-gold)] text-[11px] md:text-xs mt-1 not-italic tracking-wide">
-                    — {hero("supportVerseRef")}
+                    — <QuranRef>{hero("supportVerseRef")}</QuranRef>
                   </span>
                 </p>
-                <ButtonLink
-                  href="/donate"
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto shadow-[0_8px_24px_rgba(224,162,66,0.35)] hover:shadow-[0_12px_32px_rgba(224,162,66,0.5)]"
-                >
-                  <FaHeart size={14} aria-hidden="true" />
-                  {hero("donateCta")}
-                </ButtonLink>
+                {/* Donate CTA with attention halo — a gold sonar ring
+                    that pulses out from behind the button, drawing the eye
+                    without animating the button itself (which would shift
+                    layout under the support-verse and tagline that flank
+                    it). Skipped entirely under prefers-reduced-motion. */}
+                <div className="relative inline-flex w-full sm:w-auto">
+                  {!prefersReducedMotion && (
+                    <motion.span
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-full bg-[var(--color-gold)] pointer-events-none"
+                      initial={{ scale: 1, opacity: 0.28 }}
+                      animate={{ scale: 1.12, opacity: 0 }}
+                      transition={{
+                        duration: 2.6,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                        repeatDelay: 1.4,
+                      }}
+                    />
+                  )}
+                  <ButtonLink
+                    href="/donate"
+                    variant="primary"
+                    size="lg"
+                    className="relative w-full sm:w-auto shadow-[0_8px_24px_rgba(224,162,66,0.45)] hover:shadow-[0_14px_36px_rgba(224,162,66,0.6)]"
+                  >
+                    <FaHeart size={14} aria-hidden="true" />
+                    {hero("donateCta")}
+                  </ButtonLink>
+                </div>
                 <p className="text-xs md:text-sm font-[family-name:var(--font-heading)] uppercase tracking-[0.14em] text-[var(--color-gold)]/95 leading-snug text-center px-2">
                   {hero("donateLastingTagline")}
                 </p>
@@ -225,6 +253,47 @@ export default function HomePage() {
         </div>
       </ParallaxSection>
 
+      {/* ───────── Mobile-only hero video ─────────
+          Desktop shows the clip inside the hero's right column.
+          On mobile, HeroTikTok's autoplay iframe is blocked by most
+          browsers — replaced with TikTokEmbed (thumbnail + tap-to-play)
+          which always shows content regardless of autoplay policy. */}
+      <section className="lg:hidden bg-[var(--color-light)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+          <SectionTitle
+            eyebrow={t("videosSubtitle")}
+            title={t("videosTitle")}
+            description={t("videosText")}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
+            {siteConfig.tiktokVideos.slice(0, 2).map((id, i) => (
+              <div key={id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <TikTokEmbed
+                  id={id}
+                  playLabel={t("videosPlayLabel")}
+                  thumbnail={siteConfig.homeGallery[i % siteConfig.homeGallery.length]}
+                  title={t("altCommunityMoment")}
+                />
+              </div>
+            ))}
+          </div>
+          <FadeIn delay={0.2}>
+            <div className="text-center mt-8">
+              <a
+                href={siteConfig.social.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-press
+                className="inline-flex items-center gap-2 text-[var(--color-gold-text)] font-semibold link-animated"
+              >
+                <FaTiktok size={16} aria-hidden="true" />
+                {t("videosFollowCta")}
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ───────── Donate CTA ───────── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -247,17 +316,30 @@ export default function HomePage() {
               <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto">{t("donateText")}</p>
             </FadeIn>
             <StaggerChildren className="flex flex-wrap justify-center gap-4">
-              {[
-                { key: "vipps", label: "Vipps" },
-                { key: "paypal", label: "PayPal" },
-                { key: "card", label: donate("card") },
-              ].map(({ key, label }) => (
+              {([
+                // Brand colors mirror the donate page so the home CTA and the
+                // payment cards on /donate read as the same product. Labels
+                // stay as the payment-method name so the user knows which
+                // service they're about to be routed to — the brand icon is a
+                // visual aid, not a replacement for the name.
+                { key: "vipps", label: "Vipps", icon: FaMobileAlt, iconColor: "#ff5b24" },
+                { key: "paypal", label: "PayPal", icon: FaPaypal, iconColor: "#003087" },
+                { key: "card", label: donate("card"), icon: FaCreditCard, iconColor: undefined },
+              ] as const).map(({ key, label, icon: Icon, iconColor }) => (
                 <StaggerItem key={key}>
+                  {/* `?method=` preselects the payment on /donate so the
+                      user lands directly on the amount form for the
+                      method they tapped here — skipping the picker step. */}
                   <ButtonLink
-                    href="/donate"
+                    href={`/donate?method=${key}`}
                     variant="white"
-                    ariaLabel={donate(key as "vipps" | "paypal" | "card")}
+                    ariaLabel={donate(key)}
                   >
+                    <Icon
+                      size={16}
+                      aria-hidden="true"
+                      style={iconColor ? { color: iconColor } : undefined}
+                    />
                     {label}
                   </ButtonLink>
                 </StaggerItem>
@@ -373,23 +455,28 @@ export default function HomePage() {
 
       {/* ───────── Stats ───────── */}
       <section className="section-py-sm bg-[var(--color-dark)]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center text-white">
             {[
               { end: siteConfig.stats.converts, label: t("statsConverts") },
               { end: siteConfig.stats.qurans, label: t("statsQurans") },
               { end: siteConfig.stats.literature, label: t("statsLiterature") },
+              { end: siteConfig.stats.cities, label: t("statsCities") },
+              { end: siteConfig.stats.teams, label: t("statsTeams") },
             ].map((stat) => (
               <div key={stat.label}>
                 <CountUp
                   end={stat.end}
                   suffix="+"
-                  className="text-5xl md:text-6xl font-[family-name:var(--font-heading)] font-bold tracking-tight bg-gradient-to-b from-[var(--color-gold)] to-[var(--color-gold-dark)] bg-clip-text text-transparent"
+                  className="text-4xl md:text-5xl font-[family-name:var(--font-heading)] font-bold tracking-tight bg-gradient-to-b from-[var(--color-gold)] to-[var(--color-gold-dark)] bg-clip-text text-transparent"
                 />
-                <p className="mt-3 text-gray-400 text-lg">{stat.label}</p>
+                <p className="mt-3 text-gray-400 text-sm md:text-base">{stat.label}</p>
               </div>
             ))}
           </div>
+          <p className="mt-8 text-center text-gray-500 text-xs md:text-sm tracking-wide">
+            {t("statsSince")}
+          </p>
         </div>
       </section>
 
@@ -512,11 +599,11 @@ export default function HomePage() {
           />
           <StaggerChildren className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl mx-auto">
             {[
-              { key: "shahadah", name: "Shahadah", meaning: "Faith", icon: FaStar },
-              { key: "salah", name: "Salah", meaning: "Prayer", icon: FaPrayingHands },
-              { key: "sawm", name: "Sawm", meaning: "Fasting", icon: FaMoon },
-              { key: "zakat", name: "Zakat", meaning: "Almsgiving", icon: FaHandHoldingUsd },
-              { key: "hajj", name: "Hajj", meaning: "Pilgrimage", icon: FaKaaba },
+              { key: "shahadah", name: "Shahadah", icon: FaStar },
+              { key: "salah", name: "Salah", icon: FaPrayingHands },
+              { key: "sawm", name: "Sawm", icon: FaMoon },
+              { key: "zakat", name: "Zakat", icon: FaHandHoldingUsd },
+              { key: "hajj", name: "Hajj", icon: FaKaaba },
             ].map((pillar) => (
               <StaggerItem key={pillar.key}>
                 <HoverCard
@@ -528,7 +615,7 @@ export default function HomePage() {
                     {pillar.name}
                   </h3>
                   <p className="text-[var(--color-gold-text)] text-sm">
-                    {pillar.meaning}
+                    {tPillars(pillar.key)}
                   </p>
                 </HoverCard>
               </StaggerItem>
@@ -552,7 +639,7 @@ export default function HomePage() {
                 >
                   <FaQuoteLeft className="text-[var(--color-gold)]/40 mb-4" size={28} />
                   <p className="text-[var(--color-gray)] leading-relaxed flex-grow italic mb-6">
-                    &ldquo;{item.quote}&rdquo;
+                    &ldquo;{tTestimonials(`${item.key}.quote`)}&rdquo;
                   </p>
                   <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-dark)] flex items-center justify-center text-white font-[family-name:var(--font-heading)] font-bold text-lg shadow-inner">
@@ -562,7 +649,7 @@ export default function HomePage() {
                       <p className="font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)]">
                         {item.name}
                       </p>
-                      <p className="text-sm text-[var(--color-gold-text)]">{item.role}</p>
+                      <p className="text-sm text-[var(--color-gold-text)]">{tTestimonials(`${item.key}.role`)}</p>
                     </div>
                   </div>
                 </HoverCard>
@@ -606,7 +693,7 @@ export default function HomePage() {
                       {member.name}
                     </h3>
                     <p className="text-[var(--color-gold-text)] text-sm">
-                      {member.role}
+                      {tRoles(member.roleKey)}
                     </p>
                   </div>
                 </HoverCard>

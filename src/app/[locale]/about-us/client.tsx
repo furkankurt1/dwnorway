@@ -14,12 +14,14 @@ import HoverCard from "@/components/ui/HoverCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { ButtonLink } from "@/components/ui/Button";
 import Breadcrumb from "@/components/Breadcrumb";
+import QuranRef from "@/components/QuranRef";
 
 const STRONG_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function AboutUsPage() {
   const t = useTranslations("about");
   const nav = useTranslations("nav");
+  const tRoles = useTranslations("roles");
 
   return (
     <>
@@ -84,7 +86,7 @@ export default function AboutUsPage() {
                 &ldquo;{t("quranVerse")}&rdquo;
               </p>
               <cite className="text-white/80 text-sm not-italic tracking-wider uppercase">
-                — {t("quranRef")}
+                — <QuranRef>{t("quranRef")}</QuranRef>
               </cite>
             </blockquote>
           </div>
@@ -121,7 +123,7 @@ export default function AboutUsPage() {
                     {member.name}
                   </h3>
                   <p className="text-[var(--color-gold-text)] text-sm">
-                    {member.role}
+                    {tRoles(member.roleKey)}
                   </p>
                 </HoverCard>
               </StaggerItem>
@@ -135,7 +137,10 @@ export default function AboutUsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <div className="flex flex-wrap justify-center gap-4">
-              <ButtonLink href="/about-us/our-mission" variant="primary">
+              <ButtonLink href="/about-us/our-team" variant="primary">
+                {nav("ourTeam")}
+              </ButtonLink>
+              <ButtonLink href="/about-us/our-mission" variant="secondary">
                 {nav("ourMission")}
               </ButtonLink>
               <ButtonLink href="/about-us/our-vision" variant="secondary">

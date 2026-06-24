@@ -1,10 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import {
-  generatePageMetadata,
-  videoJsonLd,
-  reviewJsonLd,
-  aggregateRatingJsonLd,
-} from "@/lib/metadata";
+import { generatePageMetadata, videoJsonLd } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import HomePage from "./client";
 
@@ -39,21 +34,8 @@ export default async function Page({
     })
   );
 
-  // Review×N + AggregateRating attached to the Organization. Google may
-  // still suppress these (self-published reviews are sensitive) but the
-  // entity relationship strengthens the knowledge-graph profile.
-  const reviews = siteConfig.testimonials.map((tst) =>
-    reviewJsonLd({
-      authorName: tst.name,
-      authorRole: tst.role,
-      reviewBody: tst.quote,
-      locale,
-    })
-  );
-  const aggregate = aggregateRatingJsonLd({
-    ratingValue: 5,
-    reviewCount: siteConfig.testimonials.length,
-  });
+  // Testimonials render as visible HTML only — see metadata.ts note on why
+  // self-authored Review/AggregateRating JSON-LD was removed.
 
   return (
     <>
@@ -64,17 +46,6 @@ export default async function Page({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(v) }}
         />
       ))}
-      {reviews.map((r, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
-        />
-      ))}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregate) }}
-      />
       <HomePage />
     </>
   );

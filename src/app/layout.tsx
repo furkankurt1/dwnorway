@@ -116,7 +116,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd()),
+            __html: JSON.stringify(organizationJsonLd(locale)),
           }}
         />
         <script

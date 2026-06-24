@@ -12,6 +12,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import IconBadge from "@/components/ui/IconBadge";
 import Breadcrumb from "@/components/Breadcrumb";
 import ArticleMeta from "@/components/ArticleMeta";
+import QuranRef from "@/components/QuranRef";
 import {
   FaHeart,
   FaHandshake,
@@ -36,6 +37,14 @@ export default function WhoIsMuhammadPage() {
     { icon: FaHome, title: t("husbandTitle"), text: t("husbandText") },
   ];
 
+  const faqs = [
+    { q: t("faqQ1"), a: t("faqA1") },
+    { q: t("faqQ2"), a: t("faqA2") },
+    { q: t("faqQ3"), a: t("faqA3") },
+    { q: t("faqQ4"), a: t("faqA4") },
+    { q: t("faqQ5"), a: t("faqA5") },
+  ];
+
   return (
     <>
       <Breadcrumb items={[{ label: nav("whoIsMuhammad") }]} />
@@ -45,8 +54,7 @@ export default function WhoIsMuhammadPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/muhammad-pbuh.webp"
-            alt=""
-            aria-hidden="true"
+            alt={t("heroAlt")}
             fill
             priority
             sizes="100vw"
@@ -105,7 +113,7 @@ export default function WhoIsMuhammadPage() {
                     <blockquote className="border-l-4 border-[var(--color-gold)] pl-4 italic text-[var(--color-gray)] text-sm">
                       &ldquo;{v.quote}&rdquo;
                       <cite className="block mt-2 not-italic text-[var(--color-gold-text)] text-xs tracking-[0.18em] uppercase">
-                        — {v.ref}
+                        — <QuranRef>{v.ref}</QuranRef>
                       </cite>
                     </blockquote>
                   )}
@@ -145,6 +153,35 @@ export default function WhoIsMuhammadPage() {
         </div>
       </section>
 
+      {/* FAQ — visible Q&A that mirrors the FAQPage JSON-LD */}
+      <section className="section-py bg-[var(--color-light)]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle title={t("faqTitle")} />
+          <div className="space-y-4">
+            {faqs.map((f, i) => (
+              <details
+                key={i}
+                open={i === 0}
+                className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm"
+              >
+                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)]">
+                  {f.q}
+                  <span
+                    className="text-[var(--color-gold-text)] text-xl leading-none shrink-0"
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="text-[var(--color-gray)] mt-3 leading-relaxed">
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Internal cross-linking */}
       <section className="section-py-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,12 +190,17 @@ export default function WhoIsMuhammadPage() {
               {t("exploreMoreTitle")}
             </h2>
           </FadeIn>
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
                 href: "/why-islam" as const,
                 title: t("exploreWhyIslam"),
                 text: t("exploreWhyIslamText"),
+              },
+              {
+                href: "/free-quran" as const,
+                title: t("exploreFreeQuran"),
+                text: t("exploreFreeQuranText"),
               },
               {
                 href: "/new-muslims" as const,

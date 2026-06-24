@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
       <section className="py-16 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-[family-name:var(--font-heading)] font-bold mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-heading)] font-bold mb-3">
               {t("title")}
             </h1>
             <p className="text-sm text-[var(--color-gray)] mb-8">{t("updated")}</p>

@@ -6,6 +6,12 @@ export const siteConfig = {
   contactEmail: "info@dawahnorway.com",
   phone: "+47 489 20 006",
   address: "Østre Aker vei 101, 0596 Oslo, Norway",
+  // Brønnøysundregistrene org. number — locale-blind, label is translated.
+  orgNumber: "931 087 509",
+  // Approximate coordinates for the 0596 Oslo (Økern/Risløkka) postal area.
+  // Supplementary to the postal address in JSON-LD; Google geocodes the
+  // address itself. hasMap points crawlers at the canonical map listing.
+  geo: { latitude: 59.9407, longitude: 10.8225 },
 
   social: {
     facebook: "https://www.facebook.com/DawahNorge21",
@@ -25,30 +31,32 @@ export const siteConfig = {
   team: [
     {
       name: "Yousuf Dawah",
-      role: "Founder & Da'i",
+      roleKey: "founder",
     },
     {
       name: "Tamim Rasheedi",
-      role: "Imam & Da'i",
+      roleKey: "imam",
       image: "/images/team/tamim.webp",
       imagePosition: "center 35%",
     },
     {
       name: "Nafies Dawah",
-      role: "Founder & Da'i",
+      roleKey: "founder",
       image: "/images/team/nafies.webp",
       imagePosition: "top",
     },
     {
       name: "Furkan Kurt",
-      role: "IT Consultant & Da'i",
+      roleKey: "itConsultant",
     },
   ],
 
   stats: {
-    converts: 1000,
-    qurans: 50000,
-    literature: 80000,
+    converts: 2000,
+    qurans: 100000,
+    literature: 200000,
+    cities: 20,
+    teams: 5,
   },
 
   cities: [
@@ -63,33 +71,23 @@ export const siteConfig = {
   testimonials: [
     {
       name: "Farhan Ahmed",
-      role: "Community Member",
-      quote:
-        "Finding this community has been a turning point in my spiritual journey. The support and knowledge I've received here have been invaluable.",
+      key: "farhan",
     },
     {
       name: "Fatima Ali",
-      role: "Student",
-      quote:
-        "The workshops and classes have deepened my understanding of Islam in ways I never thought possible. I am continually impressed by the dedication and warmth of the instructors.",
+      key: "fatima",
     },
     {
       name: "Hashim Masud",
-      role: "New Member",
-      quote:
-        "As a new member of the Muslim community, the transition was made smoother thanks to the comprehensive guidance and open arms I found here.",
+      key: "hashim",
     },
     {
       name: "Maqsood Ali",
-      role: "Community Member",
-      quote:
-        "I was always curious about Islam, and the open dialogues and discussions I've had with members have been eye-opening. The respect and patience they exhibit are remarkable.",
+      key: "maqsood",
     },
     {
       name: "Muhammad Masood",
-      role: "Community Member",
-      quote:
-        "The youth programs are second to none. It's heartwarming to see young minds engaging with their faith and culture so passionately, all thanks to the nurturing environment provided here.",
+      key: "muhammad",
     },
   ],
 
@@ -198,6 +196,45 @@ export const siteConfig = {
     { src: "/images/gallery/g20-street-quran-distribution.webp", caption: "Street Quran Distribution" },
   ],
 
+  fylkeTeams: [
+    {
+      key: "oslo",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+    {
+      key: "ostfold",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+    {
+      key: "vestfold",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+    {
+      key: "rogaland",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+    {
+      key: "trondelag",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+    {
+      key: "troms",
+      members: [
+        { name: "PLACEHOLDER", role: "Da'i & Volunteer", image: null as string | null, contact: null as string | null },
+      ],
+    },
+  ],
+
   newMuslimResources: {
     becomeMuslim: "/new-muslims#become-muslim",
     course: "https://newmuslimacademy.org/",
@@ -212,7 +249,9 @@ export const siteConfig = {
     seerah: "https://seerah.com/",
     foundations: "https://islamhouse.com/en/",
     mentors: "/contact-us",
-    freeBooks: "/contact-us",
-    prayerMat: "/contact-us",
+    // Free Quran & literature has a dedicated page — keep the conversion
+    // intent on-site instead of dead-ending at the contact form.
+    freeBooks: "/free-quran",
+    prayerMat: "/free-quran",
   } as Record<string, string>,
 };

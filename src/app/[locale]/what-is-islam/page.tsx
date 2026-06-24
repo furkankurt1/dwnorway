@@ -8,7 +8,7 @@ import {
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
-import WhoIsMuhammadPage from "./client";
+import WhatIsIslamPage from "./client";
 
 export async function generateMetadata({
   params,
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return generatePageMetadata({ path: "/who-is-muhammad", locale });
+  return generatePageMetadata({ path: "/what-is-islam", locale });
 }
 
 export default async function Page({
@@ -26,27 +26,30 @@ export default async function Page({
 }) {
   const { locale } = await params;
   const nav = await getTranslations({ locale, namespace: "nav" });
-  const tMuhammad = await getTranslations({ locale, namespace: "muhammad" });
+  const t = await getTranslations({ locale, namespace: "whatIsIslam" });
   const messages = await getMessages({ locale });
-  const seo = getSeo(locale, "/who-is-muhammad");
+  const seo = getSeo(locale, "/what-is-islam");
+
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
-    { name: tMuhammad("title"), url: `${siteConfig.url}/${locale}/who-is-muhammad` },
+    { name: t("title"), url: `${siteConfig.url}/${locale}/what-is-islam` },
   ]);
+
   const article = articleJsonLd({
     locale,
-    path: "/who-is-muhammad",
+    path: "/what-is-islam",
     headline: seo.title,
     description: seo.description,
-    image: `${siteConfig.url}/images/muhammad-pbuh.webp`,
-    wordCount: countWords(messages.muhammad),
+    image: `${siteConfig.url}/images/why-islam.webp`,
+    wordCount: countWords(messages.whatIsIslam),
+    speakable: ["h1", ".speakable-intro"],
   });
+
   const faq = faqJsonLd([
-    { question: tMuhammad("faqQ1"), answer: tMuhammad("faqA1") },
-    { question: tMuhammad("faqQ2"), answer: tMuhammad("faqA2") },
-    { question: tMuhammad("faqQ3"), answer: tMuhammad("faqA3") },
-    { question: tMuhammad("faqQ4"), answer: tMuhammad("faqA4") },
-    { question: tMuhammad("faqQ5"), answer: tMuhammad("faqA5") },
+    { question: t("faqQ1"), answer: t("faqA1") },
+    { question: t("faqQ2"), answer: t("faqA2") },
+    { question: t("faqQ3"), answer: t("faqA3") },
+    { question: t("faqQ4"), answer: t("faqA4") },
   ]);
 
   return (
@@ -63,7 +66,7 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
-      <WhoIsMuhammadPage />
+      <WhatIsIslamPage />
     </>
   );
 }

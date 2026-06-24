@@ -1,10 +1,11 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getMessages } from "next-intl/server";
 import {
   generatePageMetadata,
   breadcrumbJsonLd,
   articleJsonLd,
   faqJsonLd,
   howToJsonLd,
+  countWords,
 } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
 import { getSeo } from "@/config/seo";
@@ -83,6 +84,7 @@ export default async function Page({
   const { locale } = await params;
   const nav = await getTranslations({ locale, namespace: "nav" });
   const t = await getTranslations({ locale, namespace: "newMuslims" });
+  const messages = await getMessages({ locale });
   const seo = getSeo(locale, "/new-muslims");
   const breadcrumb = breadcrumbJsonLd([
     { name: nav("home"), url: `${siteConfig.url}/${locale}` },
@@ -94,6 +96,8 @@ export default async function Page({
     headline: seo.title,
     description: seo.description,
     image: `${siteConfig.url}/images/mosque-dome.jpg`,
+    wordCount: countWords(messages.newMuslims),
+    speakable: ["h1", ".speakable-intro"],
   });
   const faq = faqJsonLd(locale === "no" ? FAQ_NO : FAQ_EN);
 
