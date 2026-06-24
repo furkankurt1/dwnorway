@@ -80,29 +80,6 @@ export const siteConfig = {
     { slug: "tromso", name: "Tromsø", region: "Troms", lat: 69.6492, lng: 18.9553 },
   ],
 
-  testimonials: [
-    {
-      name: "Farhan Ahmed",
-      key: "farhan",
-    },
-    {
-      name: "Fatima Ali",
-      key: "fatima",
-    },
-    {
-      name: "Hashim Masud",
-      key: "hashim",
-    },
-    {
-      name: "Maqsood Ali",
-      key: "maqsood",
-    },
-    {
-      name: "Muhammad Masood",
-      key: "muhammad",
-    },
-  ],
-
   pillars: [
     { key: "shahadah", name: "Shahadah", meaning: "Faith" },
     { key: "salah", name: "Salah", meaning: "Prayer" },

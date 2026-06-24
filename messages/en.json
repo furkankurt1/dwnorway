@@ -81,8 +81,6 @@
     "altCommunityMoment": "Dawah Norway community moment",
     "volunteersTitle": "Meet The Team",
     "volunteersSubtitle": "Our Volunteers",
-    "testimonialsTitle": "What People Say",
-    "testimonialsSubtitle": "Testimonials",
     "pillarsTitle": "Pillars of Islam",
     "pillarsSubtitle": "The Foundations of Faith"
   },
@@ -553,28 +551,6 @@
     "founder": "Founder & Da'i",
     "imam": "Imam & Da'i",
     "itConsultant": "IT Consultant & Da'i"
-  },
-  "testimonials": {
-    "farhan": {
-      "role": "Community Member",
-      "quote": "Finding this community has been a turning point in my spiritual journey. The support and knowledge I've received here have been invaluable."
-    },
-    "fatima": {
-      "role": "Student",
-      "quote": "The workshops and classes have deepened my understanding of Islam in ways I never thought possible. I am continually impressed by the dedication and warmth of the instructors."
-    },
-    "hashim": {
-      "role": "New Member",
-      "quote": "As a new member of the Muslim community, the transition was made smoother thanks to the comprehensive guidance and open arms I found here."
-    },
-    "maqsood": {
-      "role": "Community Member",
-      "quote": "I was always curious about Islam, and the open dialogues and discussions I've had with members have been eye-opening. The respect and patience they exhibit are remarkable."
-    },
-    "muhammad": {
-      "role": "Community Member",
-      "quote": "The youth programs are second to none. It's heartwarming to see young minds engaging with their faith and culture so passionately, all thanks to the nurturing environment provided here."
-    }
   },
   "donationAgreement": {
     "title": "Recurring Donation Agreement Terms",

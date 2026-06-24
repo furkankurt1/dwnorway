@@ -81,8 +81,6 @@
     "altCommunityMoment": "Dawah Norge fellesskapsøyeblikk",
     "volunteersTitle": "Møt Teamet",
     "volunteersSubtitle": "Våre Frivillige",
-    "testimonialsTitle": "Hva Folk Sier",
-    "testimonialsSubtitle": "Vitnesbyrd",
     "pillarsTitle": "Islams Søyler",
     "pillarsSubtitle": "Troens Grunnpilarer"
   },
@@ -553,28 +551,6 @@
     "founder": "Grunnlegger og Da'i",
     "imam": "Imam og Da'i",
     "itConsultant": "IT-konsulent og Da'i"
-  },
-  "testimonials": {
-    "farhan": {
-      "role": "Samfunnsmedlem",
-      "quote": "Å finne dette fellesskapet har vært et vendepunkt i min åndelige reise. Støtten og kunnskapen jeg har fått her, har vært uvurderlig."
-    },
-    "fatima": {
-      "role": "Student",
-      "quote": "Workshopene og kursene har utdypet min forståelse av Islam på måter jeg aldri trodde var mulig. Jeg blir stadig imponert over instruktørenes engasjement og varme."
-    },
-    "hashim": {
-      "role": "Nytt medlem",
-      "quote": "Som nytt medlem av det muslimske fellesskapet ble overgangen enklere takket være den grundige veiledningen og den åpne favnen jeg møtte her."
-    },
-    "maqsood": {
-      "role": "Samfunnsmedlem",
-      "quote": "Jeg har alltid vært nysgjerrig på Islam, og de åpne dialogene og samtalene jeg har hatt med medlemmene, har vært øyeåpnende. Respekten og tålmodigheten de viser, er bemerkelsesverdig."
-    },
-    "muhammad": {
-      "role": "Samfunnsmedlem",
-      "quote": "Ungdomsprogrammene er helt i særklasse. Det er hjertevarmende å se unge mennesker engasjere seg i troen og kulturen sin med slik lidenskap, takket være det støttende miljøet her."
-    }
   },
   "donationAgreement": {
     "title": "Vilkår for fast donasjon via Vipps",

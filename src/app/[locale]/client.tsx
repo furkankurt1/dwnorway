@@ -26,7 +26,6 @@ import {
   FaHandsHelping,
   FaQuran,
   FaMosque,
-  FaQuoteLeft,
   FaStar,
   FaPrayingHands,
   FaMoon,
@@ -54,7 +53,6 @@ export default function HomePage() {
   const donate = useTranslations("donate");
   const tPillars = useTranslations("pillars");
   const tRoles = useTranslations("roles");
-  const tTestimonials = useTranslations("testimonials");
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -617,41 +615,6 @@ export default function HomePage() {
                   <p className="text-[var(--color-gold-text)] text-sm">
                     {tPillars(pillar.key)}
                   </p>
-                </HoverCard>
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
-        </div>
-      </section>
-
-      {/* ───────── Testimonials ───────── */}
-      <section className="section-py bg-[var(--color-light)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle
-            eyebrow={t("testimonialsSubtitle")}
-            title={t("testimonialsTitle")}
-          />
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {siteConfig.testimonials.map((item) => (
-              <StaggerItem key={item.name}>
-                <HoverCard
-                  className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm h-full flex flex-col"
-                >
-                  <FaQuoteLeft className="text-[var(--color-gold)]/40 mb-4" size={28} />
-                  <p className="text-[var(--color-gray)] leading-relaxed flex-grow italic mb-6">
-                    &ldquo;{tTestimonials(`${item.key}.quote`)}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-dark)] flex items-center justify-center text-white font-[family-name:var(--font-heading)] font-bold text-lg shadow-inner">
-                      {item.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
-                    </div>
-                    <div>
-                      <p className="font-[family-name:var(--font-heading)] font-semibold text-[var(--color-dark)]">
-                        {item.name}
-                      </p>
-                      <p className="text-sm text-[var(--color-gold-text)]">{tTestimonials(`${item.key}.role`)}</p>
-                    </div>
-                  </div>
                 </HoverCard>
               </StaggerItem>
             ))}
