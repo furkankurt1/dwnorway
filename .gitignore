@@ -92,3 +92,7 @@ $RECYCLE.BIN/
 .eslintcache
 .stylelintcache
 *.tgz
+
+# local scratch / screenshot tooling (not part of the app)
+_shoot.mjs
+/shots/
